@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends IterativeRobot {
-	private static final String kDefaultAuto = "Default";
-	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private String gameData;
@@ -23,9 +21,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
+		m_chooser.addDefault("Default Auto", RobotMap.DEFAULT_AUTO);
+		m_chooser.addObject("My Auto", RobotMap.CUSTOM_AUTO);
 		SmartDashboard.putData("Auto choices", m_chooser);
+		
+		// Game Data from the field.
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
 	}
@@ -42,10 +42,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		switch (m_autoSelected) {
-			case kCustomAuto:
+			case RobotMap.CUSTOM_AUTO:
 				// Put custom auto code here
 				break;
-			case kDefaultAuto:
+			case RobotMap.DEFAULT_AUTO:
 			default:
 				// Put default auto code here
 				break;
