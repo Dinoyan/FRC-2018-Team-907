@@ -1,23 +1,46 @@
 package org.usfirst.frc.team907.robot;
 
 public class AutonomousModeHandler {
-	
+
 	public AutonomousModeHandler() {
-		
+
 	}
-	
-	public void  AutoState(String mode, String gameData) {
-	
+
+	public void AutoState(String mode, String gameData) {
+
 		switch (mode) {
-		case RobotMap.CUSTOM_AUTO:
-			// Put custom auto code here
+		case RobotMap.LEFT:
+			if(gameData.charAt(0) == 'L') {
+				
+				
+			} else {
+				
+				
+			}
+			
 			break;
-		case RobotMap.DEFAULT_AUTO:
-		default:
-			// Put default auto code here
+		case RobotMap.RIGHT:
+			if(gameData.charAt(0) == 'L') {
+				
+				
+			} else {
+				
+				
+			}
+			
 			break;
-	}
-		
+		case RobotMap.CENTER:
+			if(gameData.charAt(0) == 'L') {
+				
+				
+			} else {
+				
+				
+			}
+			
+			break;
+		}
+
 	}
 
 }
