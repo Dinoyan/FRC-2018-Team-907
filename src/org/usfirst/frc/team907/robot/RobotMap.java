@@ -6,7 +6,7 @@ public class RobotMap {
 	public static final int DRIVE_STICK = 0;
 	public static final int CUBE_STICK = 1;
 
-	// Auto types.
+	// Auto position.
 	public static final String RIGHT = "Right";
 	public static final String CENTER = "Center";
 	public static final String LEFT = "Left";
@@ -14,8 +14,9 @@ public class RobotMap {
 	// Sensors.
 	public static final int RIGHT_ENC = 0;
 	public static final int LEFT_ENC = 1;
+	public static final int ULTRASONIC_1 = 2;
 
-	// Drive motors.
+	// Drivetrain motors.
 	public static final int RIGHT_DRIVE1 = 0;
 	public static final int RIGHT_DRIVE2 = 1;
 	public static final int RIGHT_DRIVE3 = 2;
