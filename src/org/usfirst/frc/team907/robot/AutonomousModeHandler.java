@@ -6,24 +6,24 @@ public class AutonomousModeHandler {
 
 	}
 
-	public void AutoState(String mode, String gameData) {
+	public void AudoMode(String position, String gameData) {
 
-		switch (mode) {
+		switch (position) {
 		case RobotMap.LEFT:
 			if(gameData.charAt(0) == 'L') {
 				
 				
-			} else {
+			} else if (gameData.charAt(1) == 'L') {
 				
 				
 			}
 			
 			break;
 		case RobotMap.RIGHT:
-			if(gameData.charAt(0) == 'L') {
+			if(gameData.charAt(0) == 'R') {
 				
 				
-			} else {
+			} else if (gameData.charAt(1) == 'R') {
 				
 				
 			}
