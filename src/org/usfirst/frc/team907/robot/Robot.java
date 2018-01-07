@@ -14,12 +14,11 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private String gameData;
-	
+
 	public Joystick driveStick;
 	public Joystick cubeStick;
 	public Talon rDrive1;
@@ -29,25 +28,25 @@ public class Robot extends IterativeRobot {
 	public Talon lDrive2;
 	public Talon lDrive3;
 
+	public AutonomousModeHandler AutoHandler;
+
 	@Override
 	public void robotInit() {
 		m_chooser.addDefault("Default Auto", RobotMap.DEFAULT_AUTO);
 		m_chooser.addObject("My Auto", RobotMap.CUSTOM_AUTO);
 		SmartDashboard.putData("Auto choices", m_chooser);
-		
-		// Game Data from the field.
-		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
+
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
-		
+
 		this.rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
 		this.rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
 		this.rDrive3 = new Talon(RobotMap.RIGHT_DRIVE3);
 		this.lDrive1 = new Talon(RobotMap.LEFT_DRIVE1);
 		this.lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
 		this.lDrive3 = new Talon(RobotMap.LEFT_DRIVE3);
-	
+
+		this.AutoHandler = new AutonomousModeHandler();
 
 	}
 
@@ -57,26 +56,22 @@ public class Robot extends IterativeRobot {
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
+
+		// Game Data from the field.
+		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-		switch (m_autoSelected) {
-			case RobotMap.CUSTOM_AUTO:
-				// Put custom auto code here
-				break;
-			case RobotMap.DEFAULT_AUTO:
-			default:
-				// Put default auto code here
-				break;
-		}
+
+		this.AutoHandler.AutoState(m_autoSelected, gameData);
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
 	}
 
-	
 	@Override
 	public void testPeriodic() {
 	}
