@@ -32,8 +32,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		m_chooser.addDefault("Default Auto", RobotMap.DEFAULT_AUTO);
-		m_chooser.addObject("My Auto", RobotMap.CUSTOM_AUTO);
+		// Dashboard auto chooser
+		m_chooser.addDefault("Right Auto", RobotMap.RIGHT);
+		m_chooser.addObject("Left Auto", RobotMap.LEFT);
+		m_chooser.addObject("Center Auto", RobotMap.CENTER);
 		SmartDashboard.putData("Auto choices", m_chooser);
 
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
