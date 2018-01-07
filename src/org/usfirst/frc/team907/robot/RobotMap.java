@@ -7,8 +7,9 @@ public class RobotMap {
 	public static final int CUBE_STICK = 1;
 
 	// Auto types.
-	public static final String DEFAULT_AUTO = "Default";
-	public static final String CUSTOM_AUTO = "My Auto";
+	public static final String RIGHT = "Right";
+	public static final String CENTER = "Center";
+	public static final String LEFT = "Left";
 
 	// Sensors.
 	public static final int RIGHT_ENC = 0;
