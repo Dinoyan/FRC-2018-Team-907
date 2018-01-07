@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+/* @author - Dinoyan Ganeshalingam, Manish Suresh
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -10,6 +11,7 @@ package org.usfirst.frc.team907.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +20,8 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private String gameData;
+	
+	public PowerDistributionPanel pdp;
 
 	public Joystick driveStick;
 	public Joystick cubeStick;
@@ -29,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public Talon lDrive3;
 
 	public AutonomousModeHandler AutoHandler;
+	public DrivetrainHandler driveHandler;
 
 	@Override
 	public void robotInit() {
@@ -37,6 +42,8 @@ public class Robot extends IterativeRobot {
 		m_chooser.addObject("Left Auto", RobotMap.LEFT);
 		m_chooser.addObject("Center Auto", RobotMap.CENTER);
 		SmartDashboard.putData("Auto choices", m_chooser);
+		
+		this.pdp = new PowerDistributionPanel();
 
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
@@ -49,6 +56,9 @@ public class Robot extends IterativeRobot {
 		this.lDrive3 = new Talon(RobotMap.LEFT_DRIVE3);
 
 		this.AutoHandler = new AutonomousModeHandler();
+		
+		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, 
+				lDrive1, lDrive2, lDrive3, driveStick);
 
 	}
 
@@ -65,13 +75,16 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-
-		this.AutoHandler.AutoState(m_autoSelected, gameData);
+		this.AutoHandler.AudoMode(m_autoSelected, gameData);
 
 	}
 
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
+		
+		this.driveHandler.driveRobot();
+		
 	}
 
 	@Override
