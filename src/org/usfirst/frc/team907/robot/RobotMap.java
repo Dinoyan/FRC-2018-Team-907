@@ -12,8 +12,10 @@ public class RobotMap {
 	public static final String LEFT = "Left";
 
 	// Sensors.
-	public static final int RIGHT_ENC = 0;
-	public static final int LEFT_ENC = 1;
+	public static final int RIGHT_ENC_ONE = 0;
+	public static final int RIGHT_ENC_TOW = 1;
+	public static final int LEFT_ENC_ONE = 2;
+	public static final int LEFT_ENC_TOW = 3;
 	public static final int ULTRASONIC_1 = 2;
 
 	// Drivetrain motors.
