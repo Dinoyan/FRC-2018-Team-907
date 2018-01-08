@@ -9,8 +9,8 @@
 package org.usfirst.frc.team907.robot;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -34,8 +34,10 @@ public class Robot extends IterativeRobot {
 	private Talon lDrive2;
 	private Talon lDrive3;
 	private AHRS ahrs;
+	private Encoder leftEnc;
+	private Encoder rightEnc;
 	
-	//private AutonomousModeHandler AutonomousModeHandler;
+	private AutonomousModeHandler AutonomousModeHandler;
 	private DrivetrainHandler driveHandler;
 
 	@Override
@@ -50,6 +52,9 @@ public class Robot extends IterativeRobot {
 		
 		// Navx board (gyro purposes)
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
+		this.leftEnc = new Encoder(0,1, false, Encoder.EncodingType.k4X);
+		this.rightEnc = new Encoder(2,3, false, Encoder.EncodingType.k4X);
+		
 	
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
@@ -61,8 +66,9 @@ public class Robot extends IterativeRobot {
 		this.lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
 		this.lDrive3 = new Talon(RobotMap.LEFT_DRIVE3);
 
-		//this.AutonomousModeHandler = new AutonomousModeHandler();
-		
+		this.AutonomousModeHandler = new AutonomousModeHandler(rDrive1, rDrive2, 
+				rDrive3, lDrive1, lDrive2, lDrive3, ahrs, leftEnc, rightEnc);
+
 		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, 
 				lDrive1, lDrive2, lDrive3, driveStick);
 
