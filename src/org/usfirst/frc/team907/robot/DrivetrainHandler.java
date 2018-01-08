@@ -11,9 +11,9 @@ public class DrivetrainHandler {
 	public Talon lDrive2;
 	public Talon lDrive3;
 	public Joystick driveStick;
-	
-	public DrivetrainHandler(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, 
-			Talon lDrive2, Talon lDrive3, Joystick driveStick) {
+
+	public DrivetrainHandler(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2, Talon lDrive3,
+			Joystick driveStick) {
 		this.rDrive1 = rDrive1;
 		this.rDrive2 = rDrive2;
 		this.rDrive3 = rDrive3;
@@ -22,23 +22,23 @@ public class DrivetrainHandler {
 		this.lDrive3 = lDrive3;
 		this.driveStick = driveStick;
 	}
-	
+
 	public void driveRobot() {
 
 		double driverX = -this.driveStick.getRawAxis(4);
 		double driverY = this.driveStick.getRawAxis(1);
-		
+
 		double leftOutput = driverY + driverX;
 		double rightOutput = driverX - driverY;
-		
+
 		this.lDrive1.set(leftOutput);
 		this.lDrive2.set(leftOutput);
 		this.lDrive3.set(leftOutput);
-		
+
 		this.rDrive1.set(rightOutput);
 		this.rDrive2.set(rightOutput);
 		this.rDrive3.set(rightOutput);
-		
+
 	}
 
 }
