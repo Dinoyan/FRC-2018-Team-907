@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private String gameData;
-	
+
 	public PowerDistributionPanel pdp;
 	private Joystick driveStick;
 	private Joystick cubeStick;
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	private AHRS ahrs;
 	private Encoder leftEnc;
 	private Encoder rightEnc;
-	
+
 	private AutonomousModeHandler AutonomousModeHandler;
 	private DrivetrainHandler driveHandler;
 
@@ -47,15 +47,14 @@ public class Robot extends IterativeRobot {
 		m_chooser.addObject("Left Auto", RobotMap.LEFT);
 		m_chooser.addObject("Center Auto", RobotMap.CENTER);
 		SmartDashboard.putData("Auto choices", m_chooser);
-		
+
 		this.pdp = new PowerDistributionPanel();
-		
+
 		// Navx board (gyro purposes)
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
-		this.leftEnc = new Encoder(0,1, false, Encoder.EncodingType.k4X);
-		this.rightEnc = new Encoder(2,3, false, Encoder.EncodingType.k4X);
-		
-	
+		this.leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TOW, false, Encoder.EncodingType.k4X);
+		this.rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TOW, false, Encoder.EncodingType.k4X);
+
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
 
@@ -66,11 +65,10 @@ public class Robot extends IterativeRobot {
 		this.lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
 		this.lDrive3 = new Talon(RobotMap.LEFT_DRIVE3);
 
-		this.AutonomousModeHandler = new AutonomousModeHandler(rDrive1, rDrive2, 
-				rDrive3, lDrive1, lDrive2, lDrive3, ahrs, leftEnc, rightEnc);
+		this.AutonomousModeHandler = new AutonomousModeHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3,
+				ahrs, leftEnc, rightEnc);
 
-		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, 
-				lDrive1, lDrive2, lDrive3, driveStick);
+		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3, driveStick);
 
 	}
 
@@ -94,11 +92,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
-		
+
 		LoggerData.logData(Double.toString(pdp.getCurrent(0)));
-		
+
 		this.driveHandler.driveRobot();
-		
+
 	}
 
 	@Override
