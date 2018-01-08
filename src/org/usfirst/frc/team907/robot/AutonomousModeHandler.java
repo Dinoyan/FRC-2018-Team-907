@@ -2,11 +2,7 @@ package org.usfirst.frc.team907.robot;
 
 public class AutonomousModeHandler {
 
-	public AutonomousModeHandler() {
-
-	}
-
-	public void AudoMode(String position, String gameData) {
+	public static void AudoModeSelect(String position, String gameData) {
 
 		switch (position) {
 		case RobotMap.LEFT:
