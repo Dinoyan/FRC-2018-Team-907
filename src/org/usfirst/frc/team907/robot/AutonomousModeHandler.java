@@ -36,7 +36,7 @@ public class AutonomousModeHandler {
 		switch (position) {
 		case RobotMap.LEFT:
 			if (gameData.charAt(0) == 'L') {
-
+				System.out.println("Test: Game Data Working");
 			} else if (gameData.charAt(1) == 'L') {
 
 			}
