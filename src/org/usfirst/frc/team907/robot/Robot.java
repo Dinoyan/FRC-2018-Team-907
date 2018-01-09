@@ -9,6 +9,7 @@
 package org.usfirst.frc.team907.robot;
 
 import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -36,6 +38,8 @@ public class Robot extends IterativeRobot {
 	private AHRS ahrs;
 	private Encoder leftEnc;
 	private Encoder rightEnc;
+	private Ultrasonic leftUltra;
+	private Ultrasonic rightUltra;
 
 	private AutonomousModeHandler AutonomousModeHandler;
 	private DrivetrainHandler driveHandler;
@@ -52,8 +56,8 @@ public class Robot extends IterativeRobot {
 
 		// Navx board (gyro purposes)
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
-		this.leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TOW, false, Encoder.EncodingType.k4X);
-		this.rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TOW, false, Encoder.EncodingType.k4X);
+		this.leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
+		this.rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
 
 		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
@@ -68,7 +72,10 @@ public class Robot extends IterativeRobot {
 		this.AutonomousModeHandler = new AutonomousModeHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3,
 				ahrs, leftEnc, rightEnc);
 
-		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3, driveStick);
+		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3, driveStick, leftUltra, rightUltra);
+		
+		
+		driveHandler.init();
 
 	}
 
@@ -92,8 +99,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
+		SmartDashboard.putNumber("Left Ultrasonic", driveHandler.leftDistance());
+		SmartDashboard.putNumber("Right Ultrasonic", driveHandler.rightDistance());
 
-		LoggerData.logData(Double.toString(pdp.getCurrent(0)));
+		LoggerData.logData("Current : " + Double.toString(pdp.getCurrent(0)));
 
 		this.driveHandler.driveRobot();
 
