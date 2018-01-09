@@ -58,9 +58,11 @@ public class Robot extends IterativeRobot {
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
 		this.leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		this.rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
+		this.leftUltra = new Ultrasonic(RobotMap.LEFT_ULTRASONIC, RobotMap.LEFT_ULTRASONIC);
+		this.rightUltra = new Ultrasonic(RobotMap.RIGHT_ULTRASONIC, RobotMap.RIGHT_ULTRASONIC);
 
-		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
+		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
 
 		this.rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
 		this.rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
