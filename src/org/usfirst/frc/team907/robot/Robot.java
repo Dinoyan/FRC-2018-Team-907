@@ -59,19 +59,22 @@ public class Robot extends IterativeRobot {
 		this.pdp = new PowerDistributionPanel();
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
 
-		encoderHandler = new EncoderHandler(leftEnc, rightEnc);
-		joystickHandler = new JoystickHandler(driveStick, cubeStick);
-		ultrasonicHandler = new UltrasonicHandler(leftUltra, rightUltra);
-		multiSpeedController = new MultiSpeedController(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
+		drivetrain = new Drivetrain();
 		
-		drivetrain = new Drivetrain(multiSpeedController, driveStick, ultrasonicHandler);
+		encoderHandler = new EncoderHandler();
+		encoderHandler.init(leftEnc, rightEnc);
+		
+		joystickHandler = new JoystickHandler();
+		joystickHandler.init(driveStick, cubeStick);
+		
+		ultrasonicHandler = new UltrasonicHandler();
+		ultrasonicHandler.init(leftUltra, rightUltra);
+		
+		multiSpeedController = new MultiSpeedController();
+		multiSpeedController.init(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
+		
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, encoderHandler);
-		
-		encoderHandler.init();
-		joystickHandler.init();
-		ultrasonicHandler.init();
-		multiSpeedController.init();
-		
+				
 	}
 
 	@Override
@@ -94,14 +97,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
-		SmartDashboard.putNumber("Left Ultrasonic", ultrasonicHandler.getLeftDistance());
-		SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
+		//SmartDashboard.putNumber("Left Ultrasonic", ultrasonicHandler.getLeftDistance());
+		//SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
 
 		LoggerData.logData("Current : " + Double.toString(pdp.getCurrent(0)));
-		LoggerData.logData("Left Encoder : " + Double.toString(ultrasonicHandler.getLeftDistance()));
-		LoggerData.logData("Right Encoder : " + Double.toString(ultrasonicHandler.getRightDistance()));
+		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getDistance(leftUltra)));
+		LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getDistance(rightUltra)));
 
-		this.drivetrain.driveRobot();
+		this.drivetrain.driveRobot(driveStick, rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
 
 	}
 

@@ -4,15 +4,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class UltrasonicHandler {
 	
-	public Ultrasonic leftUltra;
-	public Ultrasonic rightUltra;
-	
-	public UltrasonicHandler(Ultrasonic leftUltra, Ultrasonic rightUltra) {
-		this.leftUltra = leftUltra;
-		this.rightUltra = rightUltra;
-	}
-	
-	public void init() {
+	public void init(Ultrasonic leftUltra, Ultrasonic rightUltra) {
 		leftUltra = new Ultrasonic(RobotMap.LEFT_ULTRASONIC, RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new Ultrasonic(RobotMap.RIGHT_ULTRASONIC, RobotMap.RIGHT_ULTRASONIC);
 		
@@ -20,13 +12,8 @@ public class UltrasonicHandler {
 		rightUltra.setAutomaticMode(true);
 	}
 	
-	public double getLeftDistance() {
-		double value = leftUltra.getRangeInches();
-		return value;
-	}
-	
-	public double getRightDistance() {
-		double value = rightUltra.getRangeInches();
+	public double getDistance(Ultrasonic ultrasonic) {
+		double value = ultrasonic.getRangeInches();
 		return value;
 	}
 	

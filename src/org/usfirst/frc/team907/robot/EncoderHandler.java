@@ -4,20 +4,12 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class EncoderHandler {
 	
-	public Encoder leftEnc;
-	public Encoder rightEnc;
-	
-	public EncoderHandler(Encoder leftEnc, Encoder rightEnc) {
-		this.leftEnc = leftEnc;
-		this.rightEnc = rightEnc;
-	}
-	
-	public void init() {
+	public void init(Encoder leftEnc, Encoder rightEnc) {
 		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
 	}
 	
-	public void reset() {
+	public void reset(Encoder leftEnc, Encoder rightEnc) {
 		leftEnc.reset();
 		rightEnc.reset();
 	}

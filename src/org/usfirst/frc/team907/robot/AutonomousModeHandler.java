@@ -2,9 +2,6 @@ package org.usfirst.frc.team907.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Talon;
-
 public class AutonomousModeHandler {
 	 
 	public AHRS navx;
