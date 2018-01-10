@@ -8,17 +8,14 @@ import edu.wpi.first.wpilibj.Talon;
 public class AutonomousModeHandler {
 	 
 	public AHRS navx;
-	public Encoder rightEnc;
-	public Encoder leftEnc;
-	
+	public EncoderHandler encoderHandler;
 	public Drivetrain drivetrain;
 
-	public AutonomousModeHandler(Drivetrain drivetrain, AHRS navx, Encoder rightEnc, Encoder leftEnc) {
+	public AutonomousModeHandler(Drivetrain drivetrain, AHRS navx, EncoderHandler encoderHandler) {
 
 		this.drivetrain = drivetrain;
 		this.navx = navx;
-		this.rightEnc = rightEnc;
-		this.leftEnc = leftEnc;
+		this.encoderHandler = encoderHandler;
 
 	}
 

@@ -2,7 +2,7 @@ package org.usfirst.frc.team907.robot;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class TalonHandler {
+public class MultiSpeedController {
 	
 	public Talon rDrive1;
 	public Talon rDrive2;
@@ -11,7 +11,7 @@ public class TalonHandler {
 	public Talon lDrive2;
 	public Talon lDrive3;
 	
-	public TalonHandler(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2, Talon lDrive3) {
+	public MultiSpeedController(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2, Talon lDrive3) {
 		this.lDrive1 = lDrive1;
 		this.lDrive2 = lDrive2;
 		this.lDrive3 = lDrive3;

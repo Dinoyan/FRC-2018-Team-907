@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
 	private Ultrasonic rightUltra;
 
 	private Drivetrain drivetrain;
-	private TalonHandler talonHandler;
+	private MultiSpeedController multiSpeedController;
 	private EncoderHandler encoderHandler;
 	private JoystickHandler joystickHandler;
 	private UltrasonicHandler ultrasonicHandler;
@@ -59,17 +59,18 @@ public class Robot extends IterativeRobot {
 		this.pdp = new PowerDistributionPanel();
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
 
-		drivetrain = new Drivetrain(talonHandler, driveStick, ultrasonicHandler);
-		talonHandler = new TalonHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
 		encoderHandler = new EncoderHandler(leftEnc, rightEnc);
 		joystickHandler = new JoystickHandler(driveStick, cubeStick);
-		ultrasonicHandler = new UltrasonicHandler(leftUltra, rightUltra);		
-		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, leftEnc, rightEnc);
+		ultrasonicHandler = new UltrasonicHandler(leftUltra, rightUltra);
+		multiSpeedController = new MultiSpeedController(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
 		
-		talonHandler.init();
+		drivetrain = new Drivetrain(multiSpeedController, driveStick, ultrasonicHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, encoderHandler);
+		
 		encoderHandler.init();
 		joystickHandler.init();
 		ultrasonicHandler.init();
+		multiSpeedController.init();
 		
 	}
 

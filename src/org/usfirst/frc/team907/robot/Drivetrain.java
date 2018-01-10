@@ -13,7 +13,7 @@ public class Drivetrain {
 	public Joystick driveStick;
 	public UltrasonicHandler ultrasonicHandler;
 
-	public Drivetrain(TalonHandler talonHandler, Joystick driveStick, UltrasonicHandler ultrasonicHandler) {
+	public Drivetrain(MultiSpeedController talonHandler, Joystick driveStick, UltrasonicHandler ultrasonicHandler) {
 		this.driveStick = driveStick;
 		this.ultrasonicHandler = ultrasonicHandler;
 		this.rDrive1 = talonHandler.getrDrive1();

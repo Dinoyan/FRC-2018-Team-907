@@ -7,19 +7,16 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class AutonomousActions {
 
-	public static void driveForward(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2,
-			Talon lDrive3, AHRS navx, Encoder rightEnc, Encoder leftEnc) {
+	public static void driveForward(MultiSpeedController multiSpeedController, AHRS navx, EncoderHandler encoderHandler) {
 		System.out.println("Test: Drive Forward Working");
 
 	}
 
-	public static void turnRight(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2,
-			Talon lDrive3, AHRS navx, Encoder rightEnc, Encoder leftEnc) {
+	public static void turnRight(MultiSpeedController multiSpeedController, AHRS navx, EncoderHandler encoderHandler) {
 		
 	}
 
-	public static void turnLeft(Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2,
-			Talon lDrive3, AHRS navx, Encoder rightEnc, Encoder leftEnc) {
+	public static void turnLeft(MultiSpeedController multiSpeedController, AHRS navx, EncoderHandler encoderHandler) {
 
 	}
 
