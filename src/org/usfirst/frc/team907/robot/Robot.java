@@ -41,44 +41,36 @@ public class Robot extends IterativeRobot {
 	private Ultrasonic leftUltra;
 	private Ultrasonic rightUltra;
 
+	private Drivetrain drivetrain;
+	private TalonHandler talonHandler;
+	private EncoderHandler encoderHandler;
+	private JoystickHandler joystickHandler;
+	private UltrasonicHandler ultrasonicHandler;
 	private AutonomousModeHandler AutonomousModeHandler;
-	private DrivetrainHandler driveHandler;
 
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
-		m_chooser.addDefault("Right Auto", RobotMap.RIGHT);
-		m_chooser.addObject("Left Auto", RobotMap.LEFT);
-		m_chooser.addObject("Center Auto", RobotMap.CENTER);
+		m_chooser.addDefault("Right Auto", RobotMap.RIGHT_POS);
+		m_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
+		m_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
 		SmartDashboard.putData("Auto choices", m_chooser);
 
 		this.pdp = new PowerDistributionPanel();
-
-		// Navx board (gyro purposes)
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
-		this.leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
-		this.rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
-		this.leftUltra = new Ultrasonic(RobotMap.LEFT_ULTRASONIC, RobotMap.LEFT_ULTRASONIC);
-		this.rightUltra = new Ultrasonic(RobotMap.RIGHT_ULTRASONIC, RobotMap.RIGHT_ULTRASONIC);
 
-		this.cubeStick = new Joystick(RobotMap.CUBE_STICK);
-		this.driveStick = new Joystick(RobotMap.DRIVE_STICK);
-
-		this.rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
-		this.rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
-		this.rDrive3 = new Talon(RobotMap.RIGHT_DRIVE3);
-		this.lDrive1 = new Talon(RobotMap.LEFT_DRIVE1);
-		this.lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
-		this.lDrive3 = new Talon(RobotMap.LEFT_DRIVE3);
-
-		this.AutonomousModeHandler = new AutonomousModeHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3,
-				ahrs, leftEnc, rightEnc);
-
-		this.driveHandler = new DrivetrainHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3, driveStick, leftUltra, rightUltra);
+		drivetrain = new Drivetrain(talonHandler, driveStick, ultrasonicHandler);
+		talonHandler = new TalonHandler(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
+		encoderHandler = new EncoderHandler(leftEnc, rightEnc);
+		joystickHandler = new JoystickHandler(driveStick, cubeStick);
+		ultrasonicHandler = new UltrasonicHandler(leftUltra, rightUltra);		
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, leftEnc, rightEnc);
 		
+		talonHandler.init();
+		encoderHandler.init();
+		joystickHandler.init();
+		ultrasonicHandler.init();
 		
-		driveHandler.init();
-
 	}
 
 	@Override
@@ -101,12 +93,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
-		SmartDashboard.putNumber("Left Ultrasonic", driveHandler.leftDistance());
-		SmartDashboard.putNumber("Right Ultrasonic", driveHandler.rightDistance());
+		SmartDashboard.putNumber("Left Ultrasonic", ultrasonicHandler.getLeftDistance());
+		SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
 
 		LoggerData.logData("Current : " + Double.toString(pdp.getCurrent(0)));
+		LoggerData.logData("Left Encoder : " + Double.toString(ultrasonicHandler.getLeftDistance()));
+		LoggerData.logData("Right Encoder : " + Double.toString(ultrasonicHandler.getRightDistance()));
 
-		this.driveHandler.driveRobot();
+		this.drivetrain.driveRobot();
 
 	}
 

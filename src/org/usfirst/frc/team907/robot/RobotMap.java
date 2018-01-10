@@ -7,9 +7,9 @@ public class RobotMap {
 	public static final int CUBE_STICK = 1;
 
 	// Auto position.
-	public static final String RIGHT = "Right";
-	public static final String CENTER = "Center";
-	public static final String LEFT = "Left";
+	public static final String RIGHT_POS = "Right";
+	public static final String CENTER_POS = "Center";
+	public static final String LEFT_POS = "Left";
 
 	// Sensors.
 	public static final int RIGHT_ENC_ONE = 0;
