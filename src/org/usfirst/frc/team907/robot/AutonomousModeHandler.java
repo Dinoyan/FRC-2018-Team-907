@@ -1,14 +1,13 @@
 package org.usfirst.frc.team907.robot;
 
-import com.kauailabs.navx.frc.AHRS;
-
 public class AutonomousModeHandler {
-	 
+
 	public AHRSHandler ahrsHandler;
 	public EncoderHandler encoderHandler;
 	public MultiSpeedController multiSpeedController;
 
-	public AutonomousModeHandler(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
+	public AutonomousModeHandler(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler,
+			EncoderHandler encoderHandler) {
 
 		this.multiSpeedController = multiSpeedController;
 		this.ahrsHandler = ahrsHandler;

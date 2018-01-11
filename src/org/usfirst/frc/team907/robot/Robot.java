@@ -8,12 +8,8 @@
 
 package org.usfirst.frc.team907.robot;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -39,14 +35,14 @@ public class Robot extends IterativeRobot {
 		auto_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
 		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
 		SmartDashboard.putData("Auto choices", auto_chooser);
-		
+
 		pdpHandler = new PDPHandler();
 		drivetrain = new Drivetrain();
 		encoderHandler = new EncoderHandler();
 		joystickHandler = new JoystickHandler();
 		ultrasonicHandler = new UltrasonicHandler();
 		multiSpeedController = new MultiSpeedController();
-		
+
 		pdpHandler.init();
 		ahrsHandler.init();
 		encoderHandler.init();
@@ -55,7 +51,7 @@ public class Robot extends IterativeRobot {
 		multiSpeedController.init();
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, ahrsHandler, encoderHandler);
-				
+
 	}
 
 	@Override
@@ -72,14 +68,17 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		// Run the auto handler.
 		AutonomousModeHandler.AudoModeSelect(m_autoSelected, gameData);
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-		//SmartDashboard.putNumber("Left Ultrasonic", ultrasonicHandler.getLeftDistance());
-		//SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
+		// SmartDashboard.putNumber("Left Ultrasonic",
+		// ultrasonicHandler.getLeftDistance());
+		// SmartDashboard.putNumber("Right Ultrasonic",
+		// ultrasonicHandler.getRightDistance());
 
 		LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
 		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
