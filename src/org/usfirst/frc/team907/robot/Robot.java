@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
-		auto_chooser.addDefault("Right Auto", RobotMap.RIGHT_POS);
+		auto_chooser.addDefault("Default Auto", RobotMap.DEFAULT);
+		auto_chooser.addObject("Right Auto", RobotMap.RIGHT_POS);
 		auto_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
 		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
 		SmartDashboard.putData("Auto choices", auto_chooser);
