@@ -43,6 +43,9 @@ public class AutonomousModeHandler {
 			}
 
 			break;
+		case RobotMap.DEFAULT:
+			AutonomousActions.defaultAuto(multiSpeedController, ahrsHandler, encoderHandler);
+			break;
 		}
 
 	}
