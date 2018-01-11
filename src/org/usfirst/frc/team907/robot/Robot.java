@@ -23,63 +23,48 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private String m_autoSelected;
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	private SendableChooser<String> auto_chooser = new SendableChooser<>();
 	private String gameData;
 
 	public PowerDistributionPanel pdp;
-	private Joystick driveStick;
-	private Joystick cubeStick;
-	private Talon rDrive1;
-	private Talon rDrive2;
-	private Talon rDrive3;
-	private Talon lDrive1;
-	private Talon lDrive2;
-	private Talon lDrive3;
 	private AHRS ahrs;
-	private Encoder leftEnc;
-	private Encoder rightEnc;
-	private Ultrasonic leftUltra;
-	private Ultrasonic rightUltra;
 
 	private Drivetrain drivetrain;
-	private MultiSpeedController multiSpeedController;
 	private EncoderHandler encoderHandler;
 	private JoystickHandler joystickHandler;
 	private UltrasonicHandler ultrasonicHandler;
+	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
-		m_chooser.addDefault("Right Auto", RobotMap.RIGHT_POS);
-		m_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
-		m_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
-		SmartDashboard.putData("Auto choices", m_chooser);
+		auto_chooser.addDefault("Right Auto", RobotMap.RIGHT_POS);
+		auto_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
+		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
+		SmartDashboard.putData("Auto choices", auto_chooser);
+		
+		encoderHandler = new EncoderHandler();
+		joystickHandler = new JoystickHandler();
+		ultrasonicHandler = new UltrasonicHandler();
+		multiSpeedController = new MultiSpeedController();
+		
+		encoderHandler.init();
+		joystickHandler.init();
+		ultrasonicHandler.init();
+		multiSpeedController.init();
 
 		this.pdp = new PowerDistributionPanel();
 		this.ahrs = new AHRS(SerialPort.Port.kMXP);
 
-		drivetrain = new Drivetrain();
-		
-		encoderHandler = new EncoderHandler();
-		encoderHandler.init(leftEnc, rightEnc);
-		
-		joystickHandler = new JoystickHandler();
-		joystickHandler.init(driveStick, cubeStick);
-		
-		ultrasonicHandler = new UltrasonicHandler();
-		ultrasonicHandler.init(leftUltra, rightUltra);
-		
-		multiSpeedController = new MultiSpeedController();
-		multiSpeedController.init(rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
-		
+		drivetrain = new Drivetrain(joystickHandler, multiSpeedController);		
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, encoderHandler);
 				
 	}
 
 	@Override
 	public void autonomousInit() {
-		m_autoSelected = m_chooser.getSelected();
+		m_autoSelected = auto_chooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
@@ -101,10 +86,10 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
 
 		LoggerData.logData("Current : " + Double.toString(pdp.getCurrent(0)));
-		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getDistance(leftUltra)));
-		LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getDistance(rightUltra)));
+		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
+		LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getRightDistance()));
 
-		this.drivetrain.driveRobot(driveStick, rDrive1, rDrive2, rDrive3, lDrive1, lDrive2, lDrive3);
+		this.drivetrain.driveRobot();
 
 	}
 

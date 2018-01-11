@@ -5,7 +5,37 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class Drivetrain {
 	
-	public void driveRobot(Joystick driveStick, Talon rDrive1, Talon rDrive2, Talon rDrive3, Talon lDrive1, Talon lDrive2, Talon lDrive3) {
+	public Talon rDrive1;
+	public Talon rDrive2;
+	public Talon rDrive3;
+	public Talon lDrive1;
+	public Talon lDrive2;
+	public Talon lDrive3;
+	public Joystick driveStick;
+	
+	public JoystickHandler joystickHandler;
+	public MultiSpeedController multiSpeedController;
+	
+	public Drivetrain (JoystickHandler joystickHandler, MultiSpeedController multiSpeedController) {
+		this.joystickHandler = joystickHandler;
+		this.multiSpeedController = multiSpeedController;
+		
+		storeDriveSpeedControllers();
+	}
+	
+	public void storeDriveSpeedControllers() {
+		lDrive1 = multiSpeedController.getlDrive1();
+		lDrive2 = multiSpeedController.getlDrive2();
+		lDrive3 = multiSpeedController.getlDrive3();
+		
+		rDrive1 = multiSpeedController.getrDrive1();
+		rDrive2 = multiSpeedController.getrDrive2();
+		rDrive3 = multiSpeedController.getrDrive3();
+		
+		driveStick = joystickHandler.getDriveStick();
+	}
+	
+	public void driveRobot() {
 
 		double driverX = -driveStick.getRawAxis(4);
 		double driverY = driveStick.getRawAxis(1);
