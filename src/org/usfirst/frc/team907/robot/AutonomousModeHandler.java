@@ -4,14 +4,14 @@ import com.kauailabs.navx.frc.AHRS;
 
 public class AutonomousModeHandler {
 	 
-	public AHRS navx;
+	public AHRSHandler ahrsHandler;
 	public EncoderHandler encoderHandler;
 	public Drivetrain drivetrain;
 
-	public AutonomousModeHandler(Drivetrain drivetrain, AHRS navx, EncoderHandler encoderHandler) {
+	public AutonomousModeHandler(Drivetrain drivetrain, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
 
 		this.drivetrain = drivetrain;
-		this.navx = navx;
+		this.ahrsHandler = ahrsHandler;
 		this.encoderHandler = encoderHandler;
 
 	}

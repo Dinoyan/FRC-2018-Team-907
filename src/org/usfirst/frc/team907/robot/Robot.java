@@ -11,13 +11,9 @@ package org.usfirst.frc.team907.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,10 +22,9 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
 	private String gameData;
 
-	public PowerDistributionPanel pdp;
-	private AHRS ahrs;
-
+	private PDPHandler pdpHandler;
 	private Drivetrain drivetrain;
+	private AHRSHandler ahrsHandler;
 	private EncoderHandler encoderHandler;
 	private JoystickHandler joystickHandler;
 	private UltrasonicHandler ultrasonicHandler;
@@ -44,21 +39,21 @@ public class Robot extends IterativeRobot {
 		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
 		SmartDashboard.putData("Auto choices", auto_chooser);
 		
+		pdpHandler = new PDPHandler();
+		drivetrain = new Drivetrain();
 		encoderHandler = new EncoderHandler();
 		joystickHandler = new JoystickHandler();
 		ultrasonicHandler = new UltrasonicHandler();
 		multiSpeedController = new MultiSpeedController();
 		
+		pdpHandler.init();
+		ahrsHandler.init();
 		encoderHandler.init();
 		joystickHandler.init();
 		ultrasonicHandler.init();
 		multiSpeedController.init();
 
-		this.pdp = new PowerDistributionPanel();
-		this.ahrs = new AHRS(SerialPort.Port.kMXP);
-
-		drivetrain = new Drivetrain(joystickHandler, multiSpeedController);		
-		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrs, encoderHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrsHandler, encoderHandler);
 				
 	}
 
@@ -81,15 +76,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Current", pdp.getCurrent(0));
+		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
 		//SmartDashboard.putNumber("Left Ultrasonic", ultrasonicHandler.getLeftDistance());
 		//SmartDashboard.putNumber("Right Ultrasonic", ultrasonicHandler.getRightDistance());
 
-		LoggerData.logData("Current : " + Double.toString(pdp.getCurrent(0)));
+		LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
 		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
 		LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getRightDistance()));
 
-		this.drivetrain.driveRobot();
+		drivetrain.driveRobot(joystickHandler, multiSpeedController);
 
 	}
 
