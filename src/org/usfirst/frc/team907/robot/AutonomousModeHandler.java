@@ -6,11 +6,11 @@ public class AutonomousModeHandler {
 	 
 	public AHRSHandler ahrsHandler;
 	public EncoderHandler encoderHandler;
-	public Drivetrain drivetrain;
+	public MultiSpeedController multiSpeedController;
 
-	public AutonomousModeHandler(Drivetrain drivetrain, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
+	public AutonomousModeHandler(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
 
-		this.drivetrain = drivetrain;
+		this.multiSpeedController = multiSpeedController;
 		this.ahrsHandler = ahrsHandler;
 		this.encoderHandler = encoderHandler;
 
