@@ -19,6 +19,10 @@ public class AutonomousActions {
 	public static void turnLeft(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
 
 	}
+	
+	public static void defaultAuto(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler, EncoderHandler encoderHandler) {
+		
+	}
 
 	public static void shootCube() {
 
