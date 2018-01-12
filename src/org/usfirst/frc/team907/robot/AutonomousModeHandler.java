@@ -4,12 +4,12 @@ public class AutonomousModeHandler {
 
 	public AHRSHandler ahrsHandler;
 	public EncoderHandler encoderHandler;
-	public MultiSpeedController multiSpeedController;
+	public Drivetrain drivetrain;
 
-	public AutonomousModeHandler(MultiSpeedController multiSpeedController, AHRSHandler ahrsHandler,
+	public AutonomousModeHandler(Drivetrain drivetrain, AHRSHandler ahrsHandler,
 			EncoderHandler encoderHandler) {
 
-		this.multiSpeedController = multiSpeedController;
+		this.drivetrain = drivetrain;
 		this.ahrsHandler = ahrsHandler;
 		this.encoderHandler = encoderHandler;
 
@@ -43,7 +43,7 @@ public class AutonomousModeHandler {
 
 			break;
 		case RobotMap.DEFAULT:
-			AutonomousActions.defaultAuto(multiSpeedController, ahrsHandler, encoderHandler);
+			AutonomousActions.defaultAuto(drivetrain, ahrsHandler, encoderHandler);
 			break;
 		}
 

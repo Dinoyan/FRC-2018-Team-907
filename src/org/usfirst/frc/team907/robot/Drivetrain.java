@@ -18,5 +18,17 @@ public class Drivetrain {
 		multiSpeedController.getrDrive2().set(rightOutput);
 		multiSpeedController.getrDrive3().set(rightOutput);
 	}
+	
+	public void moveRobot(MultiSpeedController multiSpeedController, Double leftOutput, Double rightOutput) {
+		
+		multiSpeedController.getlDrive1().set(leftOutput);
+		multiSpeedController.getlDrive2().set(leftOutput);
+		multiSpeedController.getlDrive3().set(leftOutput);
+
+		multiSpeedController.getrDrive1().set(rightOutput);
+		multiSpeedController.getrDrive2().set(rightOutput);
+		multiSpeedController.getrDrive3().set(rightOutput);
+		
+	}
 
 }

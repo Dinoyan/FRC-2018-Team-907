@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 		ultrasonicHandler.init();
 		multiSpeedController.init();
 
-		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, ahrsHandler, encoderHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrsHandler, encoderHandler);
 
 	}
 
