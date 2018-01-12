@@ -3,11 +3,17 @@ package org.usfirst.frc.team907.robot;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class UltrasonicHandler {
+	
+	public UltrasonicHandler() {
+		
+	}
+	
+}
 
-	private Ultrasonic leftUltra;
+	/*private Ultrasonic leftUltra;
 	private Ultrasonic rightUltra;
 
-	public void init() {
+	public  UltrasonicHandler() {
 		leftUltra = new Ultrasonic(RobotMap.LEFT_ULTRASONIC, RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new Ultrasonic(RobotMap.RIGHT_ULTRASONIC, RobotMap.RIGHT_ULTRASONIC);
 
@@ -32,5 +38,5 @@ public class UltrasonicHandler {
 		double value = rightUltra.getRangeInches();
 		return value;
 	}
+*/
 
-}

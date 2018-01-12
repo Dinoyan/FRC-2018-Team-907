@@ -7,7 +7,7 @@ public class JoystickHandler {
 	private Joystick driveStick;
 	private Joystick cubeStick;
 
-	public void init() {
+	public  JoystickHandler() {
 		driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		cubeStick = new Joystick(RobotMap.CUBE_STICK);
 	}

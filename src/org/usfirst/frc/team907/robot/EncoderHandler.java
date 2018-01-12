@@ -7,7 +7,7 @@ public class EncoderHandler {
 	private Encoder leftEnc;
 	private Encoder rightEnc;
 
-	public void init() {
+	public  EncoderHandler() {
 		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
 	}

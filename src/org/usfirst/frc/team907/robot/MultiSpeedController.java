@@ -11,7 +11,7 @@ public class MultiSpeedController {
 	public Talon lDrive2;
 	public Talon lDrive3;
 
-	public void init() {
+	public MultiSpeedController() {
 		rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
 		rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
 		rDrive3 = new Talon(RobotMap.RIGHT_DRIVE3);

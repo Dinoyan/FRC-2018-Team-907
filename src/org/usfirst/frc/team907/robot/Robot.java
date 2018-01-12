@@ -43,12 +43,12 @@ public class Robot extends IterativeRobot {
 		ultrasonicHandler = new UltrasonicHandler();
 		multiSpeedController = new MultiSpeedController();
 
-		pdpHandler.init();
-		ahrsHandler.init();
-		encoderHandler.init();
-		joystickHandler.init();
-		ultrasonicHandler.init();
-		multiSpeedController.init();
+		//pdpHandler.robotInit();
+		//ahrsHandler.robotInit();
+		//encoderHandler.robotInit();
+		//joystickHandler.robotInit();
+		//ultrasonicHandler.robotInit();
+		//multiSpeedController.robotInit();
 
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrsHandler, encoderHandler);
 
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
-		LoggerData.logData(m_autoSelected);
+		//LoggerData.logData(m_autoSelected);
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -80,9 +80,9 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putNumber("Right Ultrasonic",
 		// ultrasonicHandler.getRightDistance());
 
-		LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
-		LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
-		LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getRightDistance()));
+		//LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
+		//LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
+		//LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getRightDistance()));
 
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
 

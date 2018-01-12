@@ -8,7 +8,7 @@ public class AHRSHandler {
 
 	private AHRS ahrs;
 
-	public void init() {
+	public  AHRSHandler() {
 		ahrs = new AHRS(SerialPort.Port.kMXP);
 	}
 
