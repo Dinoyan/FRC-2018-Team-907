@@ -26,6 +26,7 @@ public class Robot extends IterativeRobot {
 	private UltrasonicHandler ultrasonicHandler;
 	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
+	private SensorHandler sensorHandler;
 
 	@Override
 	public void robotInit() {
@@ -42,13 +43,7 @@ public class Robot extends IterativeRobot {
 		joystickHandler = new JoystickHandler();
 		ultrasonicHandler = new UltrasonicHandler();
 		multiSpeedController = new MultiSpeedController();
-
-		//pdpHandler.robotInit();
-		//ahrsHandler.robotInit();
-		//encoderHandler.robotInit();
-		//joystickHandler.robotInit();
-		//ultrasonicHandler.robotInit();
-		//multiSpeedController.robotInit();
+		sensorHandler = new SensorHandler();
 
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, ahrsHandler, encoderHandler);
 
@@ -75,7 +70,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-		// SmartDashboard.putNumber("Left Ultrasonic",
+		//SmartDashboard.putNumber("Left Ultrasonic",
 		// ultrasonicHandler.getLeftDistance());
 		// SmartDashboard.putNumber("Right Ultrasonic",
 		// ultrasonicHandler.getRightDistance());
