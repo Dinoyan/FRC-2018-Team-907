@@ -12,11 +12,9 @@ public class Drivetrain {
 
 		multiSpeedController.getlDrive1().set(leftOutput);
 		multiSpeedController.getlDrive2().set(leftOutput);
-		multiSpeedController.getlDrive3().set(leftOutput);
-
+		
 		multiSpeedController.getrDrive1().set(rightOutput);
 		multiSpeedController.getrDrive2().set(rightOutput);
-		multiSpeedController.getrDrive3().set(rightOutput);
 		
 		System.out.println("Hell Yeah!!!!!!");
 	}
@@ -25,11 +23,9 @@ public class Drivetrain {
 		
 		multiSpeedController.getlDrive1().set(leftOutput);
 		multiSpeedController.getlDrive2().set(leftOutput);
-		multiSpeedController.getlDrive3().set(leftOutput);
-
+		
 		multiSpeedController.getrDrive1().set(rightOutput);
 		multiSpeedController.getrDrive2().set(rightOutput);
-		multiSpeedController.getrDrive3().set(rightOutput);
 		
 	}
 

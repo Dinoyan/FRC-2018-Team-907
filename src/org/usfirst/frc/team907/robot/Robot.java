@@ -24,6 +24,8 @@ public class Robot extends IterativeRobot {
 	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 	private SensorHandler sensorHandler;
+	
+	private int _loops = 0;
 
 	@Override
 	public void robotInit() {
@@ -39,7 +41,7 @@ public class Robot extends IterativeRobot {
 		sensorHandler = new SensorHandler();
 		multiSpeedController = new MultiSpeedController();
 
-		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, sensorHandler);
 
 	}
 
@@ -49,7 +51,7 @@ public class Robot extends IterativeRobot {
 		//autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
-		LoggerData.logData(m_autoSelected);
+		DataLogger.logData(m_autoSelected);
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -63,14 +65,16 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
-		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
-
-		LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
-		LoggerData.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
-		LoggerData.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
-
+		if(++_loops >= 10) {
+        		_loops = 0;
+        		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
+        		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
+        		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
+        		DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
+        		DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
+        		DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
+        }
+		
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
 
 	}
