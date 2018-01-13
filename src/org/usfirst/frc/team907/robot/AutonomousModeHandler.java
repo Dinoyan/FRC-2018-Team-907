@@ -2,16 +2,13 @@ package org.usfirst.frc.team907.robot;
 
 public class AutonomousModeHandler {
 
-	public AHRSHandler ahrsHandler;
-	public EncoderHandler encoderHandler;
+	public SensorHandler sensorHandler;
 	public Drivetrain drivetrain;
 
-	public AutonomousModeHandler(Drivetrain drivetrain, AHRSHandler ahrsHandler,
-			EncoderHandler encoderHandler) {
+	public AutonomousModeHandler(Drivetrain drivetrain, SensorHandler sensorHandler) {
 
 		this.drivetrain = drivetrain;
-		this.ahrsHandler = ahrsHandler;
-		this.encoderHandler = encoderHandler;
+		this.sensorHandler = sensorHandler;
 
 	}
 
@@ -43,7 +40,7 @@ public class AutonomousModeHandler {
 
 			break;
 		case RobotMap.DEFAULT:
-			AutonomousActions.defaultAuto(drivetrain, ahrsHandler, encoderHandler);
+			AutonomousActions.defaultAuto(drivetrain,sensorHandler);
 			break;
 		}
 
