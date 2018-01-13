@@ -20,10 +20,7 @@ public class Robot extends IterativeRobot {
 
 	private PDPHandler pdpHandler;
 	private Drivetrain drivetrain;
-	private AHRSHandler ahrsHandler;
-	private EncoderHandler encoderHandler;
 	private JoystickHandler joystickHandler;
-	private UltrasonicHandler ultrasonicHandler;
 	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 	private SensorHandler sensorHandler;
@@ -49,10 +46,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		m_autoSelected = auto_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
+		//autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
-		//LoggerData.logData(m_autoSelected);
+		LoggerData.logData(m_autoSelected);
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -67,14 +64,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-		//SmartDashboard.putNumber("Left Ultrasonic",
-		// ultrasonicHandler.getLeftDistance());
-		// SmartDashboard.putNumber("Right Ultrasonic",
-		// ultrasonicHandler.getRightDistance());
+		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
+		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
 
-		//LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
-		//LoggerData.logData("Left Ultrasonic : " + Double.toString(ultrasonicHandler.getLeftDistance()));
-		//LoggerData.logData("Right Ultrasonic : " + Double.toString(ultrasonicHandler.getRightDistance()));
+		LoggerData.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
+		LoggerData.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
+		LoggerData.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
 
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
 
