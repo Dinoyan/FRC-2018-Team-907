@@ -1,5 +1,6 @@
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class JoystickHandler {
@@ -18,6 +19,13 @@ public class JoystickHandler {
 
 	public Joystick getCubeStick() {
 		return cubeStick;
+	}
+
+	public void vibrateDriveStick() {
+		driveStick.setRumble(RumbleType.kRightRumble, 1);
+	}
+	public void vibrateCubeStick() {
+		cubeStick.setRumble(RumbleType.kRightRumble, 1);
 	}
 
 }
