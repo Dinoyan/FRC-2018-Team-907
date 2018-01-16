@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 		pdpHandler = new PDPHandler();
 		drivetrain = new Drivetrain();
 		sensorHandler = new SensorHandler();
+		joystickHandler = new JoystickHandler();
 		multiSpeedController = new MultiSpeedController();
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, sensorHandler);
