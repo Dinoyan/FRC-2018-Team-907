@@ -5,8 +5,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class LoggerData {
-	private final static Logger logger = Logger.getLogger(LoggerData.class.getName());
+public class DataLogger {
+	private final static Logger logger = Logger.getLogger(DataLogger.class.getName());
 	private static FileHandler fh = null;
 
 	public static void logData(String data) {
