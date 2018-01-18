@@ -7,5 +7,4 @@ public class RobotConstant {
 	public static double RIGHT_TURN_ANGLE = 0.0;
 	public static double LEFT_TURN_ANGLE = 0.0;
 	
-
 }

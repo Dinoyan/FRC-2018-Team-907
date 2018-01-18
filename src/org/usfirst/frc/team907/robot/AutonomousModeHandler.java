@@ -6,10 +6,11 @@ public class AutonomousModeHandler {
 	public Drivetrain drivetrain;
 	public MultiSpeedController multiSpeedController;
 
-	public AutonomousModeHandler(MultiSpeedController multiSpeedController, SensorHandler sensorHandler) {
+	public AutonomousModeHandler(MultiSpeedController multiSpeedController, Drivetrain drivetrain, SensorHandler sensorHandler) {
 
 		this.multiSpeedController = multiSpeedController;
 		this.sensorHandler = sensorHandler;
+		this.drivetrain = drivetrain;
 
 	}
 
@@ -41,7 +42,7 @@ public class AutonomousModeHandler {
 
 			break;
 		case RobotMap.DEFAULT:
-			AutonomousActions.defaultAuto(multiSpeedController,sensorHandler);
+			AutonomousActions.defaultAuto(multiSpeedController, drivetrain, sensorHandler);
 			break;
 		}
 
