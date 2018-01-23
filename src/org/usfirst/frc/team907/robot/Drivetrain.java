@@ -18,17 +18,17 @@ public class Drivetrain {
 			left = t_left + skim(t_right);
 			right = t_right + skim(t_left);
 			
-			moveRobot(multiSpeedController, left, right);
+			moveRobot(multiSpeedController, left, -right);
 			
-		} else if(driveback > 0.0 && driveFront == 0.0) {
+		} else if(driveback < 0.0 && driveFront == 0.0) {
 			
-			t_left = driveFront + turn;
-			t_right = driveFront - turn;
+			t_left = driveback + turn;
+			t_right = driveback - turn;
 
 			left = t_left + skim(t_right);
 			right = t_right + skim(t_left);
 			
-			moveRobot(multiSpeedController, left, right);
+			moveRobot(multiSpeedController, left, -right);
 			
 		}else {
 			moveRobot(multiSpeedController, RobotConstant.STOP_ROBOT, RobotConstant.STOP_ROBOT);

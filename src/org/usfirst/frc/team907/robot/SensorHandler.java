@@ -4,6 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class SensorHandler {
@@ -13,6 +14,7 @@ public class SensorHandler {
 	private AHRS ahrs;
 	private AnalogInput leftUltra;
 	private AnalogInput rightUltra;
+	private Relay redLED;
 	
 	
 	public SensorHandler() {
@@ -21,6 +23,11 @@ public class SensorHandler {
 		ahrs = new AHRS(SerialPort.Port.kMXP);
 		leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
+		redLED = new Relay(RobotMap.RED_LED);
+	}
+
+	public Relay getRedLED() {
+		return redLED;
 	}
 
 	public Encoder getLeftEnc() {
@@ -61,5 +68,16 @@ public class SensorHandler {
 		double leftRange = leftUltra.getVoltage() * 106.23 + 0.3973;
 		return leftRange;
 	}
+	
+	public double getLeftDistance() {
+		double leftDistance = leftEnc.getDistance() / 256.0;
+		return -leftDistance;
+	}
+	
+	public double getRightDistance() {
+		double rightDistance = rightEnc.getDistance() / 256.0;
+		return rightDistance;
+	}
+	
 
 }

@@ -10,6 +10,7 @@ package org.usfirst.frc.team907.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -48,6 +49,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		sensorHandler.getAhrs().reset();
+		sensorHandler.encReset();
+		
 		m_autoSelected = auto_chooser.getSelected();
 		//autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
@@ -62,6 +66,12 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		// Run the auto handler.
 		AutonomousModeHandler.AudoModeSelect(m_autoSelected, gameData);
+		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+	}
+	
+	@Override
+	public void teleopInit() {
+		sensorHandler.encReset();
 	}
 
 	@Override
@@ -71,12 +81,19 @@ public class Robot extends IterativeRobot {
         		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
         		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
         		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
+        		SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
+        		SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
+        		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+        		
         		DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
         		DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
         		DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
         }
 		
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
+		
+		sensorHandler.getRedLED().set(Relay.Value.kOn);
+
 
 	}
 
