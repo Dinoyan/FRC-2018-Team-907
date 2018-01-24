@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		// Run the auto handler.
 		AutonomousModeHandler.AudoModeSelect(m_autoSelected, gameData);
-		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+		updateDashboard()
 	}
 	
 	@Override
@@ -78,13 +78,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		if(++_loops >= 10) {
         		_loops = 0;
-        		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-        		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
-        		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
-        		SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
-        		SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
-        		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
-        		
+        		updateDashboard()
+				
         		DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
         		DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
         		DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
@@ -99,5 +94,14 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+	}
+	
+	private updateDashboard() {
+		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
+        	SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
+        	SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
+        	SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
+        	SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
+        	SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
 	}
 }
