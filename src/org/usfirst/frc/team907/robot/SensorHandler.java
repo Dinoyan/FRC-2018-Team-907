@@ -3,6 +3,7 @@ package org.usfirst.frc.team907.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -14,7 +15,7 @@ public class SensorHandler {
 	private AHRS ahrs;
 	private AnalogInput leftUltra;
 	private AnalogInput rightUltra;
-	private Relay redLED;
+	private DigitalInput photoSensor;
 	
 	
 	public SensorHandler() {
@@ -23,12 +24,9 @@ public class SensorHandler {
 		ahrs = new AHRS(SerialPort.Port.kMXP);
 		leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
-		redLED = new Relay(RobotMap.RED_LED);
+		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
 	}
 
-	public Relay getRedLED() {
-		return redLED;
-	}
 
 	public Encoder getLeftEnc() {
 		return leftEnc;
@@ -78,6 +76,15 @@ public class SensorHandler {
 		double rightDistance = rightEnc.getDistance() / 256.0;
 		return rightDistance;
 	}
+
+
+	public boolean getPhotoSensorStatus() {
+		return photoSensor.get();
+	}
+	
+	
+	
+	
 	
 
 }
