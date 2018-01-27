@@ -20,4 +20,10 @@ public class RobotConstant {
 	// Intake Boolean States
 	public static boolean OPEN_INTAKE = true;
 	public static boolean CLOSE_INTAKE = false;
+	
+	// Elevator intake values
+	public static double ELEVATOR_START_VALUE = 0.0;
+	public static double ELEVATOR_SWITCH_VALUE = 0.0;
+	public static double ELEVATOR_SCALE_VALUE = 0.0;
+	public static double ELEVATOR_CLIMB_VALUE = 0.0;
 }
