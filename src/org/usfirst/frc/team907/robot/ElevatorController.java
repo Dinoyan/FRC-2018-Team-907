@@ -7,32 +7,32 @@ public class ElevatorController {
 	private Talon elevCimTwo;
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
-	
+
 	public ElevatorController(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
 		elevCimOne = new Talon(RobotMap.ELEV_ONE);
 		elevCimTwo = new Talon(RobotMap.ELEV_TWO);
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
 	}
-	
+
 	public void startPositon() {
-		
+
 	}
-	
+
 	public void switchPosition() {
-		
+
 	}
-	
+
 	public void scalePosition() {
-		
+
 	}
-	
+
 	public void climbPosition() {
-		
+
 	}
-	
+
 	public void operateElevator() {
-		
+
 	}
 
 }

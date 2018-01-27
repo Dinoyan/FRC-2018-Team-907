@@ -8,7 +8,7 @@ public class JoystickHandler {
 	private Joystick driveStick;
 	private Joystick cubeStick;
 
-	public  JoystickHandler() {
+	public JoystickHandler() {
 		driveStick = new Joystick(RobotMap.DRIVE_STICK);
 		cubeStick = new Joystick(RobotMap.CUBE_STICK);
 	}
@@ -24,6 +24,7 @@ public class JoystickHandler {
 	public void vibrateDriveStick() {
 		driveStick.setRumble(RumbleType.kRightRumble, 1);
 	}
+
 	public void vibrateCubeStick() {
 		cubeStick.setRumble(RumbleType.kRightRumble, 1);
 	}

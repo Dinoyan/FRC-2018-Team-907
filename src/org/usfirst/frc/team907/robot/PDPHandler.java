@@ -6,7 +6,7 @@ public class PDPHandler {
 
 	public PowerDistributionPanel pdp;
 
-	public  PDPHandler() {
+	public PDPHandler() {
 		pdp = new PowerDistributionPanel();
 	}
 

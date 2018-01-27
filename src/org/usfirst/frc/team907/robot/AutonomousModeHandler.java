@@ -6,7 +6,8 @@ public class AutonomousModeHandler {
 	public Drivetrain drivetrain;
 	public MultiSpeedController multiSpeedController;
 
-	public AutonomousModeHandler(MultiSpeedController multiSpeedController, Drivetrain drivetrain, SensorHandler sensorHandler) {
+	public AutonomousModeHandler(MultiSpeedController multiSpeedController, Drivetrain drivetrain,
+			SensorHandler sensorHandler) {
 
 		this.multiSpeedController = multiSpeedController;
 		this.sensorHandler = sensorHandler;

@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 	private SensorHandler sensorHandler;
 	private ElevatorController elevatorController;
 	private Intake intake;
-	
+
 	private int _loops = 0;
 
 	@Override
@@ -55,9 +55,9 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		sensorHandler.getAhrs().reset();
 		sensorHandler.encReset();
-		
+
 		m_autoSelected = auto_chooser.getSelected();
-		//autoSelected = SmartDashboard.getString("Auto Selector",
+		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
 		DataLogger.logData(m_autoSelected);
@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
 		AutonomousModeHandler.AudoModeSelect(m_autoSelected, gameData);
 		updateDashboard();
 	}
-	
+
 	@Override
 	public void teleopInit() {
 		sensorHandler.encReset();
@@ -80,32 +80,31 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		if(++_loops >= 10) {
-        		_loops = 0;
-        		updateDashboard();
-				
-        		DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
-        		DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
-        		DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
-        }
-		
+		if (++_loops >= 10) {
+			_loops = 0;
+			updateDashboard();
+
+			DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
+			DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
+			DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
+		}
+
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
 		elevatorController.operateElevator();
 		intake.operateIntake();
-		
+
 	}
 
 	@Override
 	public void testPeriodic() {
 	}
-	
 
 	private void updateDashboard() {
 		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
 		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
-    		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
-    		SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
-    		SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
-    		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+		SmartDashboard.putNumber("Right Ultrasonic", sensorHandler.getRightRange());
+		SmartDashboard.putNumber("Left Encoder", sensorHandler.getLeftDistance());
+		SmartDashboard.putNumber("Right Encoder", sensorHandler.getRightDistance());
+		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
 	}
 }
