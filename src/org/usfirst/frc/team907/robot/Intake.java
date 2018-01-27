@@ -14,7 +14,7 @@ public class Intake {
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
 
-	public Intake(SensorHandler sensorHandler, JoystickHandler joystckHandler) {
+	public Intake(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
 		openIntake = new Solenoid(RobotMap.OPEN_INTAKE);
 		closeIntake = new Solenoid(RobotMap.CLOSE_INTAKE);
 
