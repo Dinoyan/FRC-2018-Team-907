@@ -9,15 +9,14 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class SensorHandler {
-	
+
 	private Encoder leftEnc;
 	private Encoder rightEnc;
 	private AHRS ahrs;
 	private AnalogInput leftUltra;
 	private AnalogInput rightUltra;
 	private DigitalInput photoSensor;
-	
-	
+
 	public SensorHandler() {
 		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
@@ -26,7 +25,6 @@ public class SensorHandler {
 		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
 		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
 	}
-
 
 	public Encoder getLeftEnc() {
 		return leftEnc;
@@ -40,7 +38,7 @@ public class SensorHandler {
 		leftEnc.reset();
 		rightEnc.reset();
 	}
-	
+
 	public void navxReset() {
 		ahrs.reset();
 	}
@@ -48,7 +46,7 @@ public class SensorHandler {
 	public AHRS getAhrs() {
 		return ahrs;
 	}
-	
+
 	public AnalogInput getLeftUltra() {
 		return leftUltra;
 	}
@@ -58,33 +56,27 @@ public class SensorHandler {
 	}
 
 	public double getRightRange() {
-		double rightRange = rightUltra.getVoltage() * 106.23 + 0.3973;
+		double rightRange = rightUltra.getVoltage() * RobotConstant.ULTRA_CALC;
 		return rightRange;
 	}
-	
+
 	public double getLeftRange() {
-		double leftRange = leftUltra.getVoltage() * 106.23 + 0.3973;
+		double leftRange = leftUltra.getVoltage() * RobotConstant.ULTRA_CALC;
 		return leftRange;
 	}
-	
+
 	public double getLeftDistance() {
-		double leftDistance = leftEnc.getDistance() / 256.0;
+		double leftDistance = leftEnc.getDistance() / RobotConstant.ENC_UNITS;
 		return -leftDistance;
 	}
-	
+
 	public double getRightDistance() {
-		double rightDistance = rightEnc.getDistance() / 256.0;
+		double rightDistance = rightEnc.getDistance() / RobotConstant.ENC_UNITS;
 		return rightDistance;
 	}
-
 
 	public boolean getPhotoSensorStatus() {
 		return photoSensor.get();
 	}
-	
-	
-	
-	
-	
 
 }
