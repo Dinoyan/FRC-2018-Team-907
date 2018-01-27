@@ -12,8 +12,9 @@ public class Intake {
 	private Talon leftIntake;
 	
 	private SensorHandler sensorHandler;
+	private JoystickHandler joystickHandler;
 	
-	public Intake (SensorHandler sensorHandler) {
+	public Intake (SensorHandler sensorHandler, JoystickHandler joystckHandler) {
 		openIntake = new Solenoid(RobotMap.OPEN_INTAKE);
 		closeIntake = new Solenoid(RobotMap.CLOSE_INTAKE);
 		
@@ -21,6 +22,19 @@ public class Intake {
 		leftIntake = new Talon(RobotMap.LEFT_INTAKE);
 		
 		this.sensorHandler = sensorHandler;
+		this.joystickHandler = joystickHandler;
+	}
+	
+	public void operateIntake() {
+		
+		// operates the different actions of the intake based on the buttons pressed
+		if(joystickHandler.getCubeStick().getRawButton(1)) {
+			// operate the normal intake
+			pickUpCube();
+		}else if(joystickHandler.getCubeStick().getRawButton(2)) {
+			vomitCube();
+		}
+		
 	}
 	
 	public void pickUpCube() {
