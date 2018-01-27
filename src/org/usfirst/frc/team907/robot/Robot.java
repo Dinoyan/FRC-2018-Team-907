@@ -25,6 +25,8 @@ public class Robot extends IterativeRobot {
 	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 	private SensorHandler sensorHandler;
+	private ElevatorController elevatorController;
+	private Intake intake;
 	
 	private int _loops = 0;
 
@@ -42,6 +44,8 @@ public class Robot extends IterativeRobot {
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
 		multiSpeedController = new MultiSpeedController();
+		elevatorController = new ElevatorController(sensorHandler, joystickHandler);
+		intake = new Intake(sensorHandler, joystickHandler);
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, drivetrain, sensorHandler);
 
@@ -86,10 +90,9 @@ public class Robot extends IterativeRobot {
         }
 		
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
+		elevatorController.operateElevator();
+		intake.operateIntake();
 		
-		
-
-
 	}
 
 	@Override
@@ -99,10 +102,10 @@ public class Robot extends IterativeRobot {
 
 	private void updateDashboard() {
 		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
-    	SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
-    	SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
-    	SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
-    	SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
-    	SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
+    		SmartDashboard.putNumber("Right Ultrasonic",sensorHandler.getRightRange());
+    		SmartDashboard.putNumber("Left Encoder",sensorHandler.getLeftDistance());
+    		SmartDashboard.putNumber("Right Encoder",sensorHandler.getRightDistance());
+    		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
 	}
 }
