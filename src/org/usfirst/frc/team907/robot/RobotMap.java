@@ -40,5 +40,10 @@ public class RobotMap {
 	// Intake Solenoids
 	public static final int OPEN_INTAKE = 0;
 	public static final int CLOSE_INTAKE = 1;
+	
+	// Elevator Motors
+	public static final int ELEV_ONE = 6;
+	public static final int ELEV_TWO = 7;
+	
 
 }
