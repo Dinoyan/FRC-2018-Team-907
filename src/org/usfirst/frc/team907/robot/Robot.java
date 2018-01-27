@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 	private SensorHandler sensorHandler;
-	private ElevatorController elevatorController;
+	private Elevator elevator;
 	private Intake intake;
 
 	private int _loops = 0;
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
 		multiSpeedController = new MultiSpeedController();
-		elevatorController = new ElevatorController(sensorHandler, joystickHandler);
+		elevator = new Elevator(sensorHandler, joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, drivetrain, sensorHandler);
@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		drivetrain.driveRobot(joystickHandler, multiSpeedController);
-		elevatorController.operateElevator();
+		elevator.operateElevator();
 		intake.operateIntake();
 
 	}
