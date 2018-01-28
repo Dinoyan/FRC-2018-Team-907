@@ -10,6 +10,7 @@ public class Intake {
 
 	private Talon rightIntake;
 	private Talon leftIntake;
+	private Talon pivot;
 
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
@@ -20,6 +21,7 @@ public class Intake {
 
 		rightIntake = new Talon(RobotMap.RIGHT_INTAKE);
 		leftIntake = new Talon(RobotMap.LEFT_INTAKE);
+		pivot = new Talon(RobotMap.INTAKE_PIVOT);
 
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
@@ -72,6 +74,10 @@ public class Intake {
 	private void controlIntakeMotors(double speed) {
 		rightIntake.set(speed);
 		leftIntake.set(-speed);
+	}
+	
+	private void controlIntakePivot(double speed) {
+		// need to implement.
 	}
 
 }
