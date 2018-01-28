@@ -11,6 +11,10 @@ public class Elevator{
 	public Elevator(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
 		elevCimOne = new Talon(RobotMap.ELEV_ONE);
 		elevCimTwo = new Talon(RobotMap.ELEV_TWO);
+		
+		elevCimOne.setSafetyEnabled(true);
+		elevCimTwo.setSafetyEnabled(true);
+		
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
 	}

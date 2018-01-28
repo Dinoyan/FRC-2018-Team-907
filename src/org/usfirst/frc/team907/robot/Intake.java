@@ -22,6 +22,8 @@ public class Intake {
 		rightIntake = new Talon(RobotMap.RIGHT_INTAKE);
 		leftIntake = new Talon(RobotMap.LEFT_INTAKE);
 		pivot = new Talon(RobotMap.INTAKE_PIVOT);
+		
+		pivot.setSafetyEnabled(true);
 
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
