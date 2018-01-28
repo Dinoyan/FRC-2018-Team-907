@@ -6,17 +6,17 @@ public class MultiSpeedController {
 
 	public Talon rDrive1;
 	public Talon rDrive2;
-	
+
 	public Talon lDrive1;
 	public Talon lDrive2;
-	
+
 	public MultiSpeedController() {
 		rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
 		rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
-		
+
 		lDrive1 = new Talon(RobotMap.LEFT_DRIVE1);
 		lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
-		
+
 	}
 
 	public Talon getrDrive1() {
@@ -27,8 +27,6 @@ public class MultiSpeedController {
 		return rDrive2;
 	}
 
-	
-
 	public Talon getlDrive1() {
 		return lDrive1;
 	}
@@ -36,7 +34,5 @@ public class MultiSpeedController {
 	public Talon getlDrive2() {
 		return lDrive2;
 	}
-
-	
 
 }
