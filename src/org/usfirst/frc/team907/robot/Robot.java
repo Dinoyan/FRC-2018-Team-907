@@ -10,6 +10,7 @@ package org.usfirst.frc.team907.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,7 +20,6 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
 	private String gameData;
 
-	private PDPHandler pdpHandler;
 	private Drivetrain drivetrain;
 	private JoystickHandler joystickHandler;
 	private MultiSpeedController multiSpeedController;
@@ -27,6 +27,8 @@ public class Robot extends IterativeRobot {
 	private SensorHandler sensorHandler;
 	private Elevator elevator;
 	private Intake intake;
+	
+	private PowerDistributionPanel pdp;
 
 	private int _loops = 0;
 
@@ -39,13 +41,14 @@ public class Robot extends IterativeRobot {
 		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
 		SmartDashboard.putData("Auto choices", auto_chooser);
 
-		pdpHandler = new PDPHandler();
 		drivetrain = new Drivetrain();
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
 		multiSpeedController = new MultiSpeedController();
 		elevator = new Elevator(sensorHandler, joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
+		
+		pdp = new PowerDistributionPanel();
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, drivetrain, sensorHandler);
 
@@ -84,7 +87,6 @@ public class Robot extends IterativeRobot {
 			_loops = 0;
 			updateDashboard();
 
-			DataLogger.logData("Current : " + Double.toString(pdpHandler.getCurrent()));
 			DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
 			DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
 		}
@@ -97,10 +99,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+		
 	}
 
 	private void updateDashboard() {
-		SmartDashboard.putNumber("Current", pdpHandler.getCurrent());
+		SmartDashboard.putNumber("PDP Current", pdp.getCurrent(0));
 		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
 		SmartDashboard.putNumber("Right Ultrasonic", sensorHandler.getRightRange());
 		SmartDashboard.putNumber("Left Encoder", sensorHandler.getLeftDistance());
