@@ -35,6 +35,7 @@ public class RobotMap {
 	// Intake Motors
 	public static final int RIGHT_INTAKE = 4;
 	public static final int LEFT_INTAKE = 5;
+	public static final int INTAKE_PIVOT = 8;
 
 	// Intake Solenoids
 	public static final int OPEN_INTAKE = 0;
