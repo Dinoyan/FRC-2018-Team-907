@@ -11,7 +11,7 @@ public class Drivetrain {
 		double driveBack = -joystickHandler.getDriveStick().getRawAxis(2);
 		double turn = joystickHandler.getDriveStick().getRawAxis(4);
 
-		if (driveFront > zero && driveBack == zero) {
+		if ((driveFront > zero) && (driveBack == zero)) {
 
 			// calculations to output the required speed for the drive motors
 			left = (driveFront + turn) + skim(driveFront - turn);
@@ -20,7 +20,7 @@ public class Drivetrain {
 			// moves the robot
 			moveRobot(multiSpeedController, left, -right);
 
-		} else if (driveBack < zero && driveFront == zero) {
+		} else if ((driveBack < zero) && (driveFront == zero)) {
 			
 			// calculations to output the required speed for the drive motors
 			left = driveBack + turn + skim(driveBack - turn);
@@ -29,7 +29,7 @@ public class Drivetrain {
 			// move the robot
 			moveRobot(multiSpeedController, left, -right);
 
-		} else if(turn < zero && turn > zero && driveBack == zero && driveFront == zero){
+		} else if((turn < zero && turn > zero) && (driveBack == zero && driveFront == zero)){
 			
 			// turns the robot while standing still
 			moveRobot(multiSpeedController, turn, turn);
