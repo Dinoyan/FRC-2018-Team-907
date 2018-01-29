@@ -10,7 +10,9 @@ public class RobotConstant {
 
 	// Turning sensitivity for driving
 	public static double TURNING_GAIN = 0.5;
-	public static double STOP_ROBOT = 0.0;
+	
+	// Robot Drive Speeds
+	public static double ZERO_SPEED = 0.0;
 
 	// Intake Speeds
 	public static double PICKUP_SPEED = 0.5;

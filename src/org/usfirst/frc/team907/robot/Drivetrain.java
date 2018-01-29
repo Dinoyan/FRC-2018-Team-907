@@ -2,35 +2,40 @@ package org.usfirst.frc.team907.robot;
 
 public class Drivetrain {
 
-	double left, right, t_left, t_right;
+	double left, right;
+	double zero = RobotConstant.ZERO_SPEED;
 
 	public void driveRobot(JoystickHandler joystickHandler, MultiSpeedController multiSpeedController) {
 
 		double driveFront = joystickHandler.getDriveStick().getRawAxis(3);
-		double driveback = -joystickHandler.getDriveStick().getRawAxis(2);
+		double driveBack = -joystickHandler.getDriveStick().getRawAxis(2);
 		double turn = joystickHandler.getDriveStick().getRawAxis(4);
 
-		if (driveFront > 0.0 && driveback == 0.0) {
-			t_left = driveFront + turn;
-			t_right = driveFront - turn;
+		if (driveFront > zero && driveBack == zero) {
 
-			left = t_left + skim(t_right);
-			right = t_right + skim(t_left);
+			// calculations to output the required speed for the drive motors
+			left = (driveFront + turn) + skim(driveFront - turn);
+			right = (driveFront - turn) + skim(driveFront + turn);
 
+			// moves the robot
 			moveRobot(multiSpeedController, left, -right);
 
-		} else if (driveback < 0.0 && driveFront == 0.0) {
+		} else if (driveBack < zero && driveFront == zero) {
+			
+			// calculations to output the required speed for the drive motors
+			left = driveBack + turn + skim(driveBack - turn);
+			right = driveBack - turn + skim(driveBack + turn);
 
-			t_left = driveback + turn;
-			t_right = driveback - turn;
-
-			left = t_left + skim(t_right);
-			right = t_right + skim(t_left);
-
+			// move the robot
 			moveRobot(multiSpeedController, left, -right);
 
+		} else if(turn < zero && turn > zero && driveBack == zero && driveFront == zero){
+			
+			// turns the robot while standing still
+			moveRobot(multiSpeedController, turn, turn);
+			
 		} else {
-			moveRobot(multiSpeedController, RobotConstant.STOP_ROBOT, RobotConstant.STOP_ROBOT);
+			moveRobot(multiSpeedController, RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
 		}
 
 		System.out.println("Hell Yeah!!!!!!");
@@ -38,6 +43,7 @@ public class Drivetrain {
 
 	public void moveRobot(MultiSpeedController multiSpeedController, Double left, Double right) {
 
+		// sets the speed to power the drive motors
 		multiSpeedController.getlDrive1().set(left);
 		multiSpeedController.getlDrive2().set(left);
 
