@@ -7,13 +7,18 @@ public class AutonomousActions {
 
 	}
 
-	public static void turnRight(MultiSpeedController multiSpeedController, Drivetrain drivetrain,
-			SensorHandler sensorHandler) {
-
-	}
-
-	public static void turnLeft(MultiSpeedController multiSpeedController, Drivetrain drivetrain,
-			SensorHandler sensorHandler) {
+	public static void turn(MultiSpeedController multiSpeedController, Drivetrain drivetrain,
+			SensorHandler sensorHandler, double angle) {
+		
+		if(angle > 0 ) {
+			while( angle > sensorHandler.getAhrs().getAngle()) {
+				drivetrain.moveRobot(multiSpeedController, 0.1, 0.1);
+			}
+		}else if(angle < 0) {
+			while(angle < sensorHandler.getAhrs().getAngle()) {
+				drivetrain.moveRobot(multiSpeedController, -0.1, -0.1);
+			}
+		}
 
 	}
 
