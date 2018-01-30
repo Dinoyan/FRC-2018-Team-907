@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 	private Elevator elevator;
 	private Intake intake;
 	
-	private PowerDistributionPanel pdp;
+	//private PowerDistributionPanel pdp;
 
 	private int _loops = 0;
 
@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 		elevator = new Elevator(sensorHandler, joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
 		
-		pdp = new PowerDistributionPanel();
+		//pdp = new PowerDistributionPanel();
 
 		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, drivetrain, sensorHandler);
 
@@ -103,7 +103,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void updateDashboard() {
-		SmartDashboard.putNumber("PDP Current", pdp.getCurrent(0));
+		//SmartDashboard.putNumber("PDP Current", pdp.getCurrent(0));
 		SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
 		SmartDashboard.putNumber("Right Ultrasonic", sensorHandler.getRightRange());
 		SmartDashboard.putNumber("Left Encoder", sensorHandler.getLeftDistance());
