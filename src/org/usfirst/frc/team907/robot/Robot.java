@@ -57,7 +57,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		sensorHandler.getAhrs().reset();
-		sensorHandler.encReset();
+		sensorHandler.driveEncReset();
+		sensorHandler.elevEncReset();
 
 		m_autoSelected = auto_chooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector",
@@ -78,7 +79,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		sensorHandler.encReset();
+		sensorHandler.driveEncReset();
+		sensorHandler.getAhrs().reset();
 	}
 
 	@Override
