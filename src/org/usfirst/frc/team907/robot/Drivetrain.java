@@ -6,7 +6,8 @@ public class Drivetrain {
 	double zero = RobotConstant.ZERO_SPEED;
 
 	public void driveRobot(JoystickHandler joystickHandler, MultiSpeedController multiSpeedController) {
-
+		
+		/*//ARCADE DRIVING IMPLEMENTATION
 		double driveFront = joystickHandler.getDriveStick().getRawAxis(3);
 		double driveBack = -joystickHandler.getDriveStick().getRawAxis(2);
 		double turn = joystickHandler.getDriveStick().getRawAxis(4);
@@ -36,9 +37,16 @@ public class Drivetrain {
 			
 		} else {
 			moveRobot(multiSpeedController, RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
-		}
+		}*/
+		
+		
+		// TANK DRIVING IMPLEMENTATION
+		 double right = -joystickHandler.getDriveStick().getRawAxis(5);
+		 double left = joystickHandler.getDriveStick().getRawAxis(1);
+		 
+		 // moves the robot
+		 moveRobot(multiSpeedController, left, right);
 
-		System.out.println("Hell Yeah!!!!!!");
 	}
 
 	public void moveRobot(MultiSpeedController multiSpeedController, Double left, Double right) {
