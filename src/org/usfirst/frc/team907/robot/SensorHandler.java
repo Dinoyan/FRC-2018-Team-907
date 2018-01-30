@@ -12,6 +12,7 @@ public class SensorHandler {
 
 	private Encoder leftEnc;
 	private Encoder rightEnc;
+	private Encoder elevatorEnc;
 	private AHRS ahrs;
 	private AnalogInput leftUltra;
 	private AnalogInput rightUltra;
@@ -20,6 +21,7 @@ public class SensorHandler {
 	public SensorHandler() {
 		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
+		elevatorEnc = new Encoder(RobotMap.ELEVATOR_ENC_ONE, RobotMap.ELEVATOR_ENC_TWO, false, Encoder.EncodingType.k4X);
 		ahrs = new AHRS(SerialPort.Port.kMXP);
 		leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
@@ -34,9 +36,13 @@ public class SensorHandler {
 		return rightEnc;
 	}
 
-	public void encReset() {
+	public void driveEncReset() {
 		leftEnc.reset();
 		rightEnc.reset();
+	}
+	
+	public void elevEncReset() {
+		elevatorEnc.reset();
 	}
 
 	public void navxReset() {

@@ -22,6 +22,8 @@ public class RobotMap {
 	public static final int RIGHT_ENC_TWO = 1;
 	public static final int LEFT_ENC_ONE = 2;
 	public static final int LEFT_ENC_TWO = 3;
+	public static final int ELEVATOR_ENC_ONE = 4;
+	public static final int ELEVATOR_ENC_TWO = 5;
 	public static final int LEFT_ULTRASONIC = 0;
 	public static final int RIGHT_ULTRASONIC = 1;
 	public static final int PHOTOSENSOR = 2;
