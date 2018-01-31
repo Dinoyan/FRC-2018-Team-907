@@ -17,6 +17,8 @@ public class SensorHandler {
 	private AnalogInput leftUltra;
 	private AnalogInput rightUltra;
 	private DigitalInput photoSensor;
+	private DigitalInput elevSwitchOne;
+	private DigitalInput elevSwitchTwo;
 
 	public SensorHandler() {
 		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
@@ -26,6 +28,8 @@ public class SensorHandler {
 		leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
 		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
 		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
+		elevSwitchOne = new DigitalInput(RobotMap.ELEV_LIMIT_ONE);
+		elevSwitchTwo = new DigitalInput(RobotMap.ELEV_LIMIT_TWO);
 	}
 
 	public Encoder getLeftEnc() {
@@ -83,6 +87,14 @@ public class SensorHandler {
 
 	public boolean getPhotoSensorStatus() {
 		return photoSensor.get();
+	}
+	
+	public boolean getElevSwitchOneStatus() {
+		return elevSwitchOne.get();
+	}
+	
+	public boolean getElevSwitchTwoStatus() {
+		return elevSwitchTwo.get();
 	}
 
 }
