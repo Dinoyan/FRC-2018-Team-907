@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private String m_autoSelected;
+	private String m_priority;
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
+	private SendableChooser<String> priority_chooser = new SendableChooser<>();
 	private String gameData;
 
 	private Drivetrain drivetrain;
@@ -35,10 +37,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
-		auto_chooser.addDefault("Default Auto", RobotMap.DEFAULT);
+		auto_chooser.addDefault("Center Auto", RobotMap.CENTER_POS);
 		auto_chooser.addObject("Right Auto", RobotMap.RIGHT_POS);
 		auto_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
-		auto_chooser.addObject("Center Auto", RobotMap.CENTER_POS);
+		
+		// Dashboard priority chooser
+		priority_chooser.addDefault("Switch", RobotMap.SWITCH);
+		priority_chooser.addObject("Scale", RobotMap.SCALE);
+		priority_chooser.addObject("Default Auto", RobotMap.DEFAULT);
+		
 		SmartDashboard.putData("Auto choices", auto_chooser);
 
 		drivetrain = new Drivetrain();
@@ -73,7 +80,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		// Run the auto handler.
-		AutonomousModeHandler.AudoModeSelect(m_autoSelected, gameData);
+		AutonomousModeHandler.AudoModeSelect(m_autoSelected, m_priority, gameData);
 		updateDashboard();
 	}
 

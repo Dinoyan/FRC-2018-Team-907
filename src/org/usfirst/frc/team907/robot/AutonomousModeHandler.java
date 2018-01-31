@@ -15,7 +15,7 @@ public class AutonomousModeHandler {
 
 	}
 
-	public void AudoModeSelect(String position, String gameData) {
+	public void AudoModeSelect(String position, String priority, String gameData) {
 
 		switch (position) {
 		case RobotMap.LEFT_POS:
@@ -41,9 +41,6 @@ public class AutonomousModeHandler {
 
 			}
 
-			break;
-		case RobotMap.DEFAULT:
-			AutonomousActions.defaultAuto(multiSpeedController, drivetrain, sensorHandler);
 			break;
 		}
 

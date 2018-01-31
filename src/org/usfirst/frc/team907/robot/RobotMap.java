@@ -16,6 +16,10 @@ public class RobotMap {
 	public static final String CENTER_POS = "Center";
 	public static final String LEFT_POS = "Left";
 	public static final String DEFAULT = "Default";
+	
+	// priority position
+	public static final String SCALE = "Scale";
+	public static final String SWITCH = "Switch";
 
 	// Sensors.
 	public static final int RIGHT_ENC_ONE = 0;
