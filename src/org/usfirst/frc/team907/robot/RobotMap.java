@@ -31,6 +31,8 @@ public class RobotMap {
 	public static final int LEFT_ULTRASONIC = 0;
 	public static final int RIGHT_ULTRASONIC = 1;
 	public static final int PHOTOSENSOR = 2;
+	public static final int ELEV_LIMIT_ONE = 3;
+	public static final int ELEV_LIMIT_TWO = 4;
 
 	// Drivetrain motors.
 	public static final int RIGHT_DRIVE1 = 0;
