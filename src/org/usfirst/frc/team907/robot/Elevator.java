@@ -20,11 +20,11 @@ public class Elevator{
 	}
 
 	public void startPositon() {
-
+		
 	}
 
 	public void switchPosition() {
-
+		
 	}
 
 	public void scalePosition() {
