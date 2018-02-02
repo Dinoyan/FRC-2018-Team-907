@@ -118,6 +118,8 @@ public class Robot extends IterativeRobot {
 		if (elevator.readyToClimb()) {
 			led.onGreen();
 			led.offRed();
+			joystickHandler.vibrateDriveStick();
+			joystickHandler.vibrateDriveStick();
 		} else {
 			led.onRed();
 			led.offRed();
