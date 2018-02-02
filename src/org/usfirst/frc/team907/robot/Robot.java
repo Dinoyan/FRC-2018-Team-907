@@ -28,6 +28,7 @@ public class Robot extends IterativeRobot {
 	private SensorHandler sensorHandler;
 	private Elevator elevator;
 	private Intake intake;
+	private LEDHandler led;
 	
 	//private PowerDistributionPanel pdp;
 
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot {
 		
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
+		led = new LEDHandler();
 		
 		drivetrain = new Drivetrain(joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
@@ -76,6 +78,10 @@ public class Robot extends IterativeRobot {
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		led.offGreen();
+		led.offRed();
+		led.offYellow();
 	}
 
 	@Override
@@ -89,6 +95,10 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		sensorHandler.driveEncReset();
 		sensorHandler.getAhrs().reset();
+		
+		led.onRed();
+		led.offRed();
+		led.offYellow();
 	}
 
 	@Override
@@ -104,7 +114,14 @@ public class Robot extends IterativeRobot {
 		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
-
+		
+		if (elevator.readyToClimb()) {
+			led.onGreen();
+			led.offRed();
+		} else {
+			led.onRed();
+			led.offRed();
+		}
 	}
 
 	@Override
