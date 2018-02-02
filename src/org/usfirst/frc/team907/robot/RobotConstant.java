@@ -30,8 +30,25 @@ public class RobotConstant {
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
 
 	// Drive encoder units
-	public static double ENC_UNITS = 256.0;
+	public static double DENC_UNITS = 256.0;
+	
+	// Elevator encoder units
+	public static double EENC_UNITS = 4096.0;
 
 	// Ulra vals
 	public static double ULTRA_CALC = 106.23 + 0.3973;
+	
+	// Closed Loop Contorls
+	public static final int kSlotIdx = 0;
+	public static final int kPIDLoopIdx = 0;
+	public static final int kTimeoutMs = 10;
+	
+	public static final int RPM = 200;
+	
+	// PID
+	public static final double F = 0.1097;
+	public static final double p = 0.113333;
+	public static final double I = 0.0;
+	public static final double D = 0.0;
+	
 }

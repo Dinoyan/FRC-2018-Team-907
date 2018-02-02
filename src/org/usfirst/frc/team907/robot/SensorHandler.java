@@ -76,12 +76,12 @@ public class SensorHandler {
 	}
 
 	public double getLeftDistance() {
-		double leftDistance = leftEnc.getDistance() / RobotConstant.ENC_UNITS;
+		double leftDistance = leftEnc.getDistance() / RobotConstant.DENC_UNITS;
 		return -leftDistance;
 	}
 
 	public double getRightDistance() {
-		double rightDistance = rightEnc.getDistance() / RobotConstant.ENC_UNITS;
+		double rightDistance = rightEnc.getDistance() / RobotConstant.DENC_UNITS;
 		return rightDistance;
 	}
 
