@@ -8,6 +8,7 @@
 
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -61,6 +62,8 @@ public class Robot extends IterativeRobot {
 		//pdp = new PowerDistributionPanel();
 
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
+		
+		CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
