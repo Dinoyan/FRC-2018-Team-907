@@ -1,11 +1,31 @@
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.Talon;
+
 public class Drivetrain {
 
+	private Talon rDrive1;
+	private Talon rDrive2;
+
+	private Talon lDrive1;
+	private Talon lDrive2;
+	
+	private JoystickHandler joystickHandler;
+	
 	double left, right;
 	double zero = RobotConstant.ZERO_SPEED;
+	
+	public Drivetrain(JoystickHandler joystickHandler) {
+		rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
+		rDrive2 = new Talon(RobotMap.RIGHT_DRIVE2);
 
-	public void driveRobot(JoystickHandler joystickHandler, MultiSpeedController multiSpeedController) {
+		lDrive1 = new Talon(RobotMap.LEFT_DRIVE1);
+		lDrive2 = new Talon(RobotMap.LEFT_DRIVE2);
+		
+		this.joystickHandler = joystickHandler;
+	}
+
+	public void driveRobot() {
 		
 		/*//ARCADE DRIVING IMPLEMENTATION
 		double driveFront = joystickHandler.getDriveStick().getRawAxis(3);
@@ -45,18 +65,18 @@ public class Drivetrain {
 		 double left = joystickHandler.getDriveStick().getRawAxis(1);
 		 
 		 // moves the robot
-		 moveRobot(multiSpeedController, left, right);
+		 moveRobot(left, right);
 
 	}
 
-	public void moveRobot(MultiSpeedController multiSpeedController, Double left, Double right) {
+	public void moveRobot(Double left, Double right) {
 
 		// sets the speed to power the drive motors
-		multiSpeedController.getlDrive1().set(left);
-		multiSpeedController.getlDrive2().set(left);
+		lDrive1.set(left);
+		lDrive2.set(left);
 
-		multiSpeedController.getrDrive1().set(right);
-		multiSpeedController.getrDrive2().set(right);
+		rDrive1.set(right);
+		rDrive2.set(right);
 
 	}
 

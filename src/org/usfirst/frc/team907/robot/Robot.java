@@ -24,7 +24,6 @@ public class Robot extends IterativeRobot {
 
 	private Drivetrain drivetrain;
 	private JoystickHandler joystickHandler;
-	private MultiSpeedController multiSpeedController;
 	private AutonomousModeHandler AutonomousModeHandler;
 	private SensorHandler sensorHandler;
 	private Elevator elevator;
@@ -48,16 +47,18 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto choices", auto_chooser);
 
-		drivetrain = new Drivetrain();
+		
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
-		multiSpeedController = new MultiSpeedController();
-		elevator = new Elevator(sensorHandler, joystickHandler);
+		
+		drivetrain = new Drivetrain(joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
+		elevator = new Elevator(sensorHandler, joystickHandler);
+		
 		
 		//pdp = new PowerDistributionPanel();
 
-		AutonomousModeHandler = new AutonomousModeHandler(multiSpeedController, drivetrain, sensorHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
 
 	}
 
@@ -100,7 +101,7 @@ public class Robot extends IterativeRobot {
 			DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
 		}
 
-		drivetrain.driveRobot(joystickHandler, multiSpeedController);
+		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
 
