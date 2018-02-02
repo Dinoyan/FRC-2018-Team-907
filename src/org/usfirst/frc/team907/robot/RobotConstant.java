@@ -3,7 +3,19 @@ package org.usfirst.frc.team907.robot;
 public class RobotConstant {
 
 	public static double DEFAULT_AUTO_DISTANCE = 0.0;
+	
+	
+	// Auto position.
+	public static final String RIGHT_POS = "Right";
+	public static final String CENTER_POS = "Center";
+	public static final String LEFT_POS = "Left";
+	public static final String DEFAULT = "Default";
+		
+	// priority position
+	public static final String SCALE = "Scale";
+	public static final String SWITCH = "Switch";
 
+		
 	// gyro
 	public static double RIGHT_TURN_ANGLE = 0.0;
 	public static double LEFT_TURN_ANGLE = 0.0;
