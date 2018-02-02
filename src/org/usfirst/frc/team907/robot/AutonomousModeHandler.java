@@ -15,7 +15,7 @@ public class AutonomousModeHandler {
 	public void AudoModeSelect(String position, String priority, String gameData) {
 
 		switch (position) {
-		case RobotMap.LEFT_POS:
+		case RobotConstant.LEFT_POS:
 			if (gameData.charAt(0) == 'L') {
 				System.out.println("Test: Game Data Working");
 			} else if (gameData.charAt(1) == 'L') {
@@ -23,7 +23,7 @@ public class AutonomousModeHandler {
 			}
 
 			break;
-		case RobotMap.RIGHT_POS:
+		case RobotConstant.RIGHT_POS:
 			if (gameData.charAt(0) == 'R') {
 
 			} else if (gameData.charAt(1) == 'R') {
@@ -31,7 +31,7 @@ public class AutonomousModeHandler {
 			}
 
 			break;
-		case RobotMap.CENTER_POS:
+		case RobotConstant.CENTER_POS:
 			if (gameData.charAt(0) == 'L') {
 
 			} else {

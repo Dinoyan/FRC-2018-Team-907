@@ -36,14 +36,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
-		auto_chooser.addDefault("Center Auto", RobotMap.CENTER_POS);
-		auto_chooser.addObject("Right Auto", RobotMap.RIGHT_POS);
-		auto_chooser.addObject("Left Auto", RobotMap.LEFT_POS);
+		auto_chooser.addDefault("Center Auto", RobotConstant.CENTER_POS);
+		auto_chooser.addObject("Right Auto", RobotConstant.RIGHT_POS);
+		auto_chooser.addObject("Left Auto", RobotConstant.LEFT_POS);
 		
 		// Dashboard priority chooser
-		priority_chooser.addDefault("Switch", RobotMap.SWITCH);
-		priority_chooser.addObject("Scale", RobotMap.SCALE);
-		priority_chooser.addObject("Default Auto", RobotMap.DEFAULT);
+		priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
+		priority_chooser.addObject("Scale", RobotConstant.SCALE);
+		priority_chooser.addObject("Default Auto", RobotConstant.DEFAULT);
 		
 		SmartDashboard.putData("Auto choices", auto_chooser);
 

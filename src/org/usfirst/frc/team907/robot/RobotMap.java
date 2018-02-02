@@ -11,16 +11,6 @@ public class RobotMap {
 	public static final int YELLOW_LED = 1;
 	public static final int RED_LED = 2;
 
-	// Auto position.
-	public static final String RIGHT_POS = "Right";
-	public static final String CENTER_POS = "Center";
-	public static final String LEFT_POS = "Left";
-	public static final String DEFAULT = "Default";
-	
-	// priority position
-	public static final String SCALE = "Scale";
-	public static final String SWITCH = "Switch";
-
 	// Sensors.
 	public static final int RIGHT_ENC_ONE = 0;
 	public static final int RIGHT_ENC_TWO = 1;
