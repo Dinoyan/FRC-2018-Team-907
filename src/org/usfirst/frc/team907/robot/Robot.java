@@ -28,7 +28,6 @@ public class Robot extends IterativeRobot {
 	private SensorHandler sensorHandler;
 	private Elevator elevator;
 	private Intake intake;
-	private CustomTalon talonSRX;
 	
 	//private PowerDistributionPanel pdp;
 
@@ -55,8 +54,6 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain(joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
 		elevator = new Elevator(sensorHandler, joystickHandler);
-		
-		talonSRX = new CustomTalon(joystickHandler);
 		
 		
 		//pdp = new PowerDistributionPanel();
@@ -107,7 +104,6 @@ public class Robot extends IterativeRobot {
 		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
-		talonSRX.turn();
 
 	}
 
