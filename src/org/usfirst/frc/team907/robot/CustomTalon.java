@@ -33,7 +33,7 @@ public class CustomTalon {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	public void teleopPeriodic() {
+	public void turn() {
 		/* get gamepad axis */
 		double motorOutput = talonSRX.getMotorOutputPercent();
 		/* prepare line to print */
@@ -42,7 +42,7 @@ public class CustomTalon {
 		_sb.append("\tspd:");
 		_sb.append(talonSRX.getSelectedSensorVelocity(RobotConstant.kPIDLoopIdx));
 
-		if (joystickHandler.getCubeStick().getRawButton(5)) {
+		if (joystickHandler.getCubeStick().getRawButton(10)) {
 			/* Speed mode */
 			/* Convert 500 RPM to units / 100ms.
 			 * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
@@ -59,7 +59,7 @@ public class CustomTalon {
 			_sb.append(targetVelocity_UnitsPer100ms);
 		} else {
 			/* Percent voltage mode */
-			talonSRX.set(ControlMode.PercentOutput, joystickHandler.getCubeStick().getRawAxis(4));
+			talonSRX.set(ControlMode.PercentOutput, joystickHandler.getCubeStick().getRawAxis(0));
 		}
 
 		if (++_loops >= 10) {
