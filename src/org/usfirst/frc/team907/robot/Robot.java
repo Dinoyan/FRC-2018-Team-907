@@ -8,6 +8,7 @@
 
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	private SensorHandler sensorHandler;
 	private Elevator elevator;
 	private Intake intake;
+	private LEDHandler led;
 	
 	//private PowerDistributionPanel pdp;
 
@@ -50,6 +52,7 @@ public class Robot extends IterativeRobot {
 		
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
+		led = new LEDHandler();
 		
 		drivetrain = new Drivetrain(joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
@@ -59,6 +62,8 @@ public class Robot extends IterativeRobot {
 		//pdp = new PowerDistributionPanel();
 
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
+		
+		CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
@@ -76,6 +81,10 @@ public class Robot extends IterativeRobot {
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		led.offGreen();
+		led.offRed();
+		led.offYellow();
 	}
 
 	@Override
@@ -89,6 +98,10 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		sensorHandler.driveEncReset();
 		sensorHandler.getAhrs().reset();
+		
+		led.onRed();
+		led.offRed();
+		led.offYellow();
 	}
 
 	@Override
@@ -104,12 +117,21 @@ public class Robot extends IterativeRobot {
 		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
-
+		
+		if (elevator.readyToClimb()) {
+			led.onGreen();
+			led.offRed();
+			joystickHandler.vibrateDriveStick();
+			joystickHandler.vibrateDriveStick();
+		} else {
+			led.onRed();
+			led.offRed();
+		}
 	}
 
 	@Override
 	public void testPeriodic() {
-		
+		updateDashboard();
 	}
 
 	private void updateDashboard() {
