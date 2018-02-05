@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="C:/Users/gsman/navx-mxp/java/lib/navx_frc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/gsman/wpilib/user/java/lib/CTRE_Phoenix.jar"/>
 	<classpathentry kind="lib" path="C:/Users/gsman/wpilib/user/java/lib/CTRE_Phoenix-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gsman/wpilib/java/current/lib/cscore.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
