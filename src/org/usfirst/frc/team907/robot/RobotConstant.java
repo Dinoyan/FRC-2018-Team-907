@@ -55,7 +55,7 @@ public class RobotConstant {
 	public static final int kPIDLoopIdx = 0;
 	public static final int kTimeoutMs = 10;
 	
-	public static final int RPM = 200;
+	public static final int RPM = 50;
 	
 	// PID
 	public static final double F = 0.1097;
