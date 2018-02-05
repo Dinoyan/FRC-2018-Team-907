@@ -7,6 +7,7 @@ public class Elevator{
 	private Talon elevCimTwo;
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
+	private boolean ready;
 
 	public Elevator(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
 		elevCimOne = new Talon(RobotMap.ELEV_ONE);
@@ -17,6 +18,8 @@ public class Elevator{
 		
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
+		
+		this.ready = false;
 	}
 
 	public void startPositon() {
@@ -37,6 +40,13 @@ public class Elevator{
 
 	public void operateElevator() {
 
+	}
+
+	public boolean readyToClimb() {
+		if (Math.abs(sensorHandler.getLeftRange() - sensorHandler.getRightRange()) <= 4.0) {
+			this.ready = true;
+		}
+		return this.ready;
 	}
 
 }
