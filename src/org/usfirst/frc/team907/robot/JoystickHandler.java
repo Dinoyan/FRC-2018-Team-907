@@ -7,6 +7,9 @@ public class JoystickHandler {
 
 	private Joystick driveStick;
 	private Joystick cubeStick;
+	
+	boolean toggleOn = false;
+    boolean togglePressed = false;
 
 	public JoystickHandler() {
 		driveStick = new Joystick(RobotMap.DRIVE_STICK);
@@ -28,5 +31,16 @@ public class JoystickHandler {
 	public void vibrateCubeStick() {
 		cubeStick.setRumble(RumbleType.kRightRumble, 1);
 	}
+	
+	public void updateToggle(int button) {
+		if(cubeStick.getRawButton(1)) {
+            if(!togglePressed){
+                toggleOn = !toggleOn;
+                togglePressed = true;
+            }
+        } else {
+            togglePressed = false;
+        }
+}
 
 }
