@@ -23,7 +23,12 @@ public class Elevator{
 	}
 
 	public void startPositon() {
-		
+		while (sensorHandler.getElevSwitchOneStatus() != true) {
+			this.elevCimOne.set(-0.2);
+			this.elevCimTwo.set(-0.2);
+		}
+		this.elevCimOne.set(0);
+		this.elevCimTwo.set(0);
 	}
 
 	public void switchPosition() {
@@ -31,15 +36,36 @@ public class Elevator{
 	}
 
 	public void scalePosition() {
-
+		
 	}
 
 	public void climbPosition() {
-
+		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
+			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
+				this.elevCimOne.set(0.4);
+				this.elevCimTwo.set(0.4);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
+				this.elevCimOne.set(0.3);
+				this.elevCimTwo.set(0.3);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
+				this.elevCimOne.set(0.2);
+				this.elevCimTwo.set(0.2);
+			} else {
+				this.elevCimOne.set(0.1);
+				this.elevCimTwo.set(0.1);
+			}
+		}
+		this.elevCimOne.set(0);
+		this.elevCimTwo.set(0);
 	}
 
 	public void operateElevator() {
-
+		
+	}
+	
+	public void emergencyStop() {
+		this.elevCimOne.set(0);
+		this.elevCimTwo.set(0);
 	}
 
 	public boolean readyToClimb() {
