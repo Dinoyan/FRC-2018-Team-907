@@ -40,6 +40,10 @@ public class RobotConstant {
 	public static double ELEVATOR_SWITCH_VALUE = 0.0;
 	public static double ELEVATOR_SCALE_VALUE = 0.0;
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
+	
+	public static double ELEVATOR_POS_SPEED_ONE = 0.0;
+	public static double ELEVATOR_POS_SPEED_TWO = 0.0;
+	public static double ELEVATOR_POS_SPEED_THREE = 0.0;
 
 	// Drive encoder units
 	public static double DENC_UNITS = 256.0;
