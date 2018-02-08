@@ -127,6 +127,15 @@ public class Robot extends IterativeRobot {
 			led.onRed();
 			led.offRed();
 		}
+		
+		
+		if (sensorHandler.getElevSwitchOneStatus()) {
+			this.sensorHandler.elevEncReset();
+		}
+		
+		if(sensorHandler.getElevSwitchTwoStatus()) {
+			elevator.emergencyStop();
+		}
 	}
 
 	@Override
