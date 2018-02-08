@@ -45,6 +45,11 @@ public class SensorHandler {
 		rightEnc.reset();
 	}
 	
+	public Encoder getElevEnc() {
+		return this.elevatorEnc;
+		
+	}
+	
 	public void elevEncReset() {
 		elevatorEnc.reset();
 	}
