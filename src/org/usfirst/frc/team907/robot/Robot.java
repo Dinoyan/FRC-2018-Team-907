@@ -21,7 +21,11 @@ public class Robot extends IterativeRobot {
 	private String m_priority;
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
 	private SendableChooser<String> priority_chooser = new SendableChooser<>();
+	
+	private SendableChooser<String> testSubsystems = new SendableChooser<>();
+	
 	private String gameData;
+	private String testSub;
 
 	private Drivetrain drivetrain;
 	private JoystickHandler joystickHandler;
@@ -46,8 +50,14 @@ public class Robot extends IterativeRobot {
 		priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
 		priority_chooser.addObject("Scale", RobotConstant.SCALE);
 		priority_chooser.addObject("Default Auto", RobotConstant.DEFAULT);
-		
+			
 		SmartDashboard.putData("Auto choices", auto_chooser);
+		
+		
+		SmartDashboard.putData("Subsystem Tester", testSubsystems);
+		testSubsystems.addDefault("Drivetrain" , "drivetrain");
+		testSubsystems.addDefault("Elevator" , "elevator");
+		testSubsystems.addDefault("Intake" , "intake");
 
 		
 		sensorHandler = new SensorHandler();
@@ -137,10 +147,21 @@ public class Robot extends IterativeRobot {
 			elevator.emergencyStop();
 		}
 	}
-
+	
+	@Override
+	public void testInit() {
+		testSub = testSubsystems.getSelected();
+		
+	}
 	@Override
 	public void testPeriodic() {
 		updateDashboard();
+		
+		if(testSub.equals("intake")) {
+			
+		}
+		
+		
 	}
 
 	private void updateDashboard() {
