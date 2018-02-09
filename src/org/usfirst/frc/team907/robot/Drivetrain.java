@@ -61,8 +61,8 @@ public class Drivetrain {
 		
 		
 		// TANK DRIVING IMPLEMENTATION
-		 double right = -joystickHandler.getDriveStick().getRawAxis(5);
-		 double left = joystickHandler.getDriveStick().getRawAxis(1);
+		 double right = joystickHandler.getDriveStick().getRawAxis(5);
+		 double left = -joystickHandler.getDriveStick().getRawAxis(1);
 		 
 		 // moves the robot
 		 moveRobot(left, right);

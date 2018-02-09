@@ -25,10 +25,10 @@ public class RobotMap {
 	public static final int ELEV_LIMIT_TWO = 4;
 
 	// Drivetrain motors.
-	public static final int RIGHT_DRIVE1 = 0;
-	public static final int RIGHT_DRIVE2 = 1;
-	public static final int LEFT_DRIVE1 = 2;
-	public static final int LEFT_DRIVE2 = 3;
+	public static final int RIGHT_DRIVE1 = 2;
+	public static final int RIGHT_DRIVE2 = 3;
+	public static final int LEFT_DRIVE1 = 0;
+	public static final int LEFT_DRIVE2 = 1;
 
 	// Intake Motors
 	public static final int RIGHT_INTAKE = 4;

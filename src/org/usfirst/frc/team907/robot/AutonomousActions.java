@@ -7,11 +7,11 @@ public class AutonomousActions {
 		
 		while (sensorHandler.getRightDistance() < distance) {
 			if (sensorHandler.getAhrs().getAngle() > 5) {
-				drivetrain.moveRobot(-0.1, -0.1);
-			} else if (sensorHandler.getAhrs().getAngle() < -5) {
 				drivetrain.moveRobot(0.1, 0.1);
+			} else if (sensorHandler.getAhrs().getAngle() < -5) {
+				drivetrain.moveRobot(-0.1, -0.1);
 			} else {
-				drivetrain.moveRobot(0.5, -0.55);
+				drivetrain.moveRobot(-0.5, 0.55);
 			}
 		}
 	}
@@ -20,11 +20,11 @@ public class AutonomousActions {
 		
 		if(angle > 0 ) {
 			while( angle > sensorHandler.getAhrs().getAngle()) {
-				drivetrain.moveRobot(0.1, 0.1);
+				drivetrain.moveRobot(-0.1, -0.1);
 			}
 		}else if(angle < 0) {
 			while(angle < sensorHandler.getAhrs().getAngle()) {
-				drivetrain.moveRobot(-0.1, -0.1);
+				drivetrain.moveRobot(0.1, 0.1);
 			}
 		}
 		
