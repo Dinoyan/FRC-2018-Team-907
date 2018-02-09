@@ -17,7 +17,7 @@ public class AutonomousModeHandler {
 		switch (position) {
 		case RobotConstant.LEFT_POS:
 			if (gameData.charAt(0) == 'L') {
-				System.out.println("Test: Game Data Working");
+				
 			} else if (gameData.charAt(1) == 'L') {
 
 			}
@@ -25,7 +25,7 @@ public class AutonomousModeHandler {
 			break;
 		case RobotConstant.RIGHT_POS:
 			if (gameData.charAt(0) == 'R') {
-
+				
 			} else if (gameData.charAt(1) == 'R') {
 
 			}
@@ -33,8 +33,26 @@ public class AutonomousModeHandler {
 			break;
 		case RobotConstant.CENTER_POS:
 			if (gameData.charAt(0) == 'L') {
+				
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
+				AutonomousActions.turn(drivetrain, sensorHandler, -8);
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				AutonomousActions.turn(drivetrain, sensorHandler, 8);
+				//lift cube to position
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				// drop cube
 
 			} else {
+				
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
+				AutonomousActions.turn(drivetrain, sensorHandler, 8);
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				AutonomousActions.turn(drivetrain, sensorHandler, -8);
+				//lift cube to position
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				// drop cube
+				
+			
 
 			}
 
