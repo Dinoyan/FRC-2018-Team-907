@@ -141,6 +141,7 @@ public class Robot extends IterativeRobot {
 		
 		if (sensorHandler.getElevSwitchOneStatus()) {
 			this.sensorHandler.elevEncReset();
+			elevator.emergencyStop();
 		}
 		
 		if(sensorHandler.getElevSwitchTwoStatus()) {
@@ -171,5 +172,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Left Encoder", sensorHandler.getLeftDistance());
 		SmartDashboard.putNumber("Right Encoder", sensorHandler.getRightDistance());
 		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
+		SmartDashboard.putBoolean("Max Height" , sensorHandler.getElevSwitchTwoStatus());
+		SmartDashboard.putBoolean("Starting Pos", sensorHandler.getElevSwitchOneStatus());
 	}
 }
