@@ -35,9 +35,9 @@ public class AutonomousModeHandler {
 			if (gameData.charAt(0) == 'L') {
 				
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
-				AutonomousActions.turn(drivetrain, sensorHandler, -8);
+				AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				AutonomousActions.turn(drivetrain, sensorHandler, 8);
+				AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
 				//lift cube to position
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 				// drop cube
@@ -45,9 +45,9 @@ public class AutonomousModeHandler {
 			} else {
 				
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
-				AutonomousActions.turn(drivetrain, sensorHandler, 8);
+				AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				AutonomousActions.turn(drivetrain, sensorHandler, -8);
+				AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
 				//lift cube to position
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 				// drop cube
