@@ -14,17 +14,17 @@ public class RobotConstant {
 	// priority position
 	public static final String SCALE = "Scale";
 	public static final String SWITCH = "Switch";
-
-		
+	
 	// gyro
 	public static double RIGHT_TURN_ANGLE = 0.0;
 	public static double LEFT_TURN_ANGLE = 0.0;
 
-	// Turning sensitivity for driving
+	// Driving Constants
 	public static double TURNING_GAIN = 0.5;
-	
-	// Robot Drive Speeds
+	public static double MAX_ANGLE = 4.0;
 	public static double ZERO_SPEED = 0.0;
+	public static double TURNING_SPEED = 0.25;
+	public static double DRIVING_SPEED = 0.5;
 
 	// Intake Speeds
 	public static double PICKUP_SPEED = 0.5;
@@ -45,10 +45,8 @@ public class RobotConstant {
 	public static double ELEVATOR_POS_SPEED_TWO = 0.0;
 	public static double ELEVATOR_POS_SPEED_THREE = 0.0;
 
-	// Drive encoder units
+	// Encoder units
 	public static double DENC_UNITS = 256.0;
-	
-	// Elevator encoder units
 	public static double EENC_UNITS = 4096.0;
 
 	// Ulra vals
@@ -65,6 +63,6 @@ public class RobotConstant {
 	public static final double F = 0.1097;
 	public static final double p = 0.113333;
 	public static final double I = 0.0;
-	public static final double D = 0.0;
+	public static final double D = 0.0;	
 	
 }

@@ -1,36 +1,53 @@
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class AutonomousActions {
 
 	public static void driveForward(Drivetrain drivetrain, SensorHandler sensorHandler, double distance) {
-		System.out.println("Test: Drive Forward Working");
 		
+		Timer.delay(1);
+
+		double angle = sensorHandler.getAhrs().getAngle() + RobotConstant.MAX_ANGLE;
+
 		while (sensorHandler.getRightDistance() < distance) {
-			if (sensorHandler.getAhrs().getAngle() > 5) {
-				drivetrain.moveRobot(0.1, 0.1);
-			} else if (sensorHandler.getAhrs().getAngle() < -5) {
-				drivetrain.moveRobot(-0.1, -0.1);
+
+			double curr_angle = sensorHandler.getAhrs().getAngle();
+
+			if (curr_angle > angle) {
+				// turn it to the left
+				drivetrain.moveRobot(RobotConstant.TURNING_SPEED, RobotConstant.TURNING_SPEED);
+			} else if (curr_angle < -angle) {
+				// turn it to the right
+				drivetrain.moveRobot(-RobotConstant.TURNING_SPEED, -RobotConstant.TURNING_SPEED);
 			} else {
-				drivetrain.moveRobot(-0.5, 0.55);
+				// move straight
+				drivetrain.moveRobot(-RobotConstant.DRIVING_SPEED, RobotConstant.DRIVING_SPEED);
 			}
+			
+			// stop the robot
+			drivetrain.moveRobot(RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
 		}
 	}
 
-	public static void turn(Drivetrain drivetrain, SensorHandler sensorHandler, double angle) {
-		
-		if(angle > 0 ) {
-			while( angle > sensorHandler.getAhrs().getAngle()) {
-				drivetrain.moveRobot(-0.1, -0.1);
-			}
-		}else if(angle < 0) {
-			while(angle < sensorHandler.getAhrs().getAngle()) {
-				drivetrain.moveRobot(0.1, 0.1);
-			}
+	public static void turnRight(Drivetrain drivetrain, SensorHandler sensorHandler, double angle) {
+
+		while (angle > sensorHandler.getAhrs().getAngle()) {
+			drivetrain.moveRobot(-RobotConstant.TURNING_SPEED, -RobotConstant.TURNING_SPEED);
 		}
 		
-		// reset after the turing is done
-		sensorHandler.driveEncReset();
+		// stop the robot
+		drivetrain.moveRobot(RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
+	}
+	
+	public static void turnLeft(Drivetrain drivetrain, SensorHandler sensorHandler, double angle) {
 
+		while (angle < sensorHandler.getAhrs().getAngle()) {
+			drivetrain.moveRobot(RobotConstant.TURNING_SPEED, RobotConstant.TURNING_SPEED);
+		}
+		
+		// stop the robot
+		drivetrain.moveRobot(RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
 	}
 
 	public static void dropCube() {
@@ -38,8 +55,7 @@ public class AutonomousActions {
 	}
 
 	public static void liftCube() {
-		
-		
+
 	}
 
 }
