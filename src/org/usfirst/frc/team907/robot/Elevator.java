@@ -60,7 +60,8 @@ public class Elevator{
 	}
 
 	public void operateElevator() {
-		
+		this.elevCimOne.set(joystickHandler.getDriveStick.getRawAxis(5);
+		this.elevCimTwo.set(joystickHandler.getDriveStick.getRawAxis(5);
 	}
 	
 	public void emergencyStop() {
