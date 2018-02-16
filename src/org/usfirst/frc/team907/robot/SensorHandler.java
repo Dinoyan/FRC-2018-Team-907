@@ -25,8 +25,8 @@ public class SensorHandler {
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		elevatorEnc = new Encoder(RobotMap.ELEVATOR_ENC_ONE, RobotMap.ELEVATOR_ENC_TWO, false, Encoder.EncodingType.k4X);
 		ahrs = new AHRS(SerialPort.Port.kMXP);
-		leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
-		rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
+		//leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
+		//rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
 		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
 		elevSwitchOne = new DigitalInput(RobotMap.ELEV_LIMIT_ONE);
 		elevSwitchTwo = new DigitalInput(RobotMap.ELEV_LIMIT_TWO);
@@ -62,7 +62,7 @@ public class SensorHandler {
 		return ahrs;
 	}
 
-	public AnalogInput getLeftUltra() {
+	/*public AnalogInput getLeftUltra() {
 		return leftUltra;
 	}
 
@@ -78,7 +78,7 @@ public class SensorHandler {
 	public double getLeftRange() {
 		double leftRange = leftUltra.getVoltage() * RobotConstant.ULTRA_CALC;
 		return leftRange;
-	}
+	}*/
 
 	public double getLeftDistance() {
 		double leftDistance = leftEnc.getDistance() / RobotConstant.DENC_UNITS;
