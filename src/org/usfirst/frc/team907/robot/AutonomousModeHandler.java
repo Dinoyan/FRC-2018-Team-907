@@ -51,9 +51,6 @@ public class AutonomousModeHandler {
 				//lift cube to position
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 				// drop cube
-				
-			
-
 			}
 
 			break;
