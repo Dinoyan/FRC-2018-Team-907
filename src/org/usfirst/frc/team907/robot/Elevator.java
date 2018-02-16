@@ -32,11 +32,45 @@ public class Elevator{
 	}
 
 	public void switchPosition() {
-		
+		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
+			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
+				this.elevCimOne.set(0.4);
+				this.elevCimTwo.set(0.4);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
+				this.elevCimOne.set(0.3);
+				this.elevCimTwo.set(0.3);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
+				this.elevCimOne.set(0.2);
+				this.elevCimTwo.set(0.2);
+			} else {
+				this.elevCimOne.set(0.1);
+				this.elevCimTwo.set(0.1);
+			}
+		}
+		this.elevCimOne.set(0);
+		this.elevCimTwo.set(0);
+			
 	}
 
 	public void scalePosition() {
-		
+		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
+			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
+				this.elevCimOne.set(0.4);
+				this.elevCimTwo.set(0.4);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
+				this.elevCimOne.set(0.3);
+				this.elevCimTwo.set(0.3);
+			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
+				this.elevCimOne.set(0.2);
+				this.elevCimTwo.set(0.2);
+			} else {
+				this.elevCimOne.set(0.1);
+				this.elevCimTwo.set(0.1);
+			}
+		}
+		this.elevCimOne.set(0);
+		this.elevCimTwo.set(0);
+			
 	}
 
 	public void climbPosition() {
@@ -60,8 +94,7 @@ public class Elevator{
 	}
 
 	public void operateElevator() {
-		this.elevCimOne.set(joystickHandler.getDriveStick.getRawAxis(5);
-		this.elevCimTwo.set(joystickHandler.getDriveStick.getRawAxis(5);
+		
 	}
 	
 	public void emergencyStop() {
@@ -70,9 +103,9 @@ public class Elevator{
 	}
 
 	public boolean readyToClimb() {
-		if (Math.abs(sensorHandler.getLeftRange() - sensorHandler.getRightRange()) <= 4.0) {
+		/*if (Math.abs(sensorHandler.getLeftRange() - sensorHandler.getRightRange()) <= 4.0) {
 			this.ready = true;
-		}
+		}*/
 		return this.ready;
 	}
 
