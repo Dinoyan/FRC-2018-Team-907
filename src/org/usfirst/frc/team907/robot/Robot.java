@@ -11,6 +11,7 @@ package org.usfirst.frc.team907.robot;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,9 +35,16 @@ public class Robot extends IterativeRobot {
 	private Elevator elevator;
 	private Intake intake;
 	private LEDHandler led;
+
 	
 	//private PowerDistributionPanel pdp;
-
+	
+	// TalonSRX test code.
+	TalonSRX _talon = new TalonSRX(2);
+	Joystick _joy = new Joystick(3);
+	boolean _lastButton1 = false;
+	/** save the target position to servo to */
+	double targetPositionRotations;
 	private int _loops = 0;
 
 	@Override
@@ -74,6 +82,50 @@ public class Robot extends IterativeRobot {
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
 		
 		CameraServer.getInstance().startAutomaticCapture();
+		
+		//TALONSRX test code:
+		/* choose the sensor and sensor direction */
+		_talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx,
+				Constants.kTimeoutMs);
+
+		/* choose to ensure sensor is positive when output is positive */
+		_talon.setSensorPhase(Constants.kSensorPhase);
+
+		/* choose based on what direction you want forward/positive to be.
+		 * This does not affect sensor phase. */ 
+		_talon.setInverted(Constants.kMotorInvert);
+
+		/* set the peak and nominal outputs, 12V means full */
+		_talon.configNominalOutputForward(0, Constants.kTimeoutMs);
+		_talon.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		_talon.configPeakOutputForward(1, Constants.kTimeoutMs);
+		_talon.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+		/*
+		 * set the allowable closed-loop error, Closed-Loop output will be
+		 * neutral within this range. See Table in Section 17.2.1 for native
+		 * units per rotation.
+		 */
+		_talon.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+
+		/* set closed loop gains in slot0, typically kF stays zero. */
+		_talon.config_kF(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);
+		_talon.config_kP(Constants.kPIDLoopIdx, 0.1, Constants.kTimeoutMs);
+		_talon.config_kI(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);
+		_talon.config_kD(Constants.kPIDLoopIdx, 0.0, Constants.kTimeoutMs);
+
+		/*
+		 * lets grab the 360 degree position of the MagEncoder's absolute
+		 * position, and intitally set the relative sensor to match.
+		 */
+		int absolutePosition = _talon.getSensorCollection().getPulseWidthPosition();
+		/* mask out overflows, keep bottom 12 bits */
+		absolutePosition &= 0xFFF;
+		if (Constants.kSensorPhase)
+			absolutePosition *= -1;
+		if (Constants.kMotorInvert)
+			absolutePosition *= -1;
+		/* set the quadrature (relative) sensor to match absolute */
+		_talon.setSelectedSensorPosition(absolutePosition, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
 
 	}
 
@@ -156,6 +208,9 @@ public class Robot extends IterativeRobot {
 		if(sensorHandler.getElevSwitchTwoStatus()) {
 			elevator.emergencyStop();
 		}
+		
+		
+		commonLoop();
 	}
 	
 	@Override
@@ -184,4 +239,41 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Max Height" , sensorHandler.getElevSwitchTwoStatus());
 		SmartDashboard.putBoolean("Starting Pos", sensorHandler.getElevSwitchOneStatus());
 	}
+	
+	public void disabledPeriodic() {
+		commonLoop();
+	}
+	
+	
+	void commonLoop() {
+		/* get gamepad axis */
+		double leftYstick = _joy.getY();
+		double motorOutput = _talon.getMotorOutputPercent();
+		boolean button1 = _joy.getRawButton(1);
+		boolean button2 = _joy.getRawButton(2);
+		/* deadband gamepad */
+		if (Math.abs(leftYstick) < 0.10) {
+			/* within 10% of zero */
+			leftYstick = 0;
+
+		}
+		/* on button1 press enter closed-loop mode on target position */
+		if (!_lastButton1 && button1) {
+			/* Position mode - button just pressed */
+
+			/* 10 Rotations * 4096 u/rev in either direction */
+			targetPositionRotations = leftYstick * 10.0 * 4096;
+			_talon.set(ControlMode.Position, targetPositionRotations);
+
+		}
+		/* on button2 just straight drive */
+		if (button2) {
+			/* Percent voltage mode */
+			_talon.set(ControlMode.PercentOutput, leftYstick);
+		}
+		_lastButton1 = button1;
+	}
+	
+	
+	
 }
