@@ -7,6 +7,7 @@ public class Elevator{
 	private Talon elevCimTwo;
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
+	private Maths maths;
 	private boolean ready;
 
 	public Elevator(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
@@ -32,9 +33,9 @@ public class Elevator{
 	}
 
 	public void switchPosition() {
-		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
+		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
 			
-			double value = sensorHandler.getElevEnc().getDistance();
+			double value = sensorHandler.getElevDistance();
 							
 			double speed = calculateSpeed(value);
 				
@@ -42,29 +43,20 @@ public class Elevator{
 			this.elevCimTwo.set(speed);
 		}
 				
-		this.elevCimOne.set(RobotConstant.ZERO_SPEED);
-		this.elevCimTwo.set(RobotConstant.ZERO_SPEED);
+		this.elevCimOne.set(RobotConstant.ELEVATOR_ZERO_SPEED);
+		this.elevCimTwo.set(RobotConstant.ELEVATOR_ZERO_SPEED);
 			
 	}
 
 	public void scalePosition() {
-		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
-			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
-				this.elevCimOne.set(0.4);
-				this.elevCimTwo.set(0.4);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
-				this.elevCimOne.set(0.3);
-				this.elevCimTwo.set(0.3);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
-				this.elevCimOne.set(0.2);
-				this.elevCimTwo.set(0.2);
-			} else {
-				this.elevCimOne.set(0.1);
-				this.elevCimTwo.set(0.1);
-			}
+		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
+			double speed = maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
+			
+			this.elevCimOne.set(speed);
+			this.elevCimTwo.set(speed);
 		}
-		this.elevCimOne.set(0);
-		this.elevCimTwo.set(0);
+		this.elevCimOne.set(RobotConstant.ELEVATOR_ZERO_SPEED);
+		this.elevCimTwo.set(RobotConstant.ELEVATOR_ZERO_SPEED);
 			
 	}
 

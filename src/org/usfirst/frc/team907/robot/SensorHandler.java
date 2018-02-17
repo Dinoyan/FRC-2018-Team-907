@@ -32,22 +32,9 @@ public class SensorHandler {
 		elevSwitchTwo = new DigitalInput(RobotMap.ELEV_LIMIT_TWO);
 	}
 
-	public Encoder getLeftEnc() {
-		return leftEnc;
-	}
-
-	public Encoder getRightEnc() {
-		return rightEnc;
-	}
-
 	public void driveEncReset() {
 		leftEnc.reset();
 		rightEnc.reset();
-	}
-	
-	public Encoder getElevEnc() {
-		return this.elevatorEnc;
-		
 	}
 	
 	public void elevEncReset() {
@@ -61,33 +48,29 @@ public class SensorHandler {
 	public AHRS getAhrs() {
 		return ahrs;
 	}
-
-	/*public AnalogInput getLeftUltra() {
-		return leftUltra;
-	}
-
-	public AnalogInput getRightUltra() {
-		return rightUltra;
-	}
-
-	public double getRightRange() {
-		double rightRange = rightUltra.getVoltage() * RobotConstant.ULTRA_CALC;
-		return rightRange;
-	}
-
-	public double getLeftRange() {
-		double leftRange = leftUltra.getVoltage() * RobotConstant.ULTRA_CALC;
-		return leftRange;
-	}*/
-
+	
 	public double getLeftDistance() {
-		double leftDistance = leftEnc.getDistance() / RobotConstant.DENC_UNITS;
+		double leftDistance = (leftEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * 2 * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		
 		return -leftDistance;
 	}
 
 	public double getRightDistance() {
-		double rightDistance = rightEnc.getDistance() / RobotConstant.DENC_UNITS;
+		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * 2 * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		
 		return rightDistance;
+	}
+	
+	public double getElevDistance() {
+		double distance = elevatorEnc.getDistance();
+		
+		return distance;
+	}
+	
+	public double getCurrentAngle() {
+		double angle = ahrs.getAngle();
+		
+		return angle;
 	}
 
 	public boolean getPhotoSensorStatus() {

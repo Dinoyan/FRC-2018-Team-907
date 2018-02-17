@@ -8,7 +8,7 @@ public class AutonomousActions {
 		
 		Timer.delay(1);
 
-		double angle = sensorHandler.getAhrs().getAngle() + RobotConstant.MAX_ANGLE;
+		double angle = sensorHandler.getAhrs().getAngle() + RobotConstant.DRIVE_MAX_ANGLE;
 
 		while (sensorHandler.getRightDistance() < distance) {
 

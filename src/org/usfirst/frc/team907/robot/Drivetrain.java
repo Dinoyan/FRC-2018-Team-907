@@ -13,7 +13,7 @@ public class Drivetrain {
 	private JoystickHandler joystickHandler;
 	
 	double left, right;
-	double zero = RobotConstant.ZERO_SPEED;
+	double zero = RobotConstant.DRIVE_ZERO_SPEED;
 	
 	public Drivetrain(JoystickHandler joystickHandler) {
 		rDrive1 = new Talon(RobotMap.RIGHT_DRIVE1);
@@ -80,6 +80,7 @@ public class Drivetrain {
 
 	}
 
+	/*
 	public double skim(double v) {
 		if (v > 1.0) {
 			return -((v - 1.0) * RobotConstant.TURNING_GAIN);
@@ -87,6 +88,6 @@ public class Drivetrain {
 			return -((v + 1.0) * RobotConstant.TURNING_GAIN);
 		}
 		return 0;
-	}
+	}*/
 
 }
