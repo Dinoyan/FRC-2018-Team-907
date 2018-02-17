@@ -33,22 +33,17 @@ public class Elevator{
 
 	public void switchPosition() {
 		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
-			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
-				this.elevCimOne.set(0.4);
-				this.elevCimTwo.set(0.4);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
-				this.elevCimOne.set(0.3);
-				this.elevCimTwo.set(0.3);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
-				this.elevCimOne.set(0.2);
-				this.elevCimTwo.set(0.2);
-			} else {
-				this.elevCimOne.set(0.1);
-				this.elevCimTwo.set(0.1);
-			}
+			
+			double value = sensorHandler.getElevEnc().getDistance();
+							
+			double speed = calculateSpeed(value);
+				
+			this.elevCimOne.set(speed);
+			this.elevCimTwo.set(speed);
 		}
-		this.elevCimOne.set(0);
-		this.elevCimTwo.set(0);
+				
+		this.elevCimOne.set(RobotConstant.ZERO_SPEED);
+		this.elevCimTwo.set(RobotConstant.ZERO_SPEED);
 			
 	}
 
@@ -107,6 +102,11 @@ public class Elevator{
 			this.ready = true;
 		}*/
 		return this.ready;
+	}
+	
+	public double calculateSpeed(double value) {
+		double speed = ((-0.7/2304) * value) + 0.9777;
+		return speed;
 	}
 
 }
