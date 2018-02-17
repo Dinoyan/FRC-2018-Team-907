@@ -44,13 +44,14 @@ public class AutonomousModeHandler {
 
 			} else {
 				
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 100);
+				/*
 				AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 				AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
 				//lift cube to position
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				// drop cube
+				// drop cube*/
 			}
 
 			break;

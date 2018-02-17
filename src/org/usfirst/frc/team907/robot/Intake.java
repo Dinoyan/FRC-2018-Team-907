@@ -47,12 +47,12 @@ public class Intake {
 		controlIntakeSolenoids(RobotConstant.OPEN_INTAKE);
 
 		// Take in the power cube
-		controlIntakeMotors(RobotConstant.PICKUP_SPEED);
+		controlIntakeMotors(RobotConstant.INTAKE_PICKUP_SPEED);
 
 		// get the status of photosensor and close the intake based on its reading
 		if (sensorHandler.getPhotoSensorStatus()) {
 			// stop the motors
-			controlIntakeMotors(RobotConstant.STOP_INTAKE_MOTORS);
+			controlIntakeMotors(RobotConstant.INTAKE_ZERO_SPEED);
 
 			// close the solenoids
 			controlIntakeSolenoids(RobotConstant.CLOSE_INTAKE);
@@ -65,7 +65,7 @@ public class Intake {
 		// controlIntakeSolenoids(RobotConstant.OPEN_INTAKE);
 
 		// Take in the power cube
-		controlIntakeMotors(RobotConstant.VOMIT_SPEED);
+		controlIntakeMotors(RobotConstant.INTAKE_VOMIT_SPEED);
 	}
 
 	private void controlIntakeSolenoids(boolean state) {

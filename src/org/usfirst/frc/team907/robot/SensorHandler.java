@@ -14,8 +14,6 @@ public class SensorHandler {
 	private Encoder rightEnc;
 	private Encoder elevatorEnc;
 	private AHRS ahrs;
-	private AnalogInput leftUltra;
-	private AnalogInput rightUltra;
 	private DigitalInput photoSensor;
 	private DigitalInput elevSwitchOne;
 	private DigitalInput elevSwitchTwo;
@@ -25,8 +23,6 @@ public class SensorHandler {
 		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
 		elevatorEnc = new Encoder(RobotMap.ELEVATOR_ENC_ONE, RobotMap.ELEVATOR_ENC_TWO, false, Encoder.EncodingType.k4X);
 		ahrs = new AHRS(SerialPort.Port.kMXP);
-		//leftUltra = new AnalogInput(RobotMap.LEFT_ULTRASONIC);
-		//rightUltra = new AnalogInput(RobotMap.RIGHT_ULTRASONIC);
 		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
 		elevSwitchOne = new DigitalInput(RobotMap.ELEV_LIMIT_ONE);
 		elevSwitchTwo = new DigitalInput(RobotMap.ELEV_LIMIT_TWO);
@@ -50,13 +46,13 @@ public class SensorHandler {
 	}
 	
 	public double getLeftDistance() {
-		double leftDistance = (leftEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * 2 * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		double leftDistance = (leftEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
 		
 		return -leftDistance;
 	}
 
 	public double getRightDistance() {
-		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * 2 * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
 		
 		return rightDistance;
 	}

@@ -7,7 +7,6 @@ public class Elevator{
 	private Talon elevCimTwo;
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
-	private Maths maths;
 	private boolean ready;
 
 	public Elevator(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
@@ -35,9 +34,8 @@ public class Elevator{
 	public void switchPosition() {
 		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
 			
-			double value = sensorHandler.getElevDistance();
-							
-			double speed = calculateSpeed(value);
+			// calculate the speed based on the encoder values
+			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SWITCH);
 				
 			this.elevCimOne.set(speed);
 			this.elevCimTwo.set(speed);
@@ -50,7 +48,7 @@ public class Elevator{
 
 	public void scalePosition() {
 		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
-			double speed = maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
+			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
 			
 			this.elevCimOne.set(speed);
 			this.elevCimTwo.set(speed);
@@ -61,20 +59,12 @@ public class Elevator{
 	}
 
 	public void climbPosition() {
-		while (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
-			if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_ONE) {
-				this.elevCimOne.set(0.4);
-				this.elevCimTwo.set(0.4);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_TWO) {
-				this.elevCimOne.set(0.3);
-				this.elevCimTwo.set(0.3);
-			} else if (sensorHandler.getElevEnc().getDistance() <= RobotConstant.ELEVATOR_POS_SPEED_THREE) {
-				this.elevCimOne.set(0.2);
-				this.elevCimTwo.set(0.2);
-			} else {
-				this.elevCimOne.set(0.1);
-				this.elevCimTwo.set(0.1);
-			}
+		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
+			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
+			
+			this.elevCimOne.set(speed);
+			this.elevCimTwo.set(speed);
+			
 		}
 		this.elevCimOne.set(0);
 		this.elevCimTwo.set(0);
@@ -94,11 +84,6 @@ public class Elevator{
 			this.ready = true;
 		}*/
 		return this.ready;
-	}
-	
-	public double calculateSpeed(double value) {
-		double speed = ((-0.7/2304) * value) + 0.9777;
-		return speed;
 	}
 
 }

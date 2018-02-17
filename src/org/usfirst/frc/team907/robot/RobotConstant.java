@@ -17,8 +17,10 @@ public class RobotConstant {
 	public static final String CENTER_POS = "Center";
 		
 	// priority position
-	public static final String SCALE = "Scale";
+	public static final String SCALE = "Scale"; // #bigone
 	public static final String SWITCH = "Switch";
+	public static final String CLIMB = "Climb";
+	public static final String ORIGIN = "Origin";
 	
 	// DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN DRIVETRAIN 
 	// Teleop Driving Constants
@@ -42,10 +44,11 @@ public class RobotConstant {
 	
 	// ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR
 	// Elevator Constants
-	public static double ELEV_TRANSFORM_CONSTANT = 1.0; 
+	public static double ELEV_UP_CONSTANT = 1.0;
+	public static double ELEV_DOWN_CONSTANT = 0.1;
 	
 	// Elevator values
-	public static double ELEVATOR_START_VALUE = 0.0;
+	public static double ELEVATOR_ORIGIN_VALUE = 0.0;
 	public static double ELEVATOR_SCALE_VALUE = 0.0;
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
 	public static double ELEVATOR_SWITCH_VALUE = 0.0;
@@ -54,11 +57,12 @@ public class RobotConstant {
 	// Motor Speeds
 	public static double ELEVATOR_ZERO_SPEED = 0.0;
 	public static double ELEV_CLIMB_MAX_SPEED = 1.0;
-	public static double ELEV_CLIMB_MIN_SPEED = 0.1;
+	public static double ELEV_ORIGIN_MIN_SPEED = 0.3;
 	public static double ELEV_SCALE_MAX_SPEED = 1.0;
 	public static double ELEV_SCALE_MIN_SPEED = 0.1;
 	public static double ELEV_SWITCH_MAX_SPEED = 1.0;
 	public static double ELEV_SWITCH_MIN_SPEED = 0.1;
+
 
 	// SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS
 	// Encoder units
