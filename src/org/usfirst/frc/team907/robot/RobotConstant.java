@@ -63,6 +63,6 @@ public class RobotConstant {
 	public static final double F = 0.1097;
 	public static final double p = 0.113333;
 	public static final double I = 0.0;
-	public static final double D = 0.0
+	public static final double D = 0.0;
 	
 }
