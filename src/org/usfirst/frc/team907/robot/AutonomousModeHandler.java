@@ -4,11 +4,13 @@ public class AutonomousModeHandler {
 
 	public SensorHandler sensorHandler;
 	public Drivetrain drivetrain;
+	private boolean state;
 
 	public AutonomousModeHandler(Drivetrain drivetrain, SensorHandler sensorHandler) {
 
 		this.sensorHandler = sensorHandler;
 		this.drivetrain = drivetrain;
+		this.state = true;
 
 	}
 
@@ -17,8 +19,18 @@ public class AutonomousModeHandler {
 		switch (position) {
 		case RobotConstant.LEFT_POS:
 			if (gameData.charAt(0) == 'L') {
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 5);
+				AutonomousActions.turnRight(drivetrain, sensorHandler, 90);
+				sensorHandler.driveEncReset();
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
+				
+				
 				
 			} else if (gameData.charAt(1) == 'L') {
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 5);
+				AutonomousActions.turnLeft(drivetrain, sensorHandler, -90);
+				sensorHandler.driveEncReset();
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
 
 			}
 
@@ -33,25 +45,35 @@ public class AutonomousModeHandler {
 			break;
 		case RobotConstant.CENTER_POS:
 			if (gameData.charAt(0) == 'L') {
+				if(state){
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
+					sensorHandler.driveEncReset();
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
+					sensorHandler.driveEncReset();
+					//lift cube to position
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					// drop cube
+					state = false;
+				}
 				
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 30);
-				AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
-				//lift cube to position
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				// drop cube
 
 			} else {
-				
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 100);
-				/*
-				AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				AutonomousActions.turnLeft(drivetrain, sensorHandler, -8);
-				//lift cube to position
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-				// drop cube*/
+				if(state){
+					/*
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
+					sensorHandler.driveEncReset();
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					AutonomousActions.turnLeft(drivetrain, sensorHandler, 0);
+					sensorHandler.driveEncReset();
+					//lift cube to position
+					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+					// drop cube
+					state = false;
+					*/
+				}
 			}
 
 			break;

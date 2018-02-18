@@ -19,8 +19,8 @@ public class SensorHandler {
 	private DigitalInput elevSwitchTwo;
 
 	public SensorHandler() {
-		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, false, Encoder.EncodingType.k4X);
-		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, false, Encoder.EncodingType.k4X);
+		leftEnc = new Encoder(RobotMap.LEFT_ENC_ONE, RobotMap.LEFT_ENC_TWO, true, Encoder.EncodingType.k4X);
+		rightEnc = new Encoder(RobotMap.RIGHT_ENC_ONE, RobotMap.RIGHT_ENC_TWO, true, Encoder.EncodingType.k4X);
 		elevatorEnc = new Encoder(RobotMap.ELEVATOR_ENC_ONE, RobotMap.ELEVATOR_ENC_TWO, false, Encoder.EncodingType.k4X);
 		ahrs = new AHRS(SerialPort.Port.kMXP);
 		photoSensor = new DigitalInput(RobotMap.PHOTOSENSOR);
@@ -52,7 +52,7 @@ public class SensorHandler {
 	}
 
 	public double getRightDistance() {
-		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS);// * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
 		
 		return rightDistance;
 	}

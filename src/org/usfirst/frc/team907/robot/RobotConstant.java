@@ -26,7 +26,7 @@ public class RobotConstant {
 	// Teleop Driving Constants
 	public static double DRIVE_MAX_ANGLE = 4.0;
 	public static double DRIVE_ZERO_SPEED = 0.0;
-	public static double DRIVE_TURNING_SPEED = 0.25;
+	public static double DRIVE_TURNING_SPEED = 0.50;
 	public static double DRIVE_DRIVING_SPEED = 0.50;
 	//public static double TURNING_GAIN = 0.5;
 
@@ -49,24 +49,21 @@ public class RobotConstant {
 	
 	// Elevator values
 	public static double ELEVATOR_ORIGIN_VALUE = 0.0;
-	public static double ELEVATOR_SCALE_VALUE = 0.0;
+	public static double ELEVATOR_SCALE_VALUE = 2000.0;
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
-	public static double ELEVATOR_SWITCH_VALUE = 0.0;
+	public static double ELEVATOR_SWITCH_VALUE = 650.0;
 
 	
 	// Motor Speeds
-	public static double ELEVATOR_ZERO_SPEED = 0.0;
-	public static double ELEV_CLIMB_MAX_SPEED = 1.0;
-	public static double ELEV_ORIGIN_MIN_SPEED = 0.3;
-	public static double ELEV_SCALE_MAX_SPEED = 1.0;
-	public static double ELEV_SCALE_MIN_SPEED = 0.1;
-	public static double ELEV_SWITCH_MAX_SPEED = 1.0;
-	public static double ELEV_SWITCH_MIN_SPEED = 0.1;
+	public static double ELEV_MAX_SPEED = -1;
+	public static double ELEV_MIN_SPEED = -0.15;
+
+	
 
 
 	// SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS
 	// Encoder units
-	public static double DRIVE_ENC_UNITS = 256.0;
+	public static double DRIVE_ENC_UNITS = 256.0 * 42.0 / 36.0;
 	public static double ELEVATOR_ENC_UNITS = 256.0;
 
 	// gyro

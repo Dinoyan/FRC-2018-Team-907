@@ -13,8 +13,8 @@ public class Elevator{
 		elevCimOne = new Talon(RobotMap.ELEV_ONE);
 		elevCimTwo = new Talon(RobotMap.ELEV_TWO);
 		
-		elevCimOne.setSafetyEnabled(true);
-		elevCimTwo.setSafetyEnabled(true);
+		//elevCimOne.setSafetyEnabled(true);
+		//elevCimTwo.setSafetyEnabled(true);
 		
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
@@ -22,56 +22,55 @@ public class Elevator{
 		this.ready = false;
 	}
 
-	public void startPositon() {
+	/*public void startPositon() {
 		while (sensorHandler.getElevSwitchOneStatus() != true) {
 			this.elevCimOne.set(-0.2);
 			this.elevCimTwo.set(-0.2);
 		}
 		this.elevCimOne.set(0);
 		this.elevCimTwo.set(0);
-	}
+	}*/
 
 	public void switchPosition() {
 		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
-			
-			// calculate the speed based on the encoder values
-			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SWITCH);
 				
-			this.elevCimOne.set(speed);
-			this.elevCimTwo.set(speed);
+			this.elevCimOne.set(RobotConstant.ELEV_MAX_SPEED);
+			this.elevCimTwo.set(RobotConstant.ELEV_MAX_SPEED);
 		}
 				
-		this.elevCimOne.set(RobotConstant.ELEVATOR_ZERO_SPEED);
-		this.elevCimTwo.set(RobotConstant.ELEVATOR_ZERO_SPEED);
+		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
+		this.elevCimTwo.set(RobotConstant.ELEV_MIN_SPEED);
 			
 	}
 
 	public void scalePosition() {
 		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
-			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
 			
-			this.elevCimOne.set(speed);
-			this.elevCimTwo.set(speed);
+			this.elevCimOne.set(RobotConstant.ELEV_MAX_SPEED);
+			this.elevCimTwo.set(RobotConstant.ELEV_MAX_SPEED);
 		}
-		this.elevCimOne.set(RobotConstant.ELEVATOR_ZERO_SPEED);
-		this.elevCimTwo.set(RobotConstant.ELEVATOR_ZERO_SPEED);
+				
+		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
+		this.elevCimTwo.set(RobotConstant.ELEV_MIN_SPEED);
 			
 	}
 
 	public void climbPosition() {
 		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
-			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
 			
-			this.elevCimOne.set(speed);
-			this.elevCimTwo.set(speed);
-			
+			this.elevCimOne.set(RobotConstant.ELEV_MAX_SPEED);
+			this.elevCimTwo.set(RobotConstant.ELEV_MAX_SPEED);
 		}
-		this.elevCimOne.set(0);
-		this.elevCimTwo.set(0);
+				
+		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
+		this.elevCimTwo.set(RobotConstant.ELEV_MIN_SPEED);
+			
 	}
 
 	public void operateElevator() {
-		
+		if(joystickHandler.getCubeStick().getRawButton(0)) {
+			switchPosition();
+		} 
 	}
 	
 	public void emergencyStop() {

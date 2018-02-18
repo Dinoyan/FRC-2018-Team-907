@@ -31,13 +31,13 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE2 = 1;
 
 	// Intake Motors
-	public static final int LEFT_INTAKE = 5;
-	public static final int RIGHT_INTAKE = 4;
+	public static final int LEFT_INTAKE = 6;
+	public static final int RIGHT_INTAKE = 7;
 	public static final int INTAKE_PIVOT = 8;
 
 	// Elevator Motors
-	public static final int ELEV_ONE = 6;
-	public static final int ELEV_TWO = 7;
+	public static final int ELEV_ONE = 4;
+	public static final int ELEV_TWO = 5;
 	
 	// SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS SOLENOIDS
 	// Intake Solenoids
