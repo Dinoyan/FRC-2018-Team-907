@@ -43,22 +43,21 @@ public class RobotConstant {
 	
 	
 	// ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR ELEVATOR
-	// Elevator Constants
-	public static double ELEV_UP_CONSTANT = 1.0;
-	public static double ELEV_DOWN_CONSTANT = 0.1;
 	
 	// Elevator values
 	public static double ELEVATOR_ORIGIN_VALUE = 0.0;
-	public static double ELEVATOR_SCALE_VALUE = 2000.0;
+	public static double ELEVATOR_SCALE_VALUE = 1500.0;
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
-	public static double ELEVATOR_SWITCH_VALUE = 650.0;
+	public static double ELEVATOR_SWITCH_VALUE = 500.0;
 
 	
 	// Motor Speeds
-	public static double ELEV_MAX_SPEED = -1;
-	public static double ELEV_MIN_SPEED = -0.15;
-
-	
+	public static double ELEV_SWITCH_MAX_SPEED = 0.40;
+	public static double ELEV_SCALE_MAX_SPEED = 0.60;
+	public static double ELEV_CLIMB_MAX_SPEED = 0.80;
+	public static double ELEV_ORIGIN_MAX_SPEED = 0.20;
+	public static double ELEV_MIN_SPEED = 0.15;
+	public static double ELEV_ZERO_SPEED = 0.0;
 
 
 	// SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS SENSORS

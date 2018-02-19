@@ -8,16 +8,10 @@
 
 package org.usfirst.frc.team907.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,10 +29,13 @@ public class Robot extends IterativeRobot {
 	private Drivetrain drivetrain;
 	private JoystickHandler joystickHandler;
 	private AutonomousModeHandler AutonomousModeHandler;
-	private SensorHandler sensorHandler;
+	private static SensorHandler sensorHandler;
 	private Elevator elevator;
 	private Intake intake;
 	private LEDHandler led;
+	private IntakePID intakePID;
+	
+	private PowerDistributionPanel pdp;
 
 	
 	//private PowerDistributionPanel pdp;
@@ -68,6 +65,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto choices", auto_chooser);
 		
 		
+		
 		SmartDashboard.putData("Subsystem Tester", testSubsystems);
 		testSubsystems.addDefault("Drivetrain" , "drivetrain");
 		testSubsystems.addDefault("Elevator" , "elevator");
@@ -88,59 +86,6 @@ public class Robot extends IterativeRobot {
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
 		
 		CameraServer.getInstance().startAutomaticCapture();
-		
-		
-		//TALONSRX test code:
-		/* choose the sensor and sensor direction */
-		
-		//_talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotConstant.kPIDLoopIdx,
-				//RobotConstant.kTimeoutMs);
-
-		/* choose to ensure sensor is positive when output is positive */
-		//_talon.setSensorPhase(RobotConstant.kSensorPhase);
-
-		/* choose based on what direction you want forward/positive to be.
-		 * This does not affect sensor phase. */ 
-		//_talon.setInverted(RobotConstant.kMotorInvert);
-
-		/* set the peak and nominal outputs, 12V means full */
-		/*
-		_talon.configNominalOutputForward(0, RobotConstant.kTimeoutMs);
-		_talon.configNominalOutputReverse(0, RobotConstant.kTimeoutMs);
-		_talon.configPeakOutputForward(1, RobotConstant.kTimeoutMs);
-		_talon.configPeakOutputReverse(-1, RobotConstant.kTimeoutMs);
-		/*
-		 * set the allowable closed-loop error, Closed-Loop output will be
-		 * neutral within this range. See Table in Section 17.2.1 for native
-		 * units per rotation.
-		 */
-		/*
-		_talon.configAllowableClosedloopError(0, RobotConstant.kPIDLoopIdx, RobotConstant.kTimeoutMs);
-
-		/* set closed loop gains in slot0, typically kF stays zero. */
-		/*
-		_talon.config_kF(RobotConstant.kPIDLoopIdx, 0.0, RobotConstant.kTimeoutMs);
-		_talon.config_kP(RobotConstant.kPIDLoopIdx, 0.1, RobotConstant.kTimeoutMs);
-		_talon.config_kI(RobotConstant.kPIDLoopIdx, 0.0, RobotConstant.kTimeoutMs);
-		_talon.config_kD(RobotConstant.kPIDLoopIdx, 0.0, RobotConstant.kTimeoutMs);
-		
-		/*
-		 * lets grab the 360 degree position of the MagEncoder's absolute
-		 * position, and intitally set the relative sensor to match.
-		 */
-		/*
-		int absolutePosition = _talon.getSensorCollection().getPulseWidthPosition();
-		/* mask out overflows, keep bottom 12 bits */
-		/*
-		absolutePosition &= 0xFFF;
-		if (RobotConstant.kSensorPhase)
-			absolutePosition *= -1;
-		if (RobotConstant.kMotorInvert)
-			absolutePosition *= -1;
-		/* set the quadrature (relative) sensor to match absolute */
-		/*
-		_talon.setSelectedSensorPosition(absolutePosition, RobotConstant.kPIDLoopIdx, RobotConstant.kTimeoutMs);
-		*/
 	}
 
 	@Override
@@ -154,6 +99,11 @@ public class Robot extends IterativeRobot {
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
 		DataLogger.logData(m_autoSelected);
+		
+		intakePID = new IntakePID(SmartDashboard.getNumber("intake P", 0.0),SmartDashboard.getNumber("intake I", 0.0),
+				SmartDashboard.getNumber("intake D", 0.0),SmartDashboard.getNumber("Setpoint", 0.0));
+		
+		intakePID.enable();
 
 		// Game Data from the field.
 		this.gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -167,12 +117,23 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		// Run the auto handler.
 		//AutonomousModeHandler.AudoModeSelect(m_autoSelected, m_priority, gameData);
-		while(sensorHandler.getElevDistance() < 2000) {
+		/*while(sensorHandler.getElevDistance() < 2000) {
 			elevator.operateElevator(-1.0);
 			updateDashboard();
 		}
-		elevator.operateElevator(-0.15);
+		elevator.operateElevator(-0.15);*/
 		updateDashboard();
+		if(SmartDashboard.getNumber("intake P", 0.0) != intakePID.getPIDController().getP() ||
+				SmartDashboard.getNumber("intake I", 0.0) != intakePID.getPIDController().getI() ||
+				SmartDashboard.getNumber("intake D", 0.0) != intakePID.getPIDController().getD() ||
+				SmartDashboard.getNumber("Setpoint", 0.0) != intakePID.getPIDController().getSetpoint()) {
+			intakePID.disable();
+			intakePID = new IntakePID(SmartDashboard.getNumber("intake P", 0.0),SmartDashboard.getNumber("intake I", 0.0),
+					SmartDashboard.getNumber("intake D", 0.0),SmartDashboard.getNumber("Setpoint", 0.0));
+			intakePID.enable();			
+		}
+		
+		//TuneIntakePID();
 		
 		/*
 		if (sensorHandler.getElevSwitchOneStatus()) {
@@ -184,6 +145,7 @@ public class Robot extends IterativeRobot {
 			elevator.emergencyStop();
 		}*/
 	}
+	
 
 	@Override
 	public void teleopInit() {
@@ -208,9 +170,13 @@ public class Robot extends IterativeRobot {
 			//DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
 		}*/
 		updateDashboard();
-		//drivetrain.driveRobot();
+		SmartDashboard.putNumber("TalonSRX", intake.getPivotEncoderValues());
+		drivetrain.driveRobot();
 		elevator.operateElevator();
-		//intake.operateIntake();
+		intake.operateIntake();
+		//pdp.clearStickyFaults();
+		
+	
 		
 		
 		/*
@@ -256,7 +222,7 @@ public class Robot extends IterativeRobot {
 		
 	}
 
-	private void updateDashboard() {
+	public static void updateDashboard() {
 		//SmartDashboard.putNumber("PDP Current", pdp.getCurrent(0));
 		//SmartDashboard.putNumber("Left Ultrasonic", sensorHandler.getLeftRange());
 		//SmartDashboard.putNumber("Right Ultrasonic", sensorHandler.getRightRange());
@@ -264,12 +230,22 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Left Encoder", sensorHandler.getLeftDistance());
 		SmartDashboard.putNumber("Right Encoder", sensorHandler.getRightDistance());
 		SmartDashboard.putNumber("Angle", sensorHandler.getAhrs().getAngle());
-		//SmartDashboard.putBoolean("Max Height" , sensorHandler.getElevSwitchTwoStatus());
-		//SmartDashboard.putBoolean("Starting Pos", sensorHandler.getElevSwitchOneStatus());
+		SmartDashboard.putNumber("Elevator_Encoder", sensorHandler.getElevDistance());
+		SmartDashboard.putBoolean("Max Height" , sensorHandler.getElevSwitchTwoStatus());
+		SmartDashboard.putBoolean("Starting Pos", sensorHandler.getElevSwitchOneStatus());
+		
+		
 	}
 	
 	public void disabledPeriodic() {
 		//commonLoop();
+		/*
+		intakePID.disable();
+		if(joystickHandler.getDriveStick().getRawButton(1)) {
+			sensorHandler.driveEncReset();
+			sensorHandler.elevEncReset();
+			intake.resetPivot();
+		}*/
 	//}
 	
 	/*

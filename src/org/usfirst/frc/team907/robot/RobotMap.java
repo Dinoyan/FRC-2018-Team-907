@@ -33,7 +33,7 @@ public class RobotMap {
 	// Intake Motors
 	public static final int LEFT_INTAKE = 6;
 	public static final int RIGHT_INTAKE = 7;
-	public static final int INTAKE_PIVOT = 8;
+	public static final int INTAKE_PIVOT = 0;
 
 	// Elevator Motors
 	public static final int ELEV_ONE = 4;

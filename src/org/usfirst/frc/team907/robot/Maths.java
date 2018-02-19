@@ -13,7 +13,6 @@ public class Maths {
 		double enc_value = sensorHandler.getElevDistance();
 		double scale_value = RobotConstant.ELEVATOR_SCALE_VALUE;
 		double switch_value = RobotConstant.ELEVATOR_SWITCH_VALUE;
-		double origin_value = RobotConstant.ELEVATOR_ORIGIN_VALUE;
 		double value = 0;
 		double bottom_speed = 0;
 		double top_speed = 0;
@@ -23,32 +22,30 @@ public class Maths {
 		if(pos == scale) {
 			// storing the values
 			bottom_speed = RobotConstant.ELEV_SCALE_MAX_SPEED;
-			top_speed = RobotConstant.ELEV_SCALE_MIN_SPEED;
+			top_speed = RobotConstant.ELEV_MIN_SPEED;
 			max_spins = scale_value;
-			constant = RobotConstant.ELEV_UP_CONSTANT;
+			constant = RobotConstant.ELEV_SCALE_MAX_SPEED;
 			
 		} else if(pos == switchh) {
 			
-			bottom_speed = RobotConstant.ELEV_SCALE_MAX_SPEED;
-			top_speed = RobotConstant.ELEV_SCALE_MIN_SPEED;
+			bottom_speed = RobotConstant.ELEV_SWITCH_MAX_SPEED;
+			top_speed = RobotConstant.ELEV_MIN_SPEED;
 			max_spins = switch_value;
-			constant = RobotConstant.ELEV_UP_CONSTANT;
+			constant = RobotConstant.ELEV_SWITCH_MAX_SPEED;
 			
 		} else if(pos == origin) {
 			
-			if(enc_value == scale_value) {
-				top_speed = RobotConstant.ELEV_SCALE_MAX_SPEED;
-				max_spins = scale_value;
-			} else if(enc_value == switch_value) {
-				top_speed = RobotConstant.ELEV_SWITCH_MAX_SPEED;
-				max_spins = switch_value;
-				constant = RobotConstant.ELEV_DOWN_CONSTANT;
-			}
-			bottom_speed = RobotConstant.ELEV_ORIGIN_MIN_SPEED; 
-			
+			bottom_speed = RobotConstant.ELEV_ZERO_SPEED;
+			top_speed = RobotConstant.ELEV_ORIGIN_MAX_SPEED;
+			max_spins = RobotConstant.ELEV_SCALE_MAX_SPEED;
+			constant = RobotConstant.ELEV_ZERO_SPEED;
+					
 		} else if(pos == climb) {
 			
-			constant = RobotConstant.ELEV_UP_CONSTANT;
+			bottom_speed = RobotConstant.ELEV_ORIGIN_MAX_SPEED;
+			top_speed = RobotConstant.ELEV_MIN_SPEED;
+			max_spins = scale_value;
+			constant = RobotConstant.ELEV_ORIGIN_MAX_SPEED;
 			
 		}
 		
@@ -57,7 +54,7 @@ public class Maths {
 		double speed_diff = bottom_speed - top_speed;
 		
 		// calculate the slope of the equation
-		double slope = speed_diff/max_spins;
+		double slope = speed_diff/-max_spins;
 		
 		// calculate the final value
 		value = (slope * enc_value) + constant;
