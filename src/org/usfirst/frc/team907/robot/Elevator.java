@@ -32,12 +32,22 @@ public class Elevator{
 	}*/
 
 	public void switchPosition() {
-		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
-			
-			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SWITCH);
+		if (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
+			while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SWITCH_VALUE) {
 				
-			this.elevCimOne.set(speed);
-			this.elevCimTwo.set(speed);
+				double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SWITCH);
+					
+				this.elevCimOne.set(speed);
+				this.elevCimTwo.set(speed);
+			}
+		} else {
+				while (sensorHandler.getElevDistance() >= RobotConstant.ELEVATOR_SWITCH_VALUE) {
+				
+					double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SWITCH);
+					
+					this.elevCimOne.set(-speed);
+					this.elevCimTwo.set(-speed);
+			}
 		}
 				
 		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
@@ -46,13 +56,24 @@ public class Elevator{
 	}
 
 	public void scalePosition() {
-		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
-			
-			double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
-			
-			this.elevCimOne.set(speed);
-			this.elevCimTwo.set(speed);
+		if (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
+			while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_SCALE_VALUE) {
+				
+				double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
+				
+				this.elevCimOne.set(speed);
+				this.elevCimTwo.set(speed);
+			}
+		} else {
+				while (sensorHandler.getElevDistance() >= RobotConstant.ELEVATOR_SCALE_VALUE) {
+				
+					double speed = Maths.calculateElevSpeed(sensorHandler, RobotConstant.SCALE);
+				
+					this.elevCimOne.set(-speed);
+					this.elevCimTwo.set(-speed);
+			}
 		}
+		
 				
 		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
 		this.elevCimTwo.set(RobotConstant.ELEV_MIN_SPEED);
@@ -60,11 +81,20 @@ public class Elevator{
 	}
 
 	public void climbPosition() {
-		while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
-			
-			this.elevCimOne.set(RobotConstant.ELEV_CLIMB_MAX_SPEED);
-			this.elevCimTwo.set(RobotConstant.ELEV_CLIMB_MAX_SPEED);
+		if (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
+			while (sensorHandler.getElevDistance() <= RobotConstant.ELEVATOR_CLIMB_VALUE) {
+				
+				this.elevCimOne.set(-RobotConstant.ELEV_CLIMB_MAX_SPEED);
+				this.elevCimTwo.set(-RobotConstant.ELEV_CLIMB_MAX_SPEED);
+			}
+		} else {
+			while (sensorHandler.getElevDistance() >= RobotConstant.ELEVATOR_CLIMB_VALUE) {
+				
+				this.elevCimOne.set(RobotConstant.ELEV_CLIMB_MAX_SPEED);
+				this.elevCimTwo.set(RobotConstant.ELEV_CLIMB_MAX_SPEED);
+			}
 		}
+		
 				
 		this.elevCimOne.set(RobotConstant.ELEV_MIN_SPEED);
 		this.elevCimTwo.set(RobotConstant.ELEV_MIN_SPEED);
@@ -76,13 +106,18 @@ public class Elevator{
 	}
 
 	public void operateElevator() {
-		
-		if (this.sensorHandler.getElevSwitchOneStatus()) {
-			elevCimOne.set(joystickHandler.getCubeStick().getRawAxis(5));
-			elevCimTwo.set(joystickHandler.getCubeStick().getRawAxis(5));
-		} else {
-			this.elevCimOne.set(0);
-			this.elevCimTwo.set(0);
+		if(joystickHandler.getCubeStick().getRawAxis(5) > 0 || joystickHandler.getCubeStick().getRawAxis(5) < 0) {
+			
+			if (this.sensorHandler.getElevSwitchOneStatus()) {
+				elevCimOne.set(joystickHandler.getCubeStick().getRawAxis(5));
+				elevCimTwo.set(joystickHandler.getCubeStick().getRawAxis(5));
+			} else {
+				this.elevCimOne.set(0);
+				this.elevCimTwo.set(0);
+				if(joystickHandler.getCubeStick().getRawAxis(5) > 0) {
+					elevCimOne.set(joystickHandler.getCubeStick().getRawAxis(5));
+					elevCimTwo.set(joystickHandler.getCubeStick().getRawAxis(5));
+				}
 		}
 		
 		if (this.sensorHandler.getElevSwitchTwoStatus()) {
@@ -91,24 +126,24 @@ public class Elevator{
 		} else {
 			this.elevCimOne.set(-RobotConstant.ELEV_MIN_SPEED);
 			this.elevCimTwo.set(-RobotConstant.ELEV_MIN_SPEED);
+			if(joystickHandler.getCubeStick().getRawAxis(5) < 0) {
+				elevCimOne.set(joystickHandler.getCubeStick().getRawAxis(5));
+				elevCimTwo.set(joystickHandler.getCubeStick().getRawAxis(5));
+			}
 		}
+		} else {
+			this.elevCimOne.set(-RobotConstant.ELEV_MIN_SPEED);
+			this.elevCimTwo.set(-RobotConstant.ELEV_MIN_SPEED);
 		
+		}		
+	}
 	
-		/*
-		if(joystickHandler.getCubeStick().getRawButton(1)) {
-			
-		}
-		else if(joystickHandler.getCubeStick().getRawButton(2)) {
+	public void setPoints() {
+		if (joystickHandler.getCubeStick().getRawButton(1)) {
 			switchPosition();
-		}
-		else if(joystickHandler.getCubeStick().getRawButton(3)) {
+		} else if (joystickHandler.getCubeStick().getRawButton(1)){
 			scalePosition();
 		}
-		else if(joystickHandler.getCubeStick().getRawButton(4)) {
-			climbPosition();
-		}
-		*/
-		
 	}
 	
 	public void emergencyStop() {
