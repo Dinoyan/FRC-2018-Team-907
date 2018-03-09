@@ -49,12 +49,16 @@ public class AutonomousActions {
 	}
 
 	public static void dropCube(Intake intake) {
+		intake.vomitCube();
 
 	}
 
-	public static void liftCube(Elevator elevator) {
-		
-
+	public static void liftCubeSwitch(Elevator elevator) {
+		elevator.switchPosition();
+	}
+	
+	public static void liftCubeScale(Elevator elevator) {
+		elevator.scalePosition();
 	}
 
 }
