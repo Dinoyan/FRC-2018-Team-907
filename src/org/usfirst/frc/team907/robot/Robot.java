@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 		
 		//pdp = new PowerDistributionPanel();
 
-		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler, intake, elevator);
 		
 		CameraServer.getInstance().startAutomaticCapture();
 	}
