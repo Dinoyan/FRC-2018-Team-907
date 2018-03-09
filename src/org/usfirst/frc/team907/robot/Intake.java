@@ -53,7 +53,13 @@ public class Intake {
 			controlIntakeSolenoids(false);
 		} 
 		
-		if(joystickHandler.getCubeStick().getRawAxis(3) > 0.1 && !gotCube) {
+		if (joystickHandler.getDriveStick().getRawAxis(2) > 0.3) {
+			controlIntakeSolenoids(true);
+		} else {
+			controlIntakeSolenoids(false);
+		}
+		
+		if(joystickHandler.getDriveStick().getRawAxis(3) > 0.1 && !gotCube) {
 			controlIntakeMotors(joystickHandler.getCubeStick().getRawAxis(3));
 			if (pdp2.getCurrent(3) > 14 || pdp2.getCurrent(13) > 14) {
 				controlIntakeMotors(0);
@@ -61,7 +67,7 @@ public class Intake {
 				this.gotCube = true;
 			}
 			//SmartDashboard.putNumber("pdp current", pdp.getCurrent(3));
-		} else if(joystickHandler.getCubeStick().getRawAxis(2) > 0.1) {
+		} else if(joystickHandler.getDriveStick().getRawAxis(2) > 0.1) {
 			controlIntakeMotors(-joystickHandler.getCubeStick().getRawAxis(2));
 			this.gotCube = false;
 		} else {
@@ -97,7 +103,8 @@ public class Intake {
 		// controlIntakeSolenoids(RobotConstant.OPEN_INTAKE);
 
 		// Take in the power cube
-		controlIntakeMotors(RobotConstant.INTAKE_VOMIT_SPEED);
+		//controlIntakeMotors(RobotConstant.INTAKE_VOMIT_SPEED);
+		controlIntakeSolenoids(true);
 	}
 
 	private void controlIntakeSolenoids(boolean state) {
