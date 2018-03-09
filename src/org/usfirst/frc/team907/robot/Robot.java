@@ -65,7 +65,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto choices", auto_chooser);
 		
 		
-		
 		SmartDashboard.putData("Subsystem Tester", testSubsystems);
 		testSubsystems.addDefault("Drivetrain" , "drivetrain");
 		testSubsystems.addDefault("Elevator" , "elevator");
@@ -238,6 +237,8 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void disabledPeriodic() {
+		
+		
 		//commonLoop();
 		/*
 		intakePID.disable();

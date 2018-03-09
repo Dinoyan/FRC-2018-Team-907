@@ -48,11 +48,11 @@ public class AutonomousActions {
 		drivetrain.moveRobot(RobotConstant.DRIVE_ZERO_SPEED, RobotConstant.DRIVE_ZERO_SPEED);
 	}
 
-	public static void dropCube() {
+	public static void dropCube(Intake intake) {
 
 	}
 
-	public static void liftCube() {
+	public static void liftCube(Elevator elevator) {
 		
 
 	}

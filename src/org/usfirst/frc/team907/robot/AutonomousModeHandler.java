@@ -24,16 +24,12 @@ public class AutonomousModeHandler {
 				sensorHandler.driveEncReset();
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
 				
-				
-				
 			} else if (gameData.charAt(1) == 'L') {
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 5);
 				AutonomousActions.turnLeft(drivetrain, sensorHandler, -90);
 				sensorHandler.driveEncReset();
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
-
 			}
-
 			break;
 		case RobotConstant.RIGHT_POS:
 			if (gameData.charAt(0) == 'R') {
