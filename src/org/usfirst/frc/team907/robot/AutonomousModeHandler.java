@@ -4,12 +4,16 @@ public class AutonomousModeHandler {
 
 	public SensorHandler sensorHandler;
 	public Drivetrain drivetrain;
+	public Intake intake;
+	public Elevator elevator;
 	private boolean state;
 
-	public AutonomousModeHandler(Drivetrain drivetrain, SensorHandler sensorHandler) {
+	public AutonomousModeHandler(Drivetrain drivetrain, SensorHandler sensorHandler, Intake intake, Elevator elevator) {
 
 		this.sensorHandler = sensorHandler;
 		this.drivetrain = drivetrain;
+		this.intake = intake;
+		this.elevator = elevator;
 		this.state = true;
 
 	}
@@ -49,15 +53,17 @@ public class AutonomousModeHandler {
 					AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
 					sensorHandler.driveEncReset();
 					//lift cube to position
+					AutonomousActions.liftCubeSwitch(elevator);
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 					// drop cube
+					AutonomousActions.dropCube(intake);
 					state = false;
 				}
 				
 
 			} else {
 				if(state){
-					/*
+					
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 					AutonomousActions.turnRight(drivetrain, sensorHandler, 8);
 					sensorHandler.driveEncReset();
@@ -68,7 +74,7 @@ public class AutonomousModeHandler {
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 					// drop cube
 					state = false;
-					*/
+					
 				}
 			}
 
