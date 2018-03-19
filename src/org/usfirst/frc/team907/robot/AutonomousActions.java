@@ -52,10 +52,14 @@ public class AutonomousActions {
 		intake.vomitCube();
 	}
 
-	public static void liftCube(Elevator elev) {
+	public static void liftCubeSwitch(Elevator elev) {
 		elev.switchPosition();
 		
 
+	}
+	
+	public static void liftCubeScale(Elevator elev) {
+		elev.scalePosition();
 	}
 	
 	public static void dropIntake(Intake intake) {
