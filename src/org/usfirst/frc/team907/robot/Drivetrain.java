@@ -1,6 +1,7 @@
 package org.usfirst.frc.team907.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Drivetrain {
 
@@ -66,7 +67,17 @@ public class Drivetrain {
 		 
 		 // moves the robot
 		 moveRobot(left, right);
-
+		 
+		 /*double x = joystickHandler.getDriveStick().getRawAxis(4);
+		 double y = -joystickHandler.getDriveStick().getRawAxis(1);
+		 
+		 
+		 double leftOutput = y + x;
+		 double rightOutput = x - y;
+		 
+		 
+		 moveRobot(leftOutput, rightOutput);*/
+		 
 	}
 
 	public void moveRobot(Double left, Double right) {
@@ -78,6 +89,12 @@ public class Drivetrain {
 		rDrive1.set(right);
 		rDrive2.set(right);
 
+	}
+	
+	public void autoMove() {
+		moveRobot(0.5,-0.5);
+	
+		moveRobot(0.0,0.0);
 	}
 
 	/*

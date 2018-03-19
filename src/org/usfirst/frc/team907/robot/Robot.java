@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,9 +20,9 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private String m_priority;
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
-	private SendableChooser<String> priority_chooser = new SendableChooser<>();
+	//private SendableChooser<String> priority_chooser = new SendableChooser<>();
 	
-	private SendableChooser<String> testSubsystems = new SendableChooser<>();
+	//private SendableChooser<String> testSubsystems = new SendableChooser<>();
 	
 	private String gameData;
 	private String testSub;
@@ -36,6 +37,8 @@ public class Robot extends IterativeRobot {
 	private IntakePID intakePID;
 	
 	private PowerDistributionPanel pdp;
+	
+	private Timer time;
 
 	
 	//private PowerDistributionPanel pdp;
@@ -58,17 +61,18 @@ public class Robot extends IterativeRobot {
 		auto_chooser.addObject("Left Auto", RobotConstant.LEFT_POS);
 		
 		// Dashboard priority chooser
-		priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
-		priority_chooser.addObject("Scale", RobotConstant.SCALE);
-		priority_chooser.addObject("Default Auto", RobotConstant.DEFAULT);
+		//priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
+		//priority_chooser.addObject("Scale", RobotConstant.SCALE);
+		//priority_chooser.addObject("Default Auto", RobotConstant.DEFAULT);
 			
 		SmartDashboard.putData("Auto choices", auto_chooser);
 		
 		
-		SmartDashboard.putData("Subsystem Tester", testSubsystems);
-		testSubsystems.addDefault("Drivetrain" , "drivetrain");
-		testSubsystems.addDefault("Elevator" , "elevator");
-		testSubsystems.addDefault("Intake" , "intake");
+		
+		//SmartDashboard.putData("Subsystem Tester", testSubsystems);
+		//testSubsystems.addDefault("Drivetrain" , "drivetrain");
+		//testSubsystems.addDefault("Elevator" , "elevator");
+		//testSubsystems.addDefault("Intake" , "intake");
 
 		
 		sensorHandler = new SensorHandler();
@@ -79,16 +83,20 @@ public class Robot extends IterativeRobot {
 		intake = new Intake(sensorHandler, joystickHandler);
 		elevator = new Elevator(sensorHandler, joystickHandler);
 		
+		time = new Timer();
 		
 		//pdp = new PowerDistributionPanel();
 
-		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler, intake, elevator);
+		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler, elevator, intake);
 		
 		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	@Override
 	public void autonomousInit() {
+		
+		time.start();
+		
 		sensorHandler.getAhrs().reset();
 		sensorHandler.driveEncReset();
 		sensorHandler.elevEncReset();
@@ -114,8 +122,12 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		
+		
+		AutonomousModeHandler.AudoModeSelect(m_autoSelected, m_priority, gameData);
+		
 		// Run the auto handler.
-		//AutonomousModeHandler.AudoModeSelect(m_autoSelected, m_priority, gameData);
+		
 		/*while(sensorHandler.getElevDistance() < 2000) {
 			elevator.operateElevator(-1.0);
 			updateDashboard();
@@ -169,16 +181,19 @@ public class Robot extends IterativeRobot {
 			//DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
 		}*/
 		updateDashboard();
-		SmartDashboard.putNumber("TalonSRX", intake.getPivotEncoderValues());
+		//SmartDashboard.putNumber("TalonSRX", intake.getPivotEncoderValues());
 		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
+		
+		//elevator.ElevatorSetPoints();
 		//pdp.clearStickyFaults();
 		
 	
 		
 		
 		/*
+	
 		if (elevator.readyToClimb()) {
 			led.onGreen();
 			led.offRed();
@@ -187,18 +202,19 @@ public class Robot extends IterativeRobot {
 		} else {
 			led.onRed();
 			led.offRed();
-		}
+		}*/
 		
 		
-		if (sensorHandler.getElevSwitchOneStatus()) {
+		
+		if (!sensorHandler.getElevSwitchOneStatus()) {
 			this.sensorHandler.elevEncReset();
-			elevator.emergencyStop();
+			
 		}
 		
-		if(sensorHandler.getElevSwitchTwoStatus()) {
+		if(!sensorHandler.getElevSwitchTwoStatus()) {
 			elevator.emergencyStop();
+			
 		}
-		*/
 		
 		
 		
@@ -207,16 +223,16 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void testInit() {
-		testSub = testSubsystems.getSelected();
+		//testSub = testSubsystems.getSelected();
 		
 	}
 	@Override
 	public void testPeriodic() {
 		updateDashboard();
 		
-		if(testSub.equals("intake")) {
+		//if(testSub.equals("intake")) {
 			
-		}
+	//	}
 		
 		
 	}
@@ -237,8 +253,6 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void disabledPeriodic() {
-		
-		
 		//commonLoop();
 		/*
 		intakePID.disable();

@@ -14,10 +14,10 @@ public class AutonomousActions {
 			double curr_angle = sensorHandler.getCurrentAngle();
 			if (curr_angle > angle1) {
 				// turn it to the left
-				drivetrain.moveRobot(-RobotConstant.DRIVE_TURNING_SPEED, -RobotConstant.DRIVE_TURNING_SPEED);
+				drivetrain.moveRobot(-RobotConstant.DRIVE_TURNING_SPEED2, -RobotConstant.DRIVE_TURNING_SPEED2);
 			} else if (curr_angle < angle2) {
 				// turn it to the right
-				drivetrain.moveRobot(RobotConstant.DRIVE_TURNING_SPEED, RobotConstant.DRIVE_TURNING_SPEED);
+				drivetrain.moveRobot(RobotConstant.DRIVE_TURNING_SPEED2, RobotConstant.DRIVE_TURNING_SPEED2);
 			} else {
 				// move straight
 				 
@@ -50,15 +50,22 @@ public class AutonomousActions {
 
 	public static void dropCube(Intake intake) {
 		intake.vomitCube();
-
 	}
 
-	public static void liftCubeSwitch(Elevator elevator) {
-		elevator.switchPosition();
+	public static void liftCube(Elevator elev) {
+		elev.switchPosition();
+		
+
 	}
 	
-	public static void liftCubeScale(Elevator elevator) {
-		elevator.scalePosition();
+	public static void dropIntake(Intake intake) {
+		intake.dropIntake();		
 	}
+	
+	public static void JustMove(Drivetrain drive) {
+		drive.autoMove();
+		
+	}
+	
 
 }

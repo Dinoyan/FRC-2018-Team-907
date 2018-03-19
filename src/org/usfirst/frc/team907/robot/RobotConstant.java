@@ -26,7 +26,8 @@ public class RobotConstant {
 	// Teleop Driving Constants
 	public static double DRIVE_MAX_ANGLE = 4.0;
 	public static double DRIVE_ZERO_SPEED = 0.0;
-	public static double DRIVE_TURNING_SPEED = 0.50;
+	public static double DRIVE_TURNING_SPEED = 0.80;
+	public static double DRIVE_TURNING_SPEED2 = 0.5;
 	public static double DRIVE_DRIVING_SPEED = 0.50;
 	//public static double TURNING_GAIN = 0.5;
 
@@ -34,7 +35,7 @@ public class RobotConstant {
 	// INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKE INTAKEINTAKE INTAKE INTAKE INTAKE
 	// Motor Speeds
 	public static double INTAKE_ZERO_SPEED = 0.0;
-	public static double INTAKE_VOMIT_SPEED = -0.5;
+	public static double INTAKE_VOMIT_SPEED = -0.4;
 	public static double INTAKE_PICKUP_SPEED = 0.5;
 
 	// Boolean States
@@ -46,9 +47,9 @@ public class RobotConstant {
 	
 	// Elevator values
 	public static double ELEVATOR_ORIGIN_VALUE = 0.0;
-	public static double ELEVATOR_SCALE_VALUE = 1500.0;
+	public static double ELEVATOR_SCALE_VALUE = 200;
 	public static double ELEVATOR_CLIMB_VALUE = 0.0;
-	public static double ELEVATOR_SWITCH_VALUE = 500.0;
+	public static double ELEVATOR_SWITCH_VALUE = 550;
 
 	
 	// Motor Speeds
@@ -56,7 +57,7 @@ public class RobotConstant {
 	public static double ELEV_SCALE_MAX_SPEED = 0.60;
 	public static double ELEV_CLIMB_MAX_SPEED = 0.80;
 	public static double ELEV_ORIGIN_MAX_SPEED = 0.20;
-	public static double ELEV_MIN_SPEED = 0.15;
+	public static double ELEV_MIN_SPEED = 0.25;
 	public static double ELEV_ZERO_SPEED = 0.0;
 
 

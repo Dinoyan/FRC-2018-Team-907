@@ -1,11 +1,13 @@
 package org.usfirst.frc.team907.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake {
@@ -22,6 +24,9 @@ public class Intake {
 	private SensorHandler sensorHandler;
 	private JoystickHandler joystickHandler;
 	
+	private boolean toggleOn = false;
+	private boolean togglePressed = false;
+	
 	private boolean gotCube;
 
 	public Intake(SensorHandler sensorHandler, JoystickHandler joystickHandler) {
@@ -32,12 +37,16 @@ public class Intake {
 		leftIntake = new Talon(RobotMap.LEFT_INTAKE);
 		pivot = new TalonSRX(RobotMap.INTAKE_PIVOT);
 		
+		
+		
 		//pivot.setSafetyEnabled(true);
 		pdp2 = new PowerDistributionPanel();
 		this.sensorHandler = sensorHandler;
 		this.joystickHandler = joystickHandler;
 		
 		this.gotCube = false;
+		
+		pivot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 
 	public void operateIntake() {
@@ -53,30 +62,70 @@ public class Intake {
 			controlIntakeSolenoids(false);
 		} 
 		
+		updateToggle();
+		
 		if (joystickHandler.getDriveStick().getRawAxis(2) > 0.3) {
 			controlIntakeSolenoids(true);
-		} else {
+		} else  {
 			controlIntakeSolenoids(false);
 		}
 		
-		if(joystickHandler.getDriveStick().getRawAxis(3) > 0.1 && !gotCube) {
-			controlIntakeMotors(joystickHandler.getCubeStick().getRawAxis(3));
-			if (pdp2.getCurrent(3) > 14 || pdp2.getCurrent(13) > 14) {
-				controlIntakeMotors(0);
+		
+		while (joystickHandler.getCubeStick().getRawButton(6) == true){
+			controlIntakeMotors(-0.3);
+		}
+		
+		
+		//controlIntakeMotors(joystickHandler.getDriveStick().getRawAxis(3));
+		
+		/*if(toggleOn) {
+			if(this.joystickHandler.getCubeStick().getRawButton(1)) {
 				controlIntakeSolenoids(true);
+			}
+		} else {
+			if(this.joystickHandler.getCubeStick().getRawButton(1)) {
+				controlIntakeSolenoids(false);
+			}
+		}*/
+		
+		if(joystickHandler.getDriveStick().getRawAxis(3) > 0.1 ) { //&& !gotCube
+			controlIntakeMotors(joystickHandler.getDriveStick().getRawAxis(3)-0.3);
+			
+			//Timer.delay(1);
+			if (pdp2.getCurrent(3) > 14.5 || pdp2.getCurrent(13) > 14.5) {
+				controlIntakeMotors(0);
+				controlIntakeSolenoids(false);
 				this.gotCube = true;
 			}
 			//SmartDashboard.putNumber("pdp current", pdp.getCurrent(3));
-		} else if(joystickHandler.getDriveStick().getRawAxis(2) > 0.1) {
-			controlIntakeMotors(-joystickHandler.getCubeStick().getRawAxis(2));
+		} else if(joystickHandler.getCubeStick().getRawAxis(2) > 0.1) {
+			controlIntakeMotors((-joystickHandler.getCubeStick().getRawAxis(2))-0.5);
 			this.gotCube = false;
+			//Timer.delay(1);
+			//controlIntakeSolenoids(false);
+			
 		} else {
 			controlIntakeMotors(0);
 		}
 		
 		
+		
+		
 		pivot.set(ControlMode.PercentOutput, joystickHandler.getCubeStick().getRawAxis(1));
+		
+		
 
+	}
+	
+	private void updateToggle() {
+		if(this.joystickHandler.getCubeStick().getRawButton(1)){
+			if(!this.togglePressed) {
+				toggleOn = !this.toggleOn;
+				togglePressed = true;
+			} else {
+				togglePressed = false;
+			}
+		}
 	}
 
 	public void pickUpCube() {
@@ -103,8 +152,16 @@ public class Intake {
 		// controlIntakeSolenoids(RobotConstant.OPEN_INTAKE);
 
 		// Take in the power cube
-		//controlIntakeMotors(RobotConstant.INTAKE_VOMIT_SPEED);
-		controlIntakeSolenoids(true);
+		controlIntakeMotors(RobotConstant.INTAKE_VOMIT_SPEED);
+		Timer.delay(1);
+		controlIntakeMotors(0);
+	}
+	
+	public void dropIntake() {
+		pivot.set(ControlMode.PercentOutput,0.5);
+		Timer.delay(1);
+		pivot.set(ControlMode.PercentOutput,0);
+		
 	}
 
 	private void controlIntakeSolenoids(boolean state) {
@@ -119,15 +176,17 @@ public class Intake {
 	
 	
 	public static double getPivotEncoderValues() {
-		return pivot.getSensorCollection().getQuadraturePosition();
+		double value = pivot.getSensorCollection().getQuadraturePosition();
+		return 0;
+		//return pivot.getSensorCollection().getQuadraturePosition();
 	}
 	
 	public static void setPivot(double value) {
-		pivot.set(ControlMode.PercentOutput, value);
+		//pivot.set(ControlMode.PercentOutput, value);
 	}
 	
 	public static void resetPivot() {
-		pivot.getSensorCollection().setQuadraturePosition(0, 0);
+	//	pivot.getSensorCollection().setQuadraturePosition(0, 0);
 	}
 
 
