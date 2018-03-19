@@ -62,9 +62,12 @@ public class AutonomousActions {
 		intake.dropIntake();		
 	}
 	
-	public static void JustMove(Drivetrain drive) {
-		drive.autoMove();
-		
+	public static void JustMove(Drivetrain drive, Timer timer) {
+		timer.start();
+		while (timer.get() < 2) {
+			drive.autoMove();
+		}
+		drive.moveRobot(0.0, 0.0);
 	}
 	
 

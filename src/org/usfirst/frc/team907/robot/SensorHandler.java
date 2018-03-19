@@ -52,7 +52,7 @@ public class SensorHandler {
 	}
 
 	public double getRightDistance() {
-		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS) * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
+		double rightDistance = (rightEnc.getDistance() / RobotConstant.DRIVE_ENC_UNITS);// * Math.PI * RobotConstant.DRIVE_WHEEL_SIZE;
 		
 		return rightDistance;
 	}

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team907.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class AutonomousModeHandler {
 
 	public SensorHandler sensorHandler;
@@ -7,6 +9,7 @@ public class AutonomousModeHandler {
 	public Elevator elev;
 	public Intake intake;
 	private boolean state;
+	private Timer timer;
 
 	public AutonomousModeHandler(Drivetrain drivetrain, SensorHandler sensorHandler, Elevator elevator, Intake intake) {
 
@@ -15,6 +18,8 @@ public class AutonomousModeHandler {
 		this.elev = elevator;
 		this.intake = intake;
 		this.state = true;
+		
+		timer = new Timer();
 
 	}
 
@@ -60,7 +65,7 @@ public class AutonomousModeHandler {
 					AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
 					sensorHandler.driveEncReset();
 					//AutonomousActions.driveForward(drivetrain, sensorHandler, 0.4);
-					AutonomousActions.JustMove(drivetrain);
+					AutonomousActions.JustMove(drivetrain, timer);
 					
 					AutonomousActions.dropCube(intake);
 					//AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
@@ -83,7 +88,7 @@ public class AutonomousModeHandler {
 					AutonomousActions.turnLeft(drivetrain, sensorHandler, 0);
 					sensorHandler.driveEncReset();
 					//AutonomousActions.driveForward(drivetrain, sensorHandler, 0.4);
-					AutonomousActions.JustMove(drivetrain);
+					AutonomousActions.JustMove(drivetrain, timer);
 					
 					AutonomousActions.dropCube(intake);
 					//AutonomousActions.turnRight(drivetrain, sensorHandler, 0);

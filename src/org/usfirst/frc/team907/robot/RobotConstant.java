@@ -28,7 +28,7 @@ public class RobotConstant {
 	public static double DRIVE_ZERO_SPEED = 0.0;
 	public static double DRIVE_TURNING_SPEED = 0.80;
 	public static double DRIVE_TURNING_SPEED2 = 0.5;
-	public static double DRIVE_DRIVING_SPEED = 0.50;
+	public static double DRIVE_DRIVING_SPEED = 0.60;
 	//public static double TURNING_GAIN = 0.5;
 
 

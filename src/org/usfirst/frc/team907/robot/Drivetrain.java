@@ -93,8 +93,6 @@ public class Drivetrain {
 	
 	public void autoMove() {
 		moveRobot(0.5,-0.5);
-	
-		moveRobot(0.0,0.0);
 	}
 
 	/*
