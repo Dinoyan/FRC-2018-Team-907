@@ -59,6 +59,7 @@ public class Robot extends IterativeRobot {
 		auto_chooser.addDefault("Center Auto", RobotConstant.CENTER_POS);
 		auto_chooser.addObject("Right Auto", RobotConstant.RIGHT_POS);
 		auto_chooser.addObject("Left Auto", RobotConstant.LEFT_POS);
+		auto_chooser.addObject("Auto Run", RobotConstant.AUTO_RUN);
 		
 		// Dashboard priority chooser
 		//priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
