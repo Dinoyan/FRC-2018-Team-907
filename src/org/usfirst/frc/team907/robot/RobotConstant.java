@@ -15,6 +15,7 @@ public class RobotConstant {
 	public static final String LEFT_POS = "Left";
 	public static final String RIGHT_POS = "Right";
 	public static final String CENTER_POS = "Center";
+	public static final String AUTO_RUN = "Auto Run";
 		
 	// priority position
 	public static final String SCALE = "Scale"; // #bigone
