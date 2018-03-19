@@ -27,79 +27,75 @@ public class AutonomousModeHandler {
 
 		switch (position) {
 		case RobotConstant.LEFT_POS:
-			if (gameData.charAt(0) == 'L') {
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 5);
-				AutonomousActions.turnRight(drivetrain, sensorHandler, 90);
-				sensorHandler.driveEncReset();
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
-				
-	
-			} else if (gameData.charAt(1) == 'L') {
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 5);
-				AutonomousActions.turnLeft(drivetrain, sensorHandler, -90);
-				sensorHandler.driveEncReset();
-				AutonomousActions.driveForward(drivetrain, sensorHandler, 2);
-
-			}
-
-			break;
-		case RobotConstant.RIGHT_POS:
-			if (gameData.charAt(0) == 'R') {
+			if (gameData.charAt(1) == 'L') {
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				AutonomousActions.liftCubeScale(elev);
+				AutonomousActions.dropCube(intake);
 				
 			} else {
 				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-
+				AutonomousActions.turnRight(drivetrain, sensorHandler, -90);
+				sensorHandler.driveEncReset();
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 1);
+				AutonomousActions.turnLeft(drivetrain, sensorHandler, 0);
+				AutonomousActions.liftCubeScale(elev);
+				AutonomousActions.dropCube(intake);
+				
+			}
+			break;
+		case RobotConstant.RIGHT_POS:
+			if (gameData.charAt(1) == 'R') {
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				AutonomousActions.liftCubeScale(elev);
+				AutonomousActions.dropCube(intake);
+				
+			} else {
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
+				AutonomousActions.turnLeft(drivetrain, sensorHandler, -90);
+				sensorHandler.driveEncReset();
+				AutonomousActions.driveForward(drivetrain, sensorHandler, 1);
+				AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
+				AutonomousActions.liftCubeScale(elev);
+				AutonomousActions.dropCube(intake);
 			}
 
 			break;
+			
 		case RobotConstant.CENTER_POS:
 			if (gameData.charAt(0) == 'L') {
 				if(state){
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 1);
 					AutonomousActions.turnLeft(drivetrain, sensorHandler, -30);
-					//AutonomousActions.dropIntake(intake);
-					AutonomousActions.liftCube(elev);
+					AutonomousActions.liftCubeSwitch(elev);
 					sensorHandler.driveEncReset();
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 7);
 					AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
 					sensorHandler.driveEncReset();
-					//AutonomousActions.driveForward(drivetrain, sensorHandler, 0.4);
 					AutonomousActions.JustMove(drivetrain, timer);
-					
 					AutonomousActions.dropCube(intake);
-					//AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
-					//sensorHandler.driveEncReset();
-					//lift cube to position
-					//AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-					// drop cube
 					state = false;
 				}
 				
 			} else {
 				if(state){
-					
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 1);
 					AutonomousActions.turnRight(drivetrain, sensorHandler, 30);
 					AutonomousActions.dropIntake(intake);
-					AutonomousActions.liftCube(elev);
+					AutonomousActions.liftCubeSwitch(elev);
 					sensorHandler.driveEncReset();
 					AutonomousActions.driveForward(drivetrain, sensorHandler, 7);
 					AutonomousActions.turnLeft(drivetrain, sensorHandler, 0);
 					sensorHandler.driveEncReset();
-					//AutonomousActions.driveForward(drivetrain, sensorHandler, 0.4);
 					AutonomousActions.JustMove(drivetrain, timer);
-					
 					AutonomousActions.dropCube(intake);
-					//AutonomousActions.turnRight(drivetrain, sensorHandler, 0);
-					//sensorHandler.driveEncReset();
-					//lift cube to position
-					//AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
-					// drop cube
 					state = false;
 				}
 			}
 
+			break;
+			
+		case RobotConstant.AUTO_RUN:
+			AutonomousActions.driveForward(drivetrain, sensorHandler, 10);
 			break;
 		}
 
