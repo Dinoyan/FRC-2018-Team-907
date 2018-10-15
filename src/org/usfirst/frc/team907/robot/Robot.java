@@ -20,13 +20,8 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private String m_priority;
 	private SendableChooser<String> auto_chooser = new SendableChooser<>();
-	//private SendableChooser<String> priority_chooser = new SendableChooser<>();
-	
-	//private SendableChooser<String> testSubsystems = new SendableChooser<>();
-	
 	private String gameData;
 	private String testSub;
-
 	private Drivetrain drivetrain;
 	private JoystickHandler joystickHandler;
 	private AutonomousModeHandler AutonomousModeHandler;
@@ -35,62 +30,32 @@ public class Robot extends IterativeRobot {
 	private Intake intake;
 	private LEDHandler led;
 	private IntakePID intakePID;
-	
 	private PowerDistributionPanel pdp;
-	
 	private Timer time;
-
-	
-	//private PowerDistributionPanel pdp;
-	
-	// TalonSRX test code
-	/*/.
-	TalonSRX _talon = new TalonSRX(2);
-	Joystick _joy = new Joystick(3);
-	boolean _lastButton1 = false;
-	/** save the target position to servo to */
-	//double targetPositionRotations;
 	private int _loops = 0;
 	
-
+	
 	@Override
 	public void robotInit() {
 		// Dashboard auto chooser
 		auto_chooser.addDefault("Center Auto", RobotConstant.CENTER_POS);
 		auto_chooser.addObject("Right Auto", RobotConstant.RIGHT_POS);
 		auto_chooser.addObject("Left Auto", RobotConstant.LEFT_POS);
-		auto_chooser.addObject("Auto Run", RobotConstant.AUTO_RUN);
-		
-		// Dashboard priority chooser
-		//priority_chooser.addDefault("Switch", RobotConstant.SWITCH);
-		//priority_chooser.addObject("Scale", RobotConstant.SCALE);
-		//priority_chooser.addObject("Default Auto", RobotConstant.DEFAULT);
-			
+		auto_chooser.addObject("Auto Run", RobotConstant.AUTO_RUN);	
 		SmartDashboard.putData("Auto choices", auto_chooser);
 		
-		
-		
-		//SmartDashboard.putData("Subsystem Tester", testSubsystems);
-		//testSubsystems.addDefault("Drivetrain" , "drivetrain");
-		//testSubsystems.addDefault("Elevator" , "elevator");
-		//testSubsystems.addDefault("Intake" , "intake");
-
-		
+	
 		sensorHandler = new SensorHandler();
 		joystickHandler = new JoystickHandler();
 		led = new LEDHandler();
-		
 		drivetrain = new Drivetrain(joystickHandler);
 		intake = new Intake(sensorHandler, joystickHandler);
 		elevator = new Elevator(sensorHandler, joystickHandler);
 		
-		time = new Timer();
-		
-		//pdp = new PowerDistributionPanel();
-
 		AutonomousModeHandler = new AutonomousModeHandler(drivetrain, sensorHandler, elevator, intake);
-		
 		CameraServer.getInstance().startAutomaticCapture();
+		
+		time = new Timer();
 	}
 
 	@Override
@@ -103,8 +68,6 @@ public class Robot extends IterativeRobot {
 		sensorHandler.elevEncReset();
 
 		m_autoSelected = auto_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
 		DataLogger.logData(m_autoSelected);
 		
@@ -126,14 +89,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		AutonomousModeHandler.AudoModeSelect(m_autoSelected, m_priority, gameData);
-		
-		// Run the auto handler.
-		
-		/*while(sensorHandler.getElevDistance() < 2000) {
-			elevator.operateElevator(-1.0);
-			updateDashboard();
-		}
-		elevator.operateElevator(-0.15);*/
+	
 		updateDashboard();
 		if(SmartDashboard.getNumber("intake P", 0.0) != intakePID.getPIDController().getP() ||
 				SmartDashboard.getNumber("intake I", 0.0) != intakePID.getPIDController().getI() ||
@@ -144,18 +100,6 @@ public class Robot extends IterativeRobot {
 					SmartDashboard.getNumber("intake D", 0.0),SmartDashboard.getNumber("Setpoint", 0.0));
 			intakePID.enable();			
 		}
-		
-		//TuneIntakePID();
-		
-		/*
-		if (sensorHandler.getElevSwitchOneStatus()) {
-			this.sensorHandler.elevEncReset();
-			elevator.emergencyStop();
-		}
-		
-		if(sensorHandler.getElevSwitchTwoStatus()) {
-			elevator.emergencyStop();
-		}*/
 	}
 	
 
@@ -173,40 +117,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		/*
-		if (++_loops >= 10) {
-			_loops = 0;
-			
-
-			//DataLogger.logData("Left Ultrasonic : " + Double.toString(sensorHandler.getLeftRange()));
-			//DataLogger.logData("Right Ultrasonic : " + Double.toString(sensorHandler.getRightRange()));
-		}*/
 		updateDashboard();
-		//SmartDashboard.putNumber("TalonSRX", intake.getPivotEncoderValues());
 		drivetrain.driveRobot();
 		elevator.operateElevator();
 		intake.operateIntake();
-		
-		//elevator.ElevatorSetPoints();
-		//pdp.clearStickyFaults();
-		
-	
-		
-		
-		/*
-	
-		if (elevator.readyToClimb()) {
-			led.onGreen();
-			led.offRed();
-			joystickHandler.vibrateDriveStick();
-			joystickHandler.vibrateDriveStick();
-		} else {
-			led.onRed();
-			led.offRed();
-		}*/
-		
-		
-		
+			
 		if (!sensorHandler.getElevSwitchOneStatus()) {
 			this.sensorHandler.elevEncReset();
 			
@@ -216,26 +131,14 @@ public class Robot extends IterativeRobot {
 			elevator.emergencyStop();
 			
 		}
-		
-		
-		
-		//commonLoop();
 	}
 	
 	@Override
 	public void testInit() {
-		//testSub = testSubsystems.getSelected();
-		
 	}
 	@Override
 	public void testPeriodic() {
 		updateDashboard();
-		
-		//if(testSub.equals("intake")) {
-			
-	//	}
-		
-		
 	}
 
 	public static void updateDashboard() {
@@ -249,54 +152,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Elevator_Encoder", sensorHandler.getElevDistance());
 		SmartDashboard.putBoolean("Max Height" , sensorHandler.getElevSwitchTwoStatus());
 		SmartDashboard.putBoolean("Starting Pos", sensorHandler.getElevSwitchOneStatus());
-		
-		
 	}
 	
 	public void disabledPeriodic() {
-		//commonLoop();
-		/*
-		intakePID.disable();
-		if(joystickHandler.getDriveStick().getRawButton(1)) {
-			sensorHandler.driveEncReset();
-			sensorHandler.elevEncReset();
-			intake.resetPivot();
-		}*/
-	//}
-	
-	/*
-	void commonLoop() {
-		/* get gamepad axis */
-	/*
-		double leftYstick = _joy.getY();
-		double motorOutput = _talon.getMotorOutputPercent();
-		boolean button1 = _joy.getRawButton(1);
-		boolean button2 = _joy.getRawButton(2);
-		/* deadband gamepad */
-	/*
-		if (Math.abs(leftYstick) < 0.10) {
-			/* within 10% of zero */
-			//leftYstick = 0;
-
-		//}
-		/* on button1 press enter closed-loop mode on target position */
-/*
-		if (!_lastButton1 && button1) {
-			/* Position mode - button just pressed */
-
-			/* 10 Rotations * 4096 u/rev in either direction */
-			//targetPositionRotations = leftYstick * 10.0 * 4096;
-			//_talon.set(ControlMode.Position, targetPositionRotations);
-
-		//}
-		/* on button2 just straight drive */
-		//if (button2) {
-			/* Percent voltage mode */
-			//_talon.set(ControlMode.PercentOutput, leftYstick);
-		}
-		//_lastButton1 = button1;
-	//}
-	
-	
-	
+		
+	}
 }
