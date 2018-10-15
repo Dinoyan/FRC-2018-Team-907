@@ -27,61 +27,17 @@ public class Drivetrain {
 	}
 
 	public void driveRobot() {
-		
-		/*//ARCADE DRIVING IMPLEMENTATION
-		double driveFront = joystickHandler.getDriveStick().getRawAxis(3);
-		double driveBack = -joystickHandler.getDriveStick().getRawAxis(2);
-		double turn = joystickHandler.getDriveStick().getRawAxis(4);
-
-		if ((driveFront > zero) && (driveBack == zero)) {
-
-			// calculations to output the required speed for the drive motors
-			left = (driveFront + turn) + skim(driveFront - turn);
-			right = (driveFront - turn) + skim(driveFront + turn);
-
-			// moves the robot
-			moveRobot(multiSpeedController, left, -right);
-
-		} else if ((driveBack < zero) && (driveFront == zero)) {
-			
-			// calculations to output the required speed for the drive motors
-			left = driveBack + turn + skim(driveBack - turn);
-			right = driveBack - turn + skim(driveBack + turn);
-
-			// move the robot
-			moveRobot(multiSpeedController, left, -right);
-
-		} else if((turn < zero && turn > zero) && (driveBack == zero && driveFront == zero)){
-			
-			// turns the robot while standing still
-			moveRobot(multiSpeedController, turn, turn);
-			
-		} else {
-			moveRobot(multiSpeedController, RobotConstant.ZERO_SPEED, RobotConstant.ZERO_SPEED);
-		}*/
-		
-		
 		// TANK DRIVING IMPLEMENTATION
 		 double right = joystickHandler.getDriveStick().getRawAxis(5);
 		 double left = -joystickHandler.getDriveStick().getRawAxis(1);
 		 
 		 // moves the robot
 		 moveRobot(left, right);
-		 
-		 /*double x = joystickHandler.getDriveStick().getRawAxis(4);
-		 double y = -joystickHandler.getDriveStick().getRawAxis(1);
-		 
-		 
-		 double leftOutput = y + x;
-		 double rightOutput = x - y;
-		 
-		 
-		 moveRobot(leftOutput, rightOutput);*/
+		
 		 
 	}
 
 	public void moveRobot(Double left, Double right) {
-
 		// sets the speed to power the drive motors
 		lDrive1.set(left);
 		lDrive2.set(left);
